@@ -3,7 +3,7 @@ const db = new Sequelize(process.env.PG);
 
 db.authenticate()
   .then( () => {
-      console.log('server.js: DB Connected');
+      console.log('server.js: DB is now connected');
   })
   .catch( (err) => {
       console.log('server.js: Connection Error!');
