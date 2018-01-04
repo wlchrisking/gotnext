@@ -1,6 +1,6 @@
 const express = require('express');
 const Router = express.Router();
-const UserController = require('./controllers/userController.js');
+const UserController = require('./controllers/UserController.js');
 const MapContoller = require('./controllers/MapController.js');
 const GamesController = require('./controllers/GamesController.js');
 
@@ -35,5 +35,14 @@ Router.route('/games/create')
 // user view
 Router.route('/games/fetch/user/:username')
   .get(GamesController.FetchUserList)
+
+Router.route('/games/fetch/options/:gameId')
+  .get(GamesController.FetchOptions)
+
+Router.route('/games/update')
+  .put(GamesController.UpdateGame)
+
+Router.route('/games/delete')
+  .delete(GamesController.DeleteGame)
 
 module.exports = Router;
