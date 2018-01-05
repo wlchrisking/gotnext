@@ -4,6 +4,7 @@ UserController = {
   
   Login: (req, res) => {
     res.send();
+    res.end(); //grinded.
   },
 
   Logout: (req, res) => {
