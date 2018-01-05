@@ -1,4 +1,4 @@
-const db = require('../server.js');
+const db = require('../');
 const Sequelize = require('sequelize');
 
 const Game = db.define('Game', {
