@@ -12,19 +12,16 @@ UserController = {
   },
 
   Signup: (req, res) => {
+    User.create({
+    email: 'helloworld@helloworld.com'
+    })
+    .then( (res) => {
+      console.log('res', res);
+    })
+    .catch( (err) => {
+      console.log('err', err);
+    })
   }
 }
-
-setTimeout(() => {
-  User.create({
-  email: 'helloworld@helloworld.com'
-})
-  .then( (res) => {
-    console.log('res', res);
-  })
-  .catch( (err) => {
-    console.log('err', err);
-  })
-}, 10);
 
 module.exports = UserController;
