@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const parser = require('body-parser');
-const db = require('./server');
+const db = require('../db');
 const Router = require('./routes');
 
 const app = express();
