@@ -12,8 +12,10 @@ UserController = {
   },
 
   Signup: (req, res) => {
+    console.log('this is req.body', req.body);
     User.create({
-    email: 'helloworld@helloworld.com'
+      email: req.body.email,
+      password: req.body.password
     })
     .then( (res) => {
       console.log('res', res);

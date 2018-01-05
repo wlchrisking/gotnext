@@ -8,7 +8,8 @@ class App extends React.Component {
 
   onSubmit() {
     const payload = {
-      email: 'xxx@xxx.com'
+      email: 'xxx@xxx.com',
+      password: 'xxx'
     }
     axios.post('/api/user/signup', payload)
       .then( (res) => {
