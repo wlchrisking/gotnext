@@ -1,4 +1,4 @@
-const User = require('../../db/models/User');
+const {User} = require('../../db/models');
 const axios = require('axios');
 
 UserController = {
@@ -14,20 +14,9 @@ UserController = {
   Signup: (req, res) => {
   }
 }
-console.log('delay me');
-console.log('delay me');
-console.log('delay me');
-console.log('delay me');
-console.log('delay me');
-console.log('delay me');
-console.log('delay me');
-console.log('delay me');
-console.log('delay me');
-console.log('delay me');
-console.log('delay me');
-console.log('delay me');
 
-User.create({
+setTimeout(() => {
+  User.create({
   email: 'helloworld@helloworld.com'
 })
   .then( (res) => {
@@ -36,5 +25,6 @@ User.create({
   .catch( (err) => {
     console.log('err', err);
   })
+}, 10);
 
 module.exports = UserController;
