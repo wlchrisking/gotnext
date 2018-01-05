@@ -18985,7 +18985,8 @@ var App = function (_React$Component) {
     key: 'onSubmit',
     value: function onSubmit() {
       var payload = {
-        email: 'xxx@xxx.com'
+        email: 'xxx@xxx.com',
+        password: 'xxx'
       };
       _axios2.default.post('/api/user/signup', payload).then(function (res) {
         console.log('res', res);
