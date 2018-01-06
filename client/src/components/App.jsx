@@ -17,12 +17,30 @@ class App extends React.Component {
       })
       .catch( (err) => {
         console.log('err', err);
+        // render a new alert saying unsuccessful signup
       })
   }
+
+  onLogin() {
+    const payload = {
+      email: 'xxx@xxx.com',
+      password: 'xxx'
+    }
+    axios.post('/api/user/login', payload)
+    .then( (res) => {
+      console.log('res', res);
+    })
+    .catch( (err) => {
+      console.log('err', err);
+      // render a new alert saying unsuccessful login
+    })
+  }
+
   render() {
     return(
       <div>
         <button onClick={this.onSubmit}>Click Me!</button>
+        <button onClick={this.onLogin}>Login!</button>
       </div>
     )
   }
