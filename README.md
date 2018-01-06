@@ -22,7 +22,7 @@
 - git commit
 - git checkout master
 - git merge feature
-- resolve merge conflicts
+- resolve merge conflicts (if any)
 - git push origin master
 - make pull request
 - request approval via slack
