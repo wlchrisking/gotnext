@@ -1,5 +1,5 @@
 {
-  "name": "App",
+  "name": "gotnext",
   "version": "1.0.0",
   "description": "\"# App\"",
   "main": "webpack.config.js",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/acemail10/App.git"
+    "url": "git+https://github.com/pkwu/gotnext.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/acemail10/App/issues"
+    "url": "https://github.com/pkwu/gotnext/issues"
   },
-  "homepage": "https://github.com/acemail10/App#readme",
+  "homepage": "https://github.com/pkwu/gotnext#readme",
   "dependencies": {
     "axios": "^0.17.1",
     "babel-core": "^6.26.0",
@@ -30,10 +30,10 @@
     "express": "^4.16.2",
     "nodemon": "^1.14.7",
     "path": "^0.12.7",
-    "pg": "^6.4.2",
+    "pg": "^7.4.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "sequelize": "^4.28.6",
+    "sequelize": "^4.29.0",
     "webpack": "^3.10.0"
   }
 }
