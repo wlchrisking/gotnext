@@ -18992,6 +18992,21 @@ var App = function (_React$Component) {
         console.log('res', res);
       }).catch(function (err) {
         console.log('err', err);
+        // render a new alert saying unsuccessful signup
+      });
+    }
+  }, {
+    key: 'onLogin',
+    value: function onLogin() {
+      var payload = {
+        email: 'xxx@xxx.com',
+        password: 'xxx'
+      };
+      _axios2.default.post('/api/user/login', payload).then(function (res) {
+        console.log('res', res);
+      }).catch(function (err) {
+        console.log('err', err);
+        // render a new alert saying unsuccessful login
       });
     }
   }, {
@@ -19004,6 +19019,11 @@ var App = function (_React$Component) {
           'button',
           { onClick: this.onSubmit },
           'Click Me!'
+        ),
+        _react2.default.createElement(
+          'button',
+          { onClick: this.onLogin },
+          'Login!'
         )
       );
     }
