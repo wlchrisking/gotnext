@@ -1,5 +1,7 @@
 const express = require('express');
 const Router = express.Router();
+const passport = require('passport');
+const local = require('passport-local');
 const UserController = require('./controllers/UserController.js');
 const MapContoller = require('./controllers/MapController.js');
 const GamesController = require('./controllers/GamesController.js');
