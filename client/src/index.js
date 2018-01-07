@@ -12,7 +12,7 @@ const logger = createLogger();
 const store = createStore(
     allReducers
 );
-//comment
+
 ReactDOM.render(
     <Provider store={store}>
         <App />
