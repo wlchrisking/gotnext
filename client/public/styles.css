@@ -13,6 +13,13 @@ body {
     /* font-family: 'Wingdings'; */
   }
 
+  /* nav bar links */
+  a.navigation {
+    padding: 0px 10px;
+    word-wrap: normal;
+    display: inline-block;
+  }
+
 /* body:hover {
     background-image: url();
 } */

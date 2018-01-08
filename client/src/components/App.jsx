@@ -1,21 +1,32 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
+import {fetchGameData} from '../actions/fetchGameData';
+import {fetchUserGameData} from '../actions/fetchUserGameData';
 
 import Nav from './Nav.jsx';
 import Main from './Main.jsx';
 
-
-// import UserList from './UserList.jsx';
-// import UserDetail from './UserDetail.jsx'
-
 class App extends Component {
-  
+
+  // on load, axios request to render games on map
+  componentDidMount() {
+    this.props.fetchGameData() 
+  }
+
+
+
   render() {
+    if (!this.props.gameData) {
+      return null
+    }
+
     return(
       <div>
         <h1>.got(Next)</h1>  
+        <hr/>
         <Nav />
+        <hr/>
         <Main />
       </div>
     )
@@ -24,38 +35,15 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    
+    gameData: state.gameData
   }
 };
 
-// const matchDispatchToProps = dispatch => {
-//   return bindActionCreators({}, dispatch);
-// };
+const matchDispatchToProps = dispatch => {
+  return bindActionCreators({fetchGameData:fetchGameData}, dispatch);
+};
 
-export default connect(mapStateToProps)(App);
-
-
-
-
-// const App = () => (
-//   <div>
-//     <h2>User List</h2>
-//     <UserList />
-//     <hr />
-//     <h2>User Detail</h2>
-//     <UserDetail />
-//   </div>
-// );
-
-// export default App;
-
-
-
-
-
-
-
-
+export default connect(mapStateToProps, matchDispatchToProps)(App);
 
 // onSubmit() {
   //   const payload = {

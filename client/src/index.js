@@ -6,9 +6,7 @@ import allReducers from './reducers';
 import App from './components/App.jsx';
 
 // store creation
-const store = createStore(
-  allReducers
-);
+const store = createStore(allReducers);
 
 ReactDOM.render(
   <Provider store={store}>

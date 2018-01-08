@@ -7,7 +7,7 @@ class OptionSearch extends Component {
   render() {
     return(
       <div>
-        OptionSearch
+        --- OptionSearch Component Here ---
       </div>
     )
   }
