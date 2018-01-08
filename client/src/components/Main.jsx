@@ -4,24 +4,41 @@ import {bindActionCreators} from 'redux';
 
 import Map from './Map.jsx';
 import Option from './Option.jsx';
+import Login from './Login.jsx';
+import SignUp from './SignUp.jsx';
 
 class Main extends Component {
   
   render() {
-    return(
-      <div>
-        --- Main Component Here --- 
-        <Map />
-        <Option />
+    if (this.props.loginPage === 'login') {
+      return (
+        <Login />
+      )
+    }
 
-      </div>
-    )
+    if (this.props.loginPage === 'signup') {
+      return (
+        <SignUp />
+      )
+    }
+    
+    if (this.props.loginPage === 'default' || this.props.loginPage === null) {
+      return(
+        <div>
+          --- Main Component Here --- 
+          <Map />
+          <Option />  
+        </div>
+      )
+    }
+
+    
   }
 };
 
 const mapStateToProps = state => {
   return {
-    
+    loginPage: state.loginPage
   }
 };
 

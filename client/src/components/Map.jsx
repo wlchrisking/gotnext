@@ -24,7 +24,7 @@ class Map extends Component {
           googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${googleApi.key}`}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `400px` }} />}
-          mapElement={<div style={{ height: `100%`, width: '50%' }} />}
+          mapElement={<div style={{ height: `100%`, width: '100%' }} />}
         />
       </div>
     )

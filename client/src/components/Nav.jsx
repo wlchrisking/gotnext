@@ -2,56 +2,86 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import {fetchOption} from '../actions/fetchOption'
+import {setOption} from '../actions/setOption'
+import {setLoginPage} from '../actions/setLoginPage'
+
 
 class Nav extends Component {
-
-    
-
 
   render() {
     return(
       <div>         
-        
+
+        {/* === SEARCH BUTTON === */}
+
         <a href="" 
           onClick={(e) => {
             e.preventDefault()
-            this.props.fetchOption('search')
+            this.props.setOption('search')
+            this.props.setLoginPage('default')
           }} 
           className="navigation" 
         >
           Search 
         </a>
         
+        {/* === CREATE BUTTON === */}
+
         <a href="" 
           onClick={(e) => {
             e.preventDefault()
-            this.props.fetchOption('create')
+            this.props.setOption('create')
           }} 
           className="navigation" 
         >          
           Create 
         </a>
         
+        {/* === VIEW BUTTON === */}
+
         <a href="" 
           onClick={(e) => {
             e.preventDefault()
-            this.props.fetchOption('view')
+            this.props.setOption('view')
           }}  
           className="navigation" 
         >
           View 
         </a>
         
-        <a href="" className="navigation" >
+        {/* === SIGNUP BUTTON === */}
+
+        <a href="" 
+          onClick={(e) => {
+            e.preventDefault()
+            this.props.setLoginPage('signup')
+          }} 
+          className="navigation" 
+        >
           Sign Up 
         </a>
         
-        <a href="" className="navigation" >
+        {/* === LOGIN BUTTON === */}
+
+        <a href="" 
+          onClick={(e) => {
+            e.preventDefault()
+            this.props.setLoginPage('login')
+          }} 
+          className="navigation" 
+        >
           Login 
         </a>
         
-        <a href="" className="navigation" >
+        {/* === LOG OUT BUTTON === */}
+
+        <a href=""
+          onClick={(e) => {
+            e.preventDefault()
+            this.props.setLoginPage('logout')
+          }} 
+          className="navigation" 
+        >
           Log Out 
         </a>       
       </div>
@@ -66,7 +96,10 @@ const mapStateToProps = state => {
 };
 
 const matchDispatchToProps = dispatch => {
-  return bindActionCreators({fetchOption:fetchOption}, dispatch);
+  return bindActionCreators({
+    setOption:setOption, 
+    setLoginPage:setLoginPage}, 
+    dispatch);
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(Nav);
