@@ -3,7 +3,6 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {selectUser} from '../actions/index'
 
-// "Dumb" component
 class UserList extends Component {
 
   createListItems() {
@@ -40,6 +39,5 @@ const matchDispatchToProps = (dispatch) => { // dispatch is redux's way of calli
   return bindActionCreators({selectUser: selectUser}, dispatch) 
 }
 
-// Container - or "smart component"
-// - Connects states and actions to the dumb component
+// - Connects states and actions to the dumb component, creating a smart component
 export default connect(mapStateToProps, matchDispatchToProps)(UserList);

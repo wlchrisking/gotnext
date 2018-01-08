@@ -4,6 +4,7 @@
  * */
 
 export default function () {
+  console.log('axios test')
   return [
     {
       id: 1,
