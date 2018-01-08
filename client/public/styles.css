@@ -2,17 +2,24 @@ body {
     height: 100%;
     width: 100%;
     opacity: 1.0;
-    background-image: url(http://jayroeder.com/uploads/images/drawings/2011/12/IGotNext.jpg);
+    /* background-image: url(http://jayroeder.com/uploads/images/drawings/2011/12/IGotNext.jpg); */
     background-repeat: no-repeat;
     background-size: cover;
     text-align: center;
     padding: 0 25px;
-    color: rgb(0, 255, 94);
+    /* color: rgb(0, 255, 94); */
     margin: 0;
     margin-top: 10px;
     /* font-family: 'Wingdings'; */
   }
 
-body:hover {
+  /* nav bar links */
+  a.navigation {
+    padding: 0px 10px;
+    word-wrap: normal;
+    display: inline-block;
+  }
+
+/* body:hover {
     background-image: url();
-}
+} */

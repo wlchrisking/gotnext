@@ -1,51 +1,76 @@
-import React from 'react';
-import axios from 'axios';
-import UserList from '../containers/test-list.js';
+import React, {Component} from 'react';
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux';
+import {fetchGameData} from '../actions/fetchGameData';
+import {fetchUserGameData} from '../actions/fetchUserGameData';
 
-class App extends React.Component {
-  constructor() {
-    super()
+import Nav from './Nav.jsx';
+import Main from './Main.jsx';
+
+class App extends Component {
+
+  // on load, axios request to render games on map
+  componentDidMount() {
+    this.props.fetchGameData() 
   }
 
-  onSubmit() {
-    const payload = {
-      username: 'xxx@xxx.com',
-      password: 'xxx'
-    }
-    axios.post('/api/user/signup', payload)
-      .then( (res) => {
-        console.log('res', res);
-      })
-      .catch( (err) => {
-        console.log('err', err);
-        // render a new alert saying unsuccessful signup
-      })
-  }
 
-  onLogin() {
-    const payload = {
-      username: 'xxx@xxx.com',
-      password: 'xxx'
-    }
-    axios.post('/api/user/login', payload)
-    .then( (res) => {
-      console.log('res', res);
-    })
-    .catch( (err) => {
-      console.log('err', err);
-      // render a new alert saying unsuccessful login
-    })
-  }
 
   render() {
+    if (!this.props.gameData) {
+      return null
+    }
+
     return(
       <div>
-        <UserList />
-        <button onClick={this.onSubmit}>Click Me!</button>
-        <button onClick={this.onLogin}>Login!</button>
+        <h1>.got(Next)</h1>  
+        <hr/>
+        <Nav />
+        <hr/>
+        <Main />
       </div>
     )
   }
-}
+};
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    gameData: state.gameData
+  }
+};
+
+const matchDispatchToProps = dispatch => {
+  return bindActionCreators({fetchGameData:fetchGameData}, dispatch);
+};
+
+export default connect(mapStateToProps, matchDispatchToProps)(App);
+
+// onSubmit() {
+  //   const payload = {
+    //     username: 'xxx@xxx.com',
+    //     password: 'xxx'
+    //   }
+    //   axios.post('/api/user/signup', payload)
+    //     .then( (res) => {
+      //       console.log('res', res);
+      //     })
+      //     .catch( (err) => {
+        //       console.log('err', err);
+        //       // render a new alert saying unsuccessful signup
+        //     })
+        // }
+        
+        // onLogin() {
+          //   const payload = {
+            //     username: 'xxx@xxx.com',
+            //     password: 'xxx'
+            //   }
+            //   axios.post('/api/user/login', payload)
+            //   .then( (res) => {
+              //     console.log('res', res);
+              //   })
+              //   .catch( (err) => {
+                //     console.log('err', err);
+                //     // render a new alert saying unsuccessful login
+                //   })
+                // }
