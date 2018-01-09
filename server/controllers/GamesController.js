@@ -3,7 +3,8 @@ const axios = require('axios');
 GamesController = {
 
   CreateGame: (req, res) => {
-    
+    // this function only get called if a user has a token.
+    res.send({message:'you made a game!'})
   },
 
   FetchList: (req, res) => {

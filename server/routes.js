@@ -5,6 +5,10 @@ var LocalStrategy = require('passport-local').Strategy;
 const UserController = require('./controllers/UserController.js');
 const MapContoller = require('./controllers/MapController.js');
 const GamesController = require('./controllers/GamesController.js');
+const jwt = require('jsonwebtoken');
+const tokenExists = require('./helpers/helpers.js')
+
+
 
 // [[ U S E R ]]
 
@@ -41,8 +45,7 @@ Router.route('/map/fetch/zip/:zip')
 Router.route('/games/fetch/:zip')
   .get(GamesController.FetchList);
 
-Router.route('/games/create')
-  .post(GamesController.CreateGame);
+
 
 // user view
 Router.route('/games/fetch/user/:username')
@@ -56,5 +59,15 @@ Router.route('/games/update')
 
 Router.route('/games/delete')
   .delete(GamesController.DeleteGame)
+
+
+// below is middleware to check if token exists on client request. 
+// all routes below this function must have a token.
+Router.use(tokenExists);
+
+Router.route('/games/create')
+.post(GamesController.CreateGame);
+
+
 
 module.exports = Router;

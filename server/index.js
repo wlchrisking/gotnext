@@ -6,6 +6,7 @@ const parser = require('body-parser');
 const db = require('../db');
 const Router = require('./routes');
 const User = require('../db/models/User');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const PORT = process.env.PORT;
