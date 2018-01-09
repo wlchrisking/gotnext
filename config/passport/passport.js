@@ -1,22 +1,7 @@
 const passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
-
-const {
-  User
-} = require('../../db/models');
-
-// passport.serializeUser(function(user, done) {
-//   done(null, user.id);
-// });
-
-// passport.deserializeUser(function(id, done) {
-//     });
-
-//   // User.findById(id, function(err, user) {
-//   //   done(err, user);
-//   // });
-// });
+const {User} = require('../../db/models');
 
 passport.serializeUser(function (user, done) {
   console.log('this is user', user);
@@ -31,7 +16,6 @@ passport.deserializeUser(function (id, done) {
       }
     })
     .then((userdata) => {
-      // console.log('userdata', userdata);
       done(null, userdata);
     })
     .catch((err) => {
@@ -39,11 +23,7 @@ passport.deserializeUser(function (id, done) {
         throw err;
       }
     });
-  // done(null, id);
 });
-
-
-
 
 passport.use('local-signup', new LocalStrategy({
     usernameField: 'username',
@@ -72,7 +52,7 @@ passport.use('local-signup', new LocalStrategy({
                 });
                 // res.status(200).send(created);
               } else {
-                console.log('Sign up successful!', result.dataValues);
+                console.log('Login successful!', result.dataValues);
                 return done(null, result.dataValues);
                 // res.status(200).send(result);
               }
@@ -81,7 +61,6 @@ passport.use('local-signup', new LocalStrategy({
       });
     });
   }));
-
 
 passport.use('local-login', new LocalStrategy({
     usernameField: 'username',
@@ -96,21 +75,25 @@ passport.use('local-login', new LocalStrategy({
           }
         })
         .then((userdata) => {
-          bcrypt.compare(req.body.password, userdata.dataValues.password, function (err, result) {
-            // res == true
-            if (err) {
-              console.log('error signing up', err);
-              // res.status(500).send({message: 'error signing up'});
-            } else if (!!result) {
-              console.log('successful sign in');
-              return done(null, userdata);
-              // res.status(201).send({message: 'successful sign in'});
-            } else {
-              console.log('invalid password');
-              return done(null, false, {errMsg: 'invalid password'});
-              // res.status(500).send({message: 'unsuccessful sign in'});
-            }
-          });
+          console.log('userdata', userdata);
+          if (userdata === null) {
+            return done(null, false, {errMsg: 'user does not exist'});
+          } else {
+            bcrypt.compare(req.body.password, userdata.dataValues.password, function (err, result) {
+              if (err) {
+                console.log('error signing up', err);
+                // res.status(500).send({message: 'error signing up'});
+              } else if (!!result) {
+                console.log('successful sign in');
+                return done(null, userdata);
+                // res.status(201).send({message: 'successful sign in'});
+              } else {
+                console.log('invalid password');
+                return done(null, false, {errMsg: 'invalid password'});
+                // res.status(500).send({message: 'unsuccessful sign in'});
+              }
+            });
+          }
         })
         .catch((err) => {
           console.log('error finding user for login', err);

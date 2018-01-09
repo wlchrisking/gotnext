@@ -17,6 +17,17 @@ Router.route('/user/logout')
 Router.route('/user/signup')
   .post(UserController.Signup);
 
+//created a test route to check if authenticated when logged in/out
+Router.route('/test')
+  .get((req, res) => {
+    console.log('is authenticated', req.isAuthenticated());
+    console.log('req.user is', req.user);
+    if (req.session) {
+      console.log('req.session is', req.session);
+    }
+    res.send();
+  });
+
 // [[ M A P ]]
 
 // on componentDidMount  
