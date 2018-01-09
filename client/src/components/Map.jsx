@@ -11,13 +11,37 @@ import googleApi from '../config/config.js'
 
 class Maps extends Component {
 
+  renderMarkers() {
+    // sampleData will be replaced by gameData
+    const sampleData = [
+      {lat: 33.969906100574846, lng: -118.40377807617188},
+      {lat: 33.95800896591401, lng: -118.38420867919922},
+      {lat: 33.96840236615572, lng: -118.37493896484375}, 
+      {lat: 33.98121439916207, lng: -118.36721420288086}
+    ]
+    
+    return sampleData.map(loc => {
+      console.log(loc)
+      return (
+        <Marker 
+          title={'placeholder'}
+          name={'placeholder'}
+          key={loc.lat}
+          position={loc}
+        />
+      )
+    })
+  }
+
   render() {
     return (
-      <Map 
+      <Map         
+        // upon clicking the map, store the lat/lng coordinates as 'location'
         onClick={(mapProps, map, clickEvent) => {
-          // upon clicking the map, store the lat/lng coordinates as 'location'
-          console.log({lat: clickEvent.latLng.lat(), lng: clickEvent.latLng.lng()})
-          this.props.setLocation({'lat': clickEvent.latLng.lat(), 'lng': clickEvent.latLng.lng()})
+          let lat = clickEvent.latLng.lat()
+          let lng = clickEvent.latLng.lng()
+
+          this.props.setLocation({lat: lat, lng: lng})
         }}
         google={this.props.google} 
         zoom={14}
@@ -30,7 +54,19 @@ class Maps extends Component {
           lat: 33.976215,
           lng: -118.390891          
         }}
-      >
+      >        
+      {
+        // gets rid of the initial marker
+        !this.props.location ? 
+        null
+        :
+        <Marker 
+          title={'first marker'}
+          name={'first marker'}
+          position={this.props.location}
+        />
+      }
+      {this.renderMarkers()}        
       </Map>
     );
   }
