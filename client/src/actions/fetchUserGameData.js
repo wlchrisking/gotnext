@@ -1,9 +1,6 @@
 import axios from 'axios';
 
-export const fetchUserGameData = (username) => {
-  
-  // test
-  const request = [{a:'a'} ,{b:'b'} ,{c:'c'}]
+export const fetchUserGameData = (username) => {    
   
   // const request = axios.get() 
 
