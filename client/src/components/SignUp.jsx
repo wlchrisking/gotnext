@@ -16,7 +16,7 @@ class SignUp extends Component {
       token: window.localStorage.token
     }
 
-    axios.post('/api/user/signup', payload, mytoken)
+    axios.post('/api/user/signup', payload)
       .then((data)=>{
         console.log('data:', data)
         if (data.data.token) {
@@ -38,7 +38,7 @@ class SignUp extends Component {
       token: window.localStorage.token
     }
 
-    axios.post('/api/user/signup', payload, mytoken)
+    axios.post('/api/user/signup', payload)
     .then((data)=>{
       console.log('data:', data)
       if (data.data.token) {
