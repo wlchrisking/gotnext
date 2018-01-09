@@ -47,7 +47,7 @@ class Maps extends Component {
         zoom={14}
         style={{
           width: '40%',
-          height: '80%'
+          height: '40%'
         }} 
         // hack reactor as initial location
         initialCenter={{
