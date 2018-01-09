@@ -5,6 +5,10 @@ var LocalStrategy = require('passport-local').Strategy;
 const UserController = require('./controllers/UserController.js');
 const MapContoller = require('./controllers/MapController.js');
 const GamesController = require('./controllers/GamesController.js');
+const jwt = require('jsonwebtoken');
+const tokenExists = require('./helpers/helpers.js')
+
+
 
 // [[ U S E R ]]
 
@@ -41,8 +45,7 @@ Router.route('/map/fetch/zip/:zip')
 Router.route('/games/fetch/:zip')
   .get(GamesController.FetchList);
 
-Router.route('/games/create')
-  .post(GamesController.CreateGame);
+
 
 // user view
 Router.route('/games/fetch/user/:username')
@@ -56,5 +59,54 @@ Router.route('/games/update')
 
 Router.route('/games/delete')
   .delete(GamesController.DeleteGame)
+
+
+// below is middleware to check if token exists on client request. 
+// all routes below this function must have a token.
+
+
+Router.use(tokenExists);
+
+// Router.use(function (req, res, next) {
+//   // check header or url parameters or post parameters for token
+//   // we are set up to have the token stored in req.body.token
+//   var token = req.token || req.body.token || req.query.token || req.headers.token || req.headers['x-access-token'];
+//   console.log('Current Token:', req.body.token) 
+//   // decode token
+//   if (token) {
+
+//     // verifies secret and checks exp
+//     jwt.verify(token, 'brianlovestodeleteapps', function (err, decoded) {
+//       if (err) {
+//         console.log('Token Error:', err.name + ' ' + err.message)
+//         return res.json({ success: false, message: 'Failed to authenticate token.' });
+//       } else {
+//         console.log('Token is still active!')
+//         // if everything is good, save to request for use in other routes
+//         console.log('req.decoded before:', req.decoded)
+//         req.decoded = decoded;
+//         console.log('req.decoded after:', req.decoded)
+//         console.log('decoded:', decoded)
+        
+//         next();
+//       }
+//     });
+
+//   } else {
+
+//     // if there is no token
+//     // return an error
+//     return res.status(200).send({
+//       success: false,
+//       message: 'No token provided.'
+//     });
+
+//   }
+// });
+
+Router.route('/games/create')
+.post(GamesController.CreateGame);
+
+
 
 module.exports = Router;
