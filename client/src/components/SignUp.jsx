@@ -126,20 +126,20 @@ class SignUp extends Component {
         <br/>
         <br/>
         John@gmail.com | abc123
-        <button onClick={this.onCreateUser1}>Create and Signup John</button>
+        <button onClick={this.onCreateUser1}>Create User: John</button>
         <br/>
         Bill@gmail.com | 123abc
-        <button onClick={this.onCreateUser2}>Create and Sign Bill</button>
+        <button onClick={this.onCreateUser2}>Create User: Bill</button>
         <br/>
 
 
         <br/>
 
         John@gmail.com | abc123
-        <button onClick={this.onLoginUser1}>Login for John</button>
+        <button onClick={this.onLoginUser1}>Login: John</button>
         <br/>
         Bill@gmail.com | 123abc
-        <button onClick={this.onLoginUser2}>Login for Bill</button>
+        <button onClick={this.onLoginUser2}>Login: Bill</button>
         <br/>
 
         <br/>
