@@ -22,7 +22,5 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api', Router);
-// require('../config/passport/passport.js')(passport, User);
-
 
 app.listen(PORT, () => {console.log('Listening to PORT:', PORT)});

@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server",
-    "dev": "webpack -w & nodemon server"
+    "dev": "webpack -w & nodemon server",
+    "dev1": "webpack -w",
+    "dev2": "nodemon server"
   },
   "repository": {
     "type": "git",
@@ -30,7 +32,7 @@
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
-    "nodemon": "^1.14.7",
+    "nodemon": "^1.14.9",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
