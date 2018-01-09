@@ -64,7 +64,8 @@ class Nav extends Component {
         {/* === LOGIN BUTTON === */}
 
         <a href="" 
-          onClick={(e) => {
+          onClick={
+            (e) => {
             e.preventDefault()
             this.props.setLoginPage('login')
           }} 
@@ -77,6 +78,7 @@ class Nav extends Component {
 
         <a href=""
           onClick={(e) => {
+            console.log(e)
             e.preventDefault()
             this.props.setLoginPage('logout')
           }} 

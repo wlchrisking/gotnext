@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 
-import Map from './Map.jsx';
+import Maps from './Map.jsx';
 import Option from './Option.jsx';
 import Login from './Login.jsx';
 import SignUp from './SignUp.jsx';
@@ -26,19 +26,21 @@ class Main extends Component {
       return(
         <div>
           --- Main Component Here --- 
-          <Map />
-          <Option />  
+          <Maps />
+          <Option />
+          <div>
+            {JSON.stringify(this.props.location)}
+          </div>  
         </div>
       )
-    }
-
-    
+    }    
   }
 };
 
 const mapStateToProps = state => {
   return {
-    loginPage: state.loginPage
+    loginPage: state.loginPage,
+    location: state.location
   }
 };
 

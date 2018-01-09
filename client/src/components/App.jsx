@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
+
 import {fetchGameData} from '../actions/fetchGameData';
-import {fetchUserGameData} from '../actions/fetchUserGameData';
 
 import Nav from './Nav.jsx';
 import Main from './Main.jsx';
