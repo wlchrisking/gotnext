@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
-import {fetchGameData} from '../actions/fetchGameData.js'
 
 class Login extends Component {
   render() {
