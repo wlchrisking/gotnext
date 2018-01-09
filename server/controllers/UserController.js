@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken')
 const JWT_SECRET = process.env.JWT_SECRET;
 
 //The routes here for login, logout, and signup are working properly now.
-//need to confirm sessions is working properly.
 UserController = {
   Login: (req, res, next) => {
     if (req.user) {
@@ -34,7 +33,7 @@ UserController = {
 
           console.log('user login payload:', payload)
 
-          var token = jwt.sign(payload, 'secrets', options);
+          var token = jwt.sign(payload, JWT_SECRET, options); 
 
           if (err) {
             console.error(err);
@@ -74,33 +73,39 @@ UserController = {
           });
         }
 
-        // signing up the user will automatically log them in:
-        req.login(user, function (err) {
+        res.status(200).send({message:'you created a user!'})
 
-          let payload = {
-            id: user.id
-          }
+        // if the below code is uncommented out, then you will immediately be logged in after creating a user.
+        // if you do this, please remove "res.status(200).send(...)"" on the line above.
 
-          let options = {
-            expiresIn: 86400 //24 hours
-          }
 
-          console.log('user login payload:', payload)
 
-          var token = jwt.sign(payload, JWT_SECRET, options);
+        // req.login(user, function (err) {
 
-          if (err) {
-            console.error(err);
-            return next(err);
-          }
+        //   let payload = {
+        //     id: user.id
+        //   }
 
-          // send a json object with token as property. on client side, i set the token onto window.localStorage
-          return res.json({
-            sucesss: true,
-            message: 'sign-up successful! Established a login session with token',
-            token: token
-          });
-        });
+        //   let options = {
+        //     expiresIn: 86400 //24 hours
+        //   }
+
+        //   console.log('user login payload:', payload)
+
+        //   var token = jwt.sign(payload, JWT_SECRET, options);
+
+        //   if (err) {
+        //     console.error(err);
+        //     return next(err);
+        //   }
+
+        //   // send a json object with token as property. on client side, i set the token onto window.localStorage
+        //   return res.json({
+        //     sucesss: true,
+        //     message: 'sign-up successful! Established a login session with token',
+        //     token: token
+        //   });
+        // });
 
       })(req, res, next);
     }
