@@ -1,7 +1,7 @@
 const express = require('express');
 const Router = express.Router();
-const passport = require('passport');
-const local = require('passport-local');
+const passport = require('../config/passport/passport.js');
+var LocalStrategy = require('passport-local').Strategy;
 const UserController = require('./controllers/UserController.js');
 const MapContoller = require('./controllers/MapController.js');
 const GamesController = require('./controllers/GamesController.js');
@@ -16,7 +16,6 @@ Router.route('/user/logout')
 
 Router.route('/user/signup')
   .post(UserController.Signup);
-
 
 // [[ M A P ]]
 
