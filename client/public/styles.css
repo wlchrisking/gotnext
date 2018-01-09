@@ -24,3 +24,13 @@ body {
 /* body:hover {
     background-image: url();
 } */
+
+#container {
+  display: inline-flex;
+  padding: 100px 100px;
+  width: 5px;
+}
+
+#ui {
+  display: inline;
+}

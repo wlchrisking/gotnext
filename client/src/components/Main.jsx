@@ -26,12 +26,20 @@ class Main extends Component {
       return(
         <div>
           --- Main Component Here --- 
-          <Maps />
-          <Option />
-          <div>
-            {JSON.stringify(this.props.location)}
-          </div>  
-        </div>
+          <div id="ui">
+            <Option />
+          </div>       
+          <br/><br/>
+          <br/><br/>
+          <div id="container">
+            <Maps />
+          </div>      
+          <br/><br/>
+          <br/><br/>
+        <div>
+          {JSON.stringify(this.props.location)}
+        </div>  
+      </div>
       )
     }    
   }
