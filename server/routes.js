@@ -53,7 +53,10 @@ Router.route('/games/fetch/:zip')
   .get(GamesController.FetchList);
 
 Router.route('/games/create')
+<<<<<<< HEAD
   .all(expressJoi(valSchema.CreateGame))
+=======
+>>>>>>> 020010a9c0e24fe7cbfcac9417c4c5fdfd692cae
   .all(tokenExists)
   .post(GamesController.CreateGame);
 
@@ -80,7 +83,10 @@ Router.use(function (err, req, res, next) {
   }
 });
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 020010a9c0e24fe7cbfcac9417c4c5fdfd692cae
 
 
 module.exports = Router;
