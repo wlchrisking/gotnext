@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
 import axios from 'axios'
 
+import {setUser} from '../actions/setUser.js'
+
 
 class SignUp extends Component {
 
@@ -55,6 +57,7 @@ class SignUp extends Component {
       username: 'John@gmail.com',
       password: 'abc123'
     }
+    this.props.setUser(payload.username);
 
     let mytoken = {
       token: window.localStorage.token
@@ -77,6 +80,7 @@ class SignUp extends Component {
       username: 'Bill@gmail.com',
       password: 'abc123'
     }
+    this.props.setUser(payload.username);
 
     let mytoken = {
       token: window.localStorage.token
@@ -136,10 +140,10 @@ class SignUp extends Component {
         <br/>
 
         John@gmail.com | abc123
-        <button onClick={this.onLoginUser1}>Login: John</button>
+        <button onClick={this.onLoginUser1.bind(this)}>Login: John</button>
         <br/>
         Bill@gmail.com | 123abc
-        <button onClick={this.onLoginUser2}>Login: Bill</button>
+        <button onClick={this.onLoginUser2.bind(this)}>Login: Bill</button>
         <br/>
 
         <br/>
@@ -162,4 +166,11 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps)(SignUp);
+const matchDispatchToProps = dispatch => {
+  return bindActionCreators({
+    setUser:setUser
+    }, 
+    dispatch);
+};
+
+export default connect(mapStateToProps, matchDispatchToProps)(SignUp);
