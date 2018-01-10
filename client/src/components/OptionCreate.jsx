@@ -17,7 +17,8 @@ class OptionCreate extends Component {
       competitive: true,
       notes: '',
       address: '',
-      coordinates: ''
+      coordinates: '',
+      user: ''
     }
   }
   
@@ -26,9 +27,11 @@ class OptionCreate extends Component {
     if (this.props.location) {
       const payload = this.form;
       payload['coordinates'] = this.props.location;
+      payload['token'] = window.localStorage.token;
+      payload['user'] = 'John@gmail.com';
       console.log('this is payload!', payload);
       this.props.setGameSetting(payload);
-      axios.post('??', payload)
+      axios.post('/api/games/create', payload)
         .then( (response) => {
           console.log('successfully created game', response);
         })
