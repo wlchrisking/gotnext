@@ -46,7 +46,30 @@ GamesController = {
   },
 
   FetchUserList: (req, res) => {
-    
+    console.log('this is req.params', req.params);
+    return User.find({
+      where: {
+        username: req.params.username
+      }
+    })
+      .then( (grabbedUser) => {
+        console.log('this is grabbedUser', grabbedUser);
+        return Game.findAll({
+          where: {
+            UserId: grabbedUser.dataValues.id
+          }
+        })
+          .then( (foundGames) => {
+            console.log('these are the found games', foundGames);
+            res.send(foundGames);
+          })
+          .catch( (err) => {
+            console.log('could not find game', err);
+          })
+      })
+      .catch( (err) => {
+        console.log('could not grab user', err);
+      })
   },
 
   FetchOptions: (req, res) => {
