@@ -10,20 +10,22 @@ const tokenExists = require('./helpers/helpers.js')
 var expressJoi = require('express-joi-validator');
 var Joi = require('joi');
 var valSchema = require('./validation/valSchema');
-
+const validators = require('./validation/validators.js')
 
 // [[ U S E R ]]
 
 Router.route('/user/login')
-  .all(expressJoi(valSchema.Login))
+  // .all(expressJoi(valSchema.Login))
+  .post(validators.login)
   .post(UserController.Login);
 
 Router.route('/user/logout')
   .get(UserController.Logout);
 
 Router.route('/user/signup')
-  .all(expressJoi(valSchema.Login))
-  .post(UserController.Signup);
+  // .all(expressJoi(valSchema.Login))
+  .post(validators.signup)
+  .post(UserController.Signup); 
 
 //created a test route to check if authenticated when logged in/out
 Router.route('/test')
@@ -31,7 +33,7 @@ Router.route('/test')
     console.log('is authenticated', req.isAuthenticated());
     console.log('req.user is', req.user);
     if (req.session) {
-      console.log('req.session is', req.session);
+      console.log('req.session is', req.session); 
     }
     res.send();
   });

@@ -7,10 +7,12 @@ const db = require('../db');
 const Router = require('./routes');
 const User = require('../db/models/User');
 const jwt = require('jsonwebtoken');
+const validator = require('express-validator')
 
 const app = express();
 const PORT = process.env.PORT;
 
+app.use(validator());
 app.use(parser.json());
 app.use(parser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, '../client/public')));
