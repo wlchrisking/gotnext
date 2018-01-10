@@ -12,21 +12,14 @@ import googleApi from '../config/config.js'
 class Maps extends Component {
 
   renderMarkers() {
-    // sampleData will be replaced by gameData
-    const sampleData = [
-      {lat: 33.969906100574846, lng: -118.40377807617188},
-      {lat: 33.95800896591401, lng: -118.38420867919922},
-      {lat: 33.96840236615572, lng: -118.37493896484375}, 
-      {lat: 33.98121439916207, lng: -118.36721420288086}
-    ]
     
-    return sampleData.map(loc => {
-      console.log(loc)
+    return this.props.gameData.map(game => {
+      const loc = JSON.parse(game.coordinates)
       return (
         <Marker 
           title={'placeholder'}
           name={'placeholder'}
-          key={loc.lat}
+          key={game.id}
           position={loc}
         />
       )
@@ -74,7 +67,8 @@ class Maps extends Component {
 
 const mapStateToProps = state => {
   return {
-    location: state.location
+    location: state.location,
+    gameData: state.gameData
   }
 };
 

@@ -39,8 +39,8 @@ Router.route('/test')
 // [[ M A P ]]
 
 // on componentDidMount  
-Router.route('/map/fetch/zip/:zip')
-  .all(expressJoi(valSchema.Fetch))
+Router.route('/map/fetch')
+  // .all(expressJoi(valSchema.Fetch))
   .get(MapContoller.Fetch);
 
 
