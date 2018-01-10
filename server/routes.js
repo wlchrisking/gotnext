@@ -7,18 +7,22 @@ const MapContoller = require('./controllers/MapController.js');
 const GamesController = require('./controllers/GamesController.js');
 const jwt = require('jsonwebtoken');
 const tokenExists = require('./helpers/helpers.js')
-
+var expressJoi = require('express-joi-validator');
+var Joi = require('joi');
+var valSchema = require('./validation/valSchema');
 
 
 // [[ U S E R ]]
 
 Router.route('/user/login')
+  .all(expressJoi(valSchema.Login))
   .post(UserController.Login);
 
 Router.route('/user/logout')
   .get(UserController.Logout);
 
 Router.route('/user/signup')
+  .all(expressJoi(valSchema.Login))
   .post(UserController.Signup);
 
 //created a test route to check if authenticated when logged in/out
@@ -32,10 +36,12 @@ Router.route('/test')
     res.send();
   });
 
+  
 // [[ M A P ]]
 
 // on componentDidMount  
 Router.route('/map/fetch/zip/:zip')
+  .all(expressJoi(valSchema.Fetch))
   .get(MapContoller.Fetch);
 
 
@@ -43,22 +49,35 @@ Router.route('/map/fetch/zip/:zip')
 
 // on componentDidMount
 Router.route('/games/fetch/:zip')
+  .all(expressJoi(valSchema.Fetch))
   .get(GamesController.FetchList);
 
-
+Router.route('/games/create')
+  .all(expressJoi(valSchema.CreateGame))
+  .post(GamesController.CreateGame);
 
 // user view
 Router.route('/games/fetch/user/:username')
-  .get(GamesController.FetchUserList)
+  .all(expressJoi(valSchema.FetchUserList))
+  .get(GamesController.FetchUserList);
 
 Router.route('/games/fetch/options/:gameId')
-  .get(GamesController.FetchOptions)
+  .all(expressJoi(valSchema.FetchOptions))
+  .get(GamesController.FetchOptions);
 
 Router.route('/games/update')
-  .put(GamesController.UpdateGame)
+  .all(expressJoi(valSchema.UpdateGame))
+  .put(GamesController.UpdateGame);
 
 Router.route('/games/delete')
-  .delete(GamesController.DeleteGame)
+  .all(expressJoi(valSchema.DeleteGame))
+  .delete(GamesController.DeleteGame);
+
+Router.use(function (err, req, res, next) {
+  if (err.isBoom) {
+        return res.status(err.output.statusCode).json(err.output.payload);
+  }
+});
 
 
 // below is middleware to check if token exists on client request. 
