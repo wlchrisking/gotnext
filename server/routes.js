@@ -82,9 +82,6 @@ Router.use(function (err, req, res, next) {
 });
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> feat
 
 module.exports = Router;
