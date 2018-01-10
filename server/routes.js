@@ -54,6 +54,7 @@ Router.route('/games/fetch/:zip')
 
 Router.route('/games/create')
   .all(expressJoi(valSchema.Game))
+  .all(expressJoi(valSchema.CreateGame))
   .all(tokenExists)
   .post(GamesController.CreateGame);
 
