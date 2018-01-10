@@ -1,7 +1,7 @@
 var Joi = require('joi');
  
 module.exports = {
-  //this one is for login and signup
+  //this one is for both login and signup
   Login: {
     body: {
       username: Joi.string().email().required(),
@@ -9,9 +9,9 @@ module.exports = {
     }
   },
 
-  FetchList: {
+  Fetch: {
     params: {
-      zip: Joi.string().min(5).max(5).required()
+      zip: Joi.number().integer().min(10000).max(99999).required()
     }
   },
   
@@ -29,7 +29,7 @@ module.exports = {
 
   FetchOptions: {
     params: {
-      gameId: Joi.string().required()
+      gameId: Joi.number().integer().min(1).required()
     }
   },
 
