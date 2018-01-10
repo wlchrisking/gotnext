@@ -53,11 +53,8 @@ Router.route('/games/fetch/:zip')
   .get(GamesController.FetchList);
 
 Router.route('/games/create')
-<<<<<<< HEAD
   .all(expressJoi(valSchema.CreateGame))
-=======
   .all(tokenExists)
->>>>>>> [add] Add middleware for specific route using .all
   .post(GamesController.CreateGame);
 
 // user view
