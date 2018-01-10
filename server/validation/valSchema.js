@@ -15,34 +15,19 @@ module.exports = {
     }
   },
   
-  CreateGame: {
+  Game: {
     body: {
-      //fill out once we know the field names, what's required, format, etc.
+      address: Joi.string().max(100).required(),
+      sport: Joi.string().max(100).required(),
+      max: Joi.number().integer().max(500).required(),
+      start: Joi.string().length(6).required(), //format for start time is eg "0704PM"
+      end: Joi.string().length(6).required(),
+      competitive: Joi.boolean().required(),
+      notes: Joi.string().max(500).required(),
+      coordinates: Joi, //not explicitly requiring it because this is already being required by the client.
+      user: Joi,
+      token: Joi
     }
   },
-
-  FetchUserList: {
-    params: {
-      username: Joi.string().email().required()
-    }
-  },
-
-  FetchOptions: {
-    params: {
-      gameId: Joi.number().integer().min(1).required()
-    }
-  },
-
-  UpdateGame: {
-    body: {
-      //fill out once we know the field names, what's required, format, etc.
-    }
-  },
-
-  DeleteGame: {
-    body: {
-      //fill out once we know the field names, what's required, format, etc.
-    }
-  }
 
 };

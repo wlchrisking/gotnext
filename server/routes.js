@@ -55,27 +55,26 @@ Router.route('/games/fetch/:zip')
   .get(GamesController.FetchList);
 
 Router.route('/games/create')
+  .all(expressJoi(valSchema.Game))
   .all(expressJoi(valSchema.CreateGame))
   .all(tokenExists)
   .post(GamesController.CreateGame);
 
 // user view
 Router.route('/games/fetch/user/:username')
-  .all(expressJoi(valSchema.FetchUserList))
   .get(GamesController.FetchUserList);
 
 Router.route('/games/fetch/options/:gameId')
-  .all(expressJoi(valSchema.FetchOptions))
   .get(GamesController.FetchOptions);
 
 Router.route('/games/update')
-  .all(expressJoi(valSchema.UpdateGame))
+  .all(expressJoi(valSchema.Game))
   .put(GamesController.UpdateGame);
 
 Router.route('/games/delete')
-  .all(expressJoi(valSchema.DeleteGame))
   .delete(GamesController.DeleteGame);
 
+//the below function is needed for error handling for express-joi-validator using joi in the ".all" statements above
 Router.use(function (err, req, res, next) {
   if (err.isBoom) {
         return res.status(err.output.statusCode).json(err.output.payload);
@@ -83,5 +82,9 @@ Router.use(function (err, req, res, next) {
 });
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> feat
 
 module.exports = Router;
