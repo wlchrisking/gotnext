@@ -15,6 +15,11 @@ app.use(parser.json());
 app.use(parser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, '../client/public')));
 
+app.use((req, res, next) => {
+    console.log(req.method, req.path, res.statusCode, req.body);
+    next();
+});
+
 app.use(require('express-session')({
     secret: 'brian deleted our app',
     resave: false,
