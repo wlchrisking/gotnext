@@ -143,8 +143,8 @@ class SignUp extends Component {
         <br/>
 
         <br/>
-         You should only be able to create a game if logged in.
-        <button onClick={this.onCreateGameHandler}>Create a game</button>
+         You should only be able to create a game if you are logged in.
+         Click on "Search" then "Create" and try creating a game.
         <br/>
 
         <br/>
