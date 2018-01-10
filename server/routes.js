@@ -45,7 +45,9 @@ Router.route('/map/fetch/zip/:zip')
 Router.route('/games/fetch/:zip')
   .get(GamesController.FetchList);
 
-
+Router.route('/games/create')
+  .all(tokenExists)
+  .post(GamesController.CreateGame);
 
 // user view
 Router.route('/games/fetch/user/:username')
@@ -60,13 +62,6 @@ Router.route('/games/update')
 Router.route('/games/delete')
   .delete(GamesController.DeleteGame)
 
-
-// below is middleware to check if token exists on client request. 
-// all routes below this function must have a token.
-Router.use(tokenExists);
-
-Router.route('/games/create')
-.post(GamesController.CreateGame);
 
 
 
