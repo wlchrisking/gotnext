@@ -54,6 +54,7 @@ Router.route('/games/fetch/:zip')
 
 Router.route('/games/create')
   .all(expressJoi(valSchema.Game))
+  .all(tokenExists)
   .post(GamesController.CreateGame);
 
 // user view
@@ -77,13 +78,6 @@ Router.use(function (err, req, res, next) {
   }
 });
 
-
-// below is middleware to check if token exists on client request. 
-// all routes below this function must have a token.
-Router.use(tokenExists);
-
-Router.route('/games/create')
-.post(GamesController.CreateGame);
 
 
 
