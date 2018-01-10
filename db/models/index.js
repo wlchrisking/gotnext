@@ -2,8 +2,8 @@ const User = require('./User');
 const Game = require('./Game');
 const db = require('../');
 
-// User.hasMany(Game);
-// Game.belongsTo(User);
+User.hasMany(Game);
+Game.belongsTo(User);
 
 // db.sync( { force: true } );
 

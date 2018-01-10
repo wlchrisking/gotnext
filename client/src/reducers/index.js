@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import GameData from './gameData';
+import GameSetting from './gameSetting';
 import UserGameData from './userGameData';
 import OptionSelector from './optionSelector';
 import LoginPageSelector from './loginPageSelector';
@@ -15,7 +16,8 @@ const allReducers = combineReducers({
   userGameData: UserGameData,
   option: OptionSelector,
   loginPage: LoginPageSelector,
-  location: LocationSelector
+  location: LocationSelector,
+  gameSetting: GameSetting
 });
 
 export default allReducers
