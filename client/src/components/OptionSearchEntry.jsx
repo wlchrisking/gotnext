@@ -13,14 +13,6 @@ class OptionSearchEntry extends Component {
     console.log('PROPPPSSSSSSSSSSS', this.props)
   }
   
- componentDidMount() {
-   console.log('userlist', this.props.userList)
-   console.log('game userid', this.props.game.UserId)
-  const test = this.props.userList.find(user => { 
-    return user.id === this.props.game.UserId 
-  }).username
-  console.log('TEST',test)
- }
 
   render() {
     return (
