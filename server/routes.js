@@ -75,6 +75,8 @@ Router.route('/games/delete')
 Router.use(function (err, req, res, next) {
   if (err.isBoom) {
     return res.status(err.output.statusCode).json({errMsg:err.data[0].message});
+        // return res.status(err.output.statusCode).json(err.output.payload);
+        // return res.status(200).json(err.output.payload);
   }
 });
 

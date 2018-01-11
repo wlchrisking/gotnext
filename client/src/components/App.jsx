@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
 
 import {fetchGameData} from '../actions/fetchGameData';
+import {setEditState} from '../actions/setEditState';
 
 import Nav from './Nav.jsx';
 import Main from './Main.jsx';
@@ -12,6 +13,7 @@ class App extends Component {
   // on load, axios request to render games on map
   componentDidMount() {
     this.props.fetchGameData() 
+    this.props.setEditState(false);
   }
 
 
@@ -40,7 +42,7 @@ const mapStateToProps = state => {
 };
 
 const matchDispatchToProps = dispatch => {
-  return bindActionCreators({fetchGameData:fetchGameData}, dispatch);
+  return bindActionCreators({fetchGameData:fetchGameData, setEditState:setEditState}, dispatch);
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(App);
