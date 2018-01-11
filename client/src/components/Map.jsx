@@ -15,12 +15,14 @@ class Maps extends Component {
     
     return this.props.gameData.map(game => {
       const loc = JSON.parse(game.coordinates)  
+      console.log('LOC', loc)
       return (
         <Marker 
           title={'placeholder'}
           name={'placeholder'}
           key={game.id}
-          position={loc}
+          // weird object being identified as a string error (fixed with curly bracket wrap)
+          position={{loc}}
         />
       )
     })

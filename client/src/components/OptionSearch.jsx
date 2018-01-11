@@ -6,17 +6,17 @@ import OptionSearchEntry from './OptionSearchEntry'
 
 class OptionSearch extends Component {
   render() {
-    console.log('hi',this.props.gameData)
+    console.log('hi',this.props.userList)
     return(
       <div>
-        --- OptionSearch Component Here ---
         {
-          this.props.gameData ?
-            this.props.gameData.map( (game) => {
-              return <OptionSearchEntry key={game.id} game={game}/>;
-            })
-            :
-            null
+          this.props.gameData 
+          ?
+          this.props.gameData.map( (game) => {
+            return <OptionSearchEntry key={game.id} game={game}/>;
+          })
+          :
+          null
         }
       </div>
     )
@@ -25,7 +25,8 @@ class OptionSearch extends Component {
 
 const mapStateToProps = state => {
   return {
-    gameData: state.gameData
+    gameData: state.gameData,
+    userList: state.userList
   }
 };
 

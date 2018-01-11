@@ -3,7 +3,11 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
 
 import {fetchGameData} from '../actions/fetchGameData';
+<<<<<<< HEAD
 import {setEditState} from '../actions/setEditState';
+=======
+import {fetchUsers} from '../actions/fetchUsers';
+>>>>>>> [Debug] - Working on userList query (async problem)
 
 import axios from 'axios';
 
@@ -20,12 +24,23 @@ class App extends Component {
         console.log('fetching data on componentDidMount')
         this.props.fetchGameData(response.data)
       })
+      .then(
+        axios.get('/api/games/fetch/users')
+          .then(response => {        
+            console.log('fetching user list on componentDidMount')
+            
+            this.props.fetchUsers(response.data)
+          })
+          .catch(err => {
+            console.log('error fetching user list on componentDidMount', err)
+          })
+      )
       .catch(err => {
         console.log('error fetching data on componentDidMount', err)
       })
+
+    
   }
-
-
 
   render() {
     if (!this.props.gameData) {
@@ -51,7 +66,14 @@ const mapStateToProps = state => {
 };
 
 const matchDispatchToProps = dispatch => {
+<<<<<<< HEAD
   return bindActionCreators({fetchGameData:fetchGameData, setEditState:setEditState}, dispatch);
+=======
+  return bindActionCreators({
+    fetchGameData:fetchGameData,
+    fetchUsers:fetchUsers
+  }, dispatch);
+>>>>>>> [Debug] - Working on userList query (async problem)
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(App);

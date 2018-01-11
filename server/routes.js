@@ -38,7 +38,7 @@ Router.route('/test')
   
 // [[ M A P ]]
 
-// on componentDidMount  
+// on componentDidMount, fetch all games to display on map  
 Router.route('/map/fetch')
   // .all(expressJoi(valSchema.Fetch))
   .get(MapContoller.Fetch);
@@ -46,10 +46,14 @@ Router.route('/map/fetch')
 
 // [[ G A M E ]]
 
-// on componentDidMount
-Router.route('/games/fetch/:zip')
-  .all(expressJoi(valSchema.Fetch))
-  .get(GamesController.FetchList);
+// unncessary (handled in mapController.Fetch above)
+// Router.route('/games/fetch/:zip')
+//   .all(expressJoi(valSchema.Fetch))
+//   .get(GamesController.FetchList);
+
+// on componentDidMount, fetch all users
+Router.route('/games/fetch/users/')
+  .get(GamesController.FetchUsers);
 
 Router.route('/games/create')
   .all(expressJoi(valSchema.Game))
@@ -57,7 +61,6 @@ Router.route('/games/create')
   .all(tokenExists)
   .post(GamesController.CreateGame);
 
-// user view
 Router.route('/games/fetch/user/:username')
   .get(GamesController.FetchUserList);
 

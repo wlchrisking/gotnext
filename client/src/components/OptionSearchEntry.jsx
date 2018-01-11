@@ -6,15 +6,24 @@ class OptionSearchEntry extends Component {
   constructor(props) {
     super(props)
   }
-
-
-
   render() {
     return (
       <div>
         <div>
           <div>
-            <h4>GameID:</h4>{JSON.stringify(this.props.game.id)}
+            <h4>Username:</h4>
+            
+            {
+              JSON.stringify(this.props.userList.find(user => { 
+                user.id === this.props.game.userId 
+              }).username)
+            }
+          </div>
+          <div>
+            <h5>Coordinates:</h5>{JSON.stringify(this.props.game.coordinates)}
+          </div>
+          <div>
+            <h5>Coordinates:</h5>{JSON.stringify(this.props.game.coordinates)}
           </div>
           <div>
             <h5>Coordinates:</h5>{JSON.stringify(this.props.game.coordinates)}
@@ -27,6 +36,7 @@ class OptionSearchEntry extends Component {
 
 const mapStateToProps = state => {
   return {
+    userList: state.userList
   }
 };
 
