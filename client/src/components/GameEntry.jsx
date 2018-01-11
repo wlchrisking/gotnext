@@ -35,6 +35,9 @@ class GameEntry extends Component {
 
   onDeleteHandler() {
     console.log('deleted!');
+    //send this.form.id to server to delete the game from the db. then need to rerender the relevant
+    //components - by doing the axios request for the users games i guess? basically just need to kill this component. or
+    //rerender component above it. figure out how to do it.
   }
 
   render() {
