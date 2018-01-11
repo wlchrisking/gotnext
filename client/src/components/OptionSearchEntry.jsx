@@ -19,20 +19,14 @@ class OptionSearchEntry extends Component {
       <div>
         <div>
           <div>
-            <h4>Username:</h4>
-            
-            {
-              JSON.stringify(this.props.userList.find(user => { 
-                return user.id === this.props.game.UserId 
-              }).username)
-            }
-          </div>
-          <div>
-            <h5>Coordinates:</h5>{JSON.stringify(this.props.game.coordinates)}
-          </div>
-          <div>
-            <h5>Coordinates:</h5>{JSON.stringify(this.props.game.coordinates)}
-          </div>
+            <h4>Username:
+              {
+                JSON.stringify(this.props.userList.find(user => { 
+                  return user.id === this.props.game.UserId 
+                }).username)
+              }
+            </h4>            
+          </div>          
           <div>
             <h5>Coordinates:</h5>{JSON.stringify(this.props.game.coordinates)}
           </div>
