@@ -31,6 +31,7 @@ class Nav extends Component {
           onClick={(e) => {
             e.preventDefault()
             this.props.setOption('create')
+            this.props.setLoginPage('default')
           }} 
           className="navigation" 
         >          
@@ -43,6 +44,7 @@ class Nav extends Component {
           onClick={(e) => {
             e.preventDefault()
             this.props.setOption('view')
+            this.props.setLoginPage('default')
           }}  
           className="navigation" 
         >
