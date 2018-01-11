@@ -3,11 +3,8 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
 
 import {fetchGameData} from '../actions/fetchGameData';
-<<<<<<< HEAD
 import {setEditState} from '../actions/setEditState';
-=======
 import {fetchUsers} from '../actions/fetchUsers';
->>>>>>> [Debug] - Working on userList query (async problem)
 
 import axios from 'axios';
 
@@ -55,14 +52,11 @@ const mapStateToProps = state => {
 };
 
 const matchDispatchToProps = dispatch => {
-<<<<<<< HEAD
-  return bindActionCreators({fetchGameData:fetchGameData, setEditState:setEditState}, dispatch);
-=======
   return bindActionCreators({
     fetchGameData:fetchGameData,
-    fetchUsers:fetchUsers
+    fetchUsers:fetchUsers,
+    setEditState:setEditState
   }, dispatch);
->>>>>>> [Debug] - Working on userList query (async problem)
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(App);
