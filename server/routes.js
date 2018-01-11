@@ -10,7 +10,6 @@ const tokenExists = require('./helpers/helpers.js')
 var expressJoi = require('express-joi-validator');
 var Joi = require('joi');
 var valSchema = require('./validation/valSchema');
-const validators = require('./validation/validators.js')
 
 // [[ U S E R ]]
 
