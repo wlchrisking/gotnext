@@ -15,16 +15,14 @@ const validators = require('./validation/validators.js')
 // [[ U S E R ]]
 
 Router.route('/user/login')
-  // .all(expressJoi(valSchema.Login))
-  .post(validators.login)
+  .all(expressJoi(valSchema.Login))
   .post(UserController.Login);
 
 Router.route('/user/logout')
   .get(UserController.Logout);
 
 Router.route('/user/signup')
-  // .all(expressJoi(valSchema.Login))
-  .post(validators.signup)
+  .all(expressJoi(valSchema.Login))
   .post(UserController.Signup); 
 
 //created a test route to check if authenticated when logged in/out

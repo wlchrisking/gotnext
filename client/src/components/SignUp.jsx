@@ -1,165 +1,107 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux'; 
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Form, FormControl, Grid, Button, Jumbotron, Row, Col, FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap';
 import axios from 'axios'
 
-
-class SignUp extends Component {
-
-  onCreateUser1() {
-    let payload = {
-      username: 'John@gmail.com',
-      password: 'abc123'
+class Signup extends Component {
+  constructor() {
+    super()
+    this.state = {
+      username: '',
+      password: '',
+      signedUp: false
     }
 
-    let mytoken = {
-      token: window.localStorage.token
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSignUpUser = this.handleSignUpUser.bind(this)
+  }
+
+
+  handleChange(event) {
+    this.setState({
+      [event.target.id]: event.target.value,
+      [event.target.id]: event.target.value
+    })
+  }
+
+  handleSignUpUser() {
+    let payload = {
+      username: this.state.username,
+      password: this.state.password
     }
 
     axios.post('/api/user/signup', payload)
       .then((data)=>{
-        console.log('data:', data)
-        if (data.data.token) {
-          window.localStorage.setItem('token', data.data.token)
+        console.log('Sign up successful. Data received from server:', data)
+        if(data.data.success) {
+          this.setState({
+            signedUp: true
+          })
         }
       })
-      .catch((err)=>{
-        console.log('error', err)
+      .catch((err) => {
+        console.log('Error signing up user: ', err)
       })
   }
 
-  onCreateUser2() {
-    let payload = {
-      username: 'Bill@gmail.com',
-      password: 'abc123'
-    }
 
-    let mytoken = {
-      token: window.localStorage.token
-    }
+// handleValidation() {
+//   // will mess with later. handles client side validation
+//   const pwlength = this.state.password.length
+//   const userlength = this.state.username.length
+//   if (userlength < 3) return 'error'
+//   if (pwlength < 3) return 'error'
 
-    axios.post('/api/user/signup', payload)
-    .then((data)=>{
-      console.log('data:', data)
-      if (data.data.token) {
-        window.localStorage.setItem('token', data.data.token)
-      }
-    })
-    .catch((err)=>{
-      console.log('error', err)
-    })
-  }
+// }
 
-  onLoginUser1() {
-    let payload = {
-      username: 'John@gmail.com',
-      password: 'abc123'
-    }
+render() {
+  return (
+    <div>
 
-    let mytoken = {
-      token: window.localStorage.token
-    }
+      <Form>
+        <FormGroup
+        // controlId="formBasicText"
+        // validationState={this.getValidationState()}
+        >
+          {/* <ControlLabel>Signup:</ControlLabel> */}
+          <FormControl className=""
+            type="text"
+            id="username"
+            value={this.state.username}
+            placeholder="Enter Username"
+            onChange={this.handleChange}
+          />
 
-    axios.post('/api/user/login', payload, mytoken)
-    .then((data)=>{
-      console.log('data:', data)
-      if (data.data.token) {
-        window.localStorage.setItem('token', data.data.token)
-      }
-    })
-      .catch((err)=>{
-        console.log('error', err)
-      })
-  }
+          <FormControl
+            type="text"
+            id="password"
+            value={this.state.password}
+            placeholder="Enter Password"
+            onChange={this.handleChange}
+          />
 
-  onLoginUser2() {
-    let payload = {
-      username: 'Bill@gmail.com',
-      password: 'abc123'
-    }
+          {/* <HelpBlock>Validation is based on string length.</HelpBlock> */}
+        </FormGroup>
+      </Form>
 
-    let mytoken = {
-      token: window.localStorage.token
-    }
+      <Button
+        block={true}
+        type="button"
+        bsStyle="primary"
+        onClick={this.handleSignUpUser}
+      >Sign up</Button>
 
-    axios.post('/api/user/login', payload, mytoken)
-      .then((data)=>{
-        console.log('data:', data)
-        if (data.data.token) {
-          window.localStorage.setItem('token', data.data.token)
-        }
-      })
-      .catch((err)=>{
-        console.log('error', err)
-      })
-  }
-
-  onLogOut() {
-    axios.get('/api/user/logout')
-      .then((data)=>{
-        window.localStorage.removeItem('token') 
-        console.log(data)
-      })
-      .catch((err)=>{
-        console.log(err)
-      })
-  }
-
-  onCreateGameHandler () {
-    let payload = {
-      token: window.localStorage.token
-    }
-    axios.post('/api/games/create', payload)
-    .then((data)=>{
-      console.log(data)
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
+    {this.state.signedUp ? <div>Sign up successful! Continue to Login.</div>:null}
+    </div>
+  )
 }
-
-
-  render() {
-    return(
-      <div>
-        --- SignUp Component Here ---
-        <br/>
-        <br/>
-        John@gmail.com | abc123
-        <button onClick={this.onCreateUser1}>Create User: John</button>
-        <br/>
-        Bill@gmail.com | 123abc
-        <button onClick={this.onCreateUser2}>Create User: Bill</button>
-        <br/>
-
-
-        <br/>
-
-        John@gmail.com | abc123
-        <button onClick={this.onLoginUser1}>Login: John</button>
-        <br/>
-        Bill@gmail.com | 123abc
-        <button onClick={this.onLoginUser2}>Login: Bill</button>
-        <br/>
-
-        <br/>
-         You should only be able to create a game if you are logged in.
-         Click on "Search" then "Create" and try creating a game.
-        <br/>
-
-        <br/>
-        <br/>
-        <br/>
-        <button onClick={this.onLogOut}>Logout</button>
-      </div>
-    )
-  }
 }
 
 const mapStateToProps = state => {
   return {
-    
+
   }
 };
 
-export default connect(mapStateToProps)(SignUp);
+export default connect(mapStateToProps)(Signup);
