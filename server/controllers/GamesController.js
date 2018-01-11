@@ -4,7 +4,7 @@ const { User, Game } = require('../../db/models');
 GamesController = {
 
   CreateGame: (req, res) => { // this function only get called if a user has a token.
-    console.log('this is req.body', req.body);
+    // console.log('this is req.body', req.body);
     return User.find({
       where: {
         username: req.body.user
@@ -77,7 +77,20 @@ GamesController = {
   },
 
   UpdateGame: (req, res) => {
-    
+    console.log('req.body', req.body);
+    console.log('SHOW ME THE ID', req.body.id);
+    Game.update(
+      { address: req.body.address, competitive: req.body.competitive, coordinates: JSON.stringify(req.body.coordinates), end: req.body.end, max: req.body.max, notes: req.body.notes, sport: req.body.sport, start: req.body.start },
+      { where: { id: req.body.id } }
+    )
+      .then( (data) => {
+        console.log('Updated game: ', data)
+        res.status(204).send(data)
+      })
+      .catch( (err) => {
+        console.log('error updating game: ', err)
+        res.status(500).send(err);
+      })
   },
 
   DeleteGame: (req, res) => {

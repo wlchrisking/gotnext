@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import {setGameSetting} from '../actions/setGameSetting';
 import {setLocation} from '../actions/setLocation';
+import {setEditState} from '../actions/setEditState';
 
 class OptionCreate extends Component {
   constructor() {
@@ -44,13 +45,58 @@ class OptionCreate extends Component {
   
   onSubmitHandler() {
     console.log('click!');
-    if (this.props.edit === false) {
+    console.log('props', this.props.setting);
+    if (this.props.edit === true) {
+      console.log('true edit');
+      console.log('editting!!!!');
+      const payload = {
+        address: document.getElementsByName('address')[0].value,
+        competitive: document.getElementsByName('competitive')[0].value === 'true' ? true : false,
+        coordinates: this.props.location ? this.props.location : this.props.setting.coordinates,
+        end: document.getElementsByName('end')[0].value,
+        max: parseInt(document.getElementsByName('max')[0].value),
+        notes: document.getElementsByName('notes')[0].value,
+        sport: document.getElementsByName('sport')[0].value,
+        start: document.getElementsByName('start')[0].value,
+        user: this.props.user,
+        token: window.localStorage.token,
+        id: this.props.setting.id
+      }
+      this.props.setGameSetting(payload);
+      console.log('PAYYYYYLOAAAADDDD!!!!', payload);
+      axios.put('/api/games/update', payload)
+        .then( (response) => {
+          console.log('this is updated props.setting', this.props.setting)
+          console.log('successfully editted game', response);
+          var frm = document.getElementsByName('address');
+          frm[0].value='';
+          var frm = document.getElementsByName('sport');
+          frm[0].value='';
+          var frm = document.getElementsByName('max');
+          frm[0].value='';
+          var frm = document.getElementsByName('start');
+          frm[0].value='';
+          var frm = document.getElementsByName('end');
+          frm[0].value='';
+          var frm = document.getElementsByName('competitive');
+          frm[0].value=false;
+          var frm = document.getElementsByName('notes');
+          frm[0].value='';
+          this.props.setLocation(null);
+          console.log('this is location', this.props.location);
+          this.props.setGameSetting(null);
+          this.props.setEditState(false);
+        })
+        .catch( (err) => {
+          console.log('error creating game', err);
+        });
+    } else {
+      console.log('false edit');
       if (this.props.location) {
         const payload = this.form;
         payload['coordinates'] = this.props.location;
         payload['token'] = window.localStorage.token;
         payload['user'] = this.props.user;
-        console.log('this is payload!', payload);
         this.props.setGameSetting(payload);
         axios.post('/api/games/create', payload)
           .then( (response) => {
@@ -76,13 +122,12 @@ class OptionCreate extends Component {
           frm[0].value='';
           this.props.setLocation(null);
           console.log('this is location', this.props.location);
+          this.props.setGameSetting(null);
       } else {
         console.log('drop a pin!');
+        }
       }
-    } else {
-      console.log('editting!!!!');
     }
-  }
 
   onChangeHandler(e) {
     this.form[e.target.name] = e.target.value;
@@ -120,12 +165,14 @@ const mapStateToProps = state => {
   return {
     location: state.location,
     setting: state.setting,
-    user: state.user   
+    user: state.user,
+    edit: state.edit
   }
 };
 
 const matchDispatchToProps = dispatch => {
   return bindActionCreators({
+    setEditState:setEditState,
     setGameSetting:setGameSetting,
     setLocation:setLocation
     }, 
