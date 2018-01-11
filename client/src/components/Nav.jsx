@@ -4,6 +4,9 @@ import {bindActionCreators} from 'redux';
 
 import {setOption} from '../actions/setOption'
 import {setLoginPage} from '../actions/setLoginPage'
+import {setUser} from '../actions/setUser.js'
+import {setUserGames} from '../actions/setUserGames'
+import axios from 'axios'
 
 
 class Nav extends Component {
@@ -80,10 +83,24 @@ class Nav extends Component {
 
         <a href=""
           onClick={(e) => {
-            console.log(e)
             e.preventDefault()
-            this.props.setLoginPage('logout')
-          }} 
+          
+            axios.get('/api/user/logout')
+            .then((data)=>{
+              window.localStorage.removeItem('token')
+              this.props.setUser(null)
+              this.props.setUserGames(null)
+              this.props.setLoginPage('default')
+              this.props.setOption('search')
+              console.log('Data:', data.data.message)
+            })
+            .catch((err)=>{
+              console.log('Error logging out', err)
+            })
+
+            
+          }
+        } 
           className="navigation" 
         >
           Log Out 
@@ -102,7 +119,9 @@ const mapStateToProps = state => {
 const matchDispatchToProps = dispatch => {
   return bindActionCreators({
     setOption:setOption, 
-    setLoginPage:setLoginPage}, 
+    setLoginPage:setLoginPage,
+    setUser:setUser,
+    setUserGames:setUserGames}, 
     dispatch);
 };
 

@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import { Form, FormControl, Grid, Button, Jumbotron, Row, Col, FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap';
 import axios from 'axios'
 import {setUser} from '../actions/setUser.js'
+import {setLoginPage} from '../actions/setLoginPage'
+import {setOption} from '../actions/setOption'
 
 
 class Login extends Component {
@@ -32,14 +34,20 @@ class Login extends Component {
       password: this.state.password
     }
     console.log('this.props:', this.props)
-    this.props.setUser(payload.username)
-
+    
     axios.post('/api/user/login', payload)
     .then((data) => {
-      console.log('User logged in! Data received from server: ', data)
-      if (data.data.token) {
+      console.log('dataaaaaa', data)
+      if (data.data.errMsg) {
+        console.log('Error signing in:', data.data.errMsg)
+      } else if (data.data.token) {
+        this.props.setUser(payload.username)
         console.log('Token received from server!\nThis Token will be stored on localStorage: ', data.data.token)
         window.localStorage.setItem('token', data.data.token)
+        this.props.setOption('view')
+        this.props.setLoginPage('default')
+      } else {
+        console.log('Error signing in.')
       }
     })
       .catch((err) => {
@@ -106,7 +114,9 @@ const mapStateToProps = state => {
 
 const matchDispatchToProps = dispatch => {
   return bindActionCreators({
-    setUser: setUser
+    setUser: setUser,
+    setLoginPage: setLoginPage,
+    setOption: setOption
   },
     dispatch);
 };
