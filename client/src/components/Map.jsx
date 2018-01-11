@@ -14,7 +14,7 @@ class Maps extends Component {
   renderMarkers() {
     
     return this.props.gameData.map(game => {
-      const loc = JSON.parse(game.coordinates)
+      const loc = JSON.parse(game.coordinates)  
       return (
         <Marker 
           title={'placeholder'}
