@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Form, FormControl, Grid, Button, Jumbotron, Row, Col, FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap';
 import axios from 'axios'
 
-class Signup extends Component {
+class SignUp extends Component {
   constructor() {
     super()
     this.state = {
@@ -16,6 +16,7 @@ class Signup extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSignUpUser = this.handleSignUpUser.bind(this)
   }
+
 
 
   handleChange(event) {
@@ -32,9 +33,9 @@ class Signup extends Component {
     }
 
     axios.post('/api/user/signup', payload)
-      .then((data)=>{
+      .then((data) => {
         console.log('Sign up successful. Data received from server:', data)
-        if(data.data.success) {
+        if (data.data.success) {
           this.setState({
             signedUp: true
           })
@@ -45,57 +46,56 @@ class Signup extends Component {
       })
   }
 
+  // handleValidation() {
+  //   // will mess with later. handles client side validation
+  //   const pwlength = this.state.password.length
+  //   const userlength = this.state.username.length
+  //   if (userlength < 3) return 'error'
+  //   if (pwlength < 3) return 'error'
 
-// handleValidation() {
-//   // will mess with later. handles client side validation
-//   const pwlength = this.state.password.length
-//   const userlength = this.state.username.length
-//   if (userlength < 3) return 'error'
-//   if (pwlength < 3) return 'error'
+  // }
 
-// }
+  render() {
+    return (
+      <div className="formContainer">
 
-render() {
-  return (
-    <div>
+        <Form>
+          <FormGroup
+          // controlId="formBasicText"
+          // validationState={this.getValidationState()}
+          >
+            {/* <ControlLabel>Signup:</ControlLabel> */}
+            <FormControl
+              type="text"
+              id="username"
+              value={this.state.username}
+              placeholder="Enter Username"
+              onChange={this.handleChange}
+            />
 
-      <Form>
-        <FormGroup
-        // controlId="formBasicText"
-        // validationState={this.getValidationState()}
-        >
-          {/* <ControlLabel>Signup:</ControlLabel> */}
-          <FormControl className=""
-            type="text"
-            id="username"
-            value={this.state.username}
-            placeholder="Enter Username"
-            onChange={this.handleChange}
-          />
+            <FormControl
+              type="password"
+              id="password"
+              value={this.state.password}
+              placeholder="Enter Password"
+              onChange={this.handleChange}
+            />
 
-          <FormControl
-            type="text"
-            id="password"
-            value={this.state.password}
-            placeholder="Enter Password"
-            onChange={this.handleChange}
-          />
+            {/* <HelpBlock>Validation is based on string length.</HelpBlock> */}
+          </FormGroup>
+        </Form>
 
-          {/* <HelpBlock>Validation is based on string length.</HelpBlock> */}
-        </FormGroup>
-      </Form>
+        <Button
+          block={true}
+          type="button"
+          bsStyle="primary"
+          onClick={this.handleSignUpUser}
+        >Sign up</Button>
 
-      <Button
-        block={true}
-        type="button"
-        bsStyle="primary"
-        onClick={this.handleSignUpUser}
-      >Sign up</Button>
-
-    {this.state.signedUp ? <div>Sign up successful! Continue to Login.</div>:null}
-    </div>
-  )
-}
+        {this.state.signedUp ? <div>Sign up successful! Continue to Login.</div> : null}
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = state => {
@@ -104,4 +104,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps)(Signup);
+export default connect(mapStateToProps)(SignUp);

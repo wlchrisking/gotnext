@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form, FormControl, Grid, Button, Jumbotron, Row, Col, FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap';
 import axios from 'axios'
+import {setUser} from '../actions/setUser.js'
+
 
 class Login extends Component {
   constructor() {
@@ -29,6 +31,8 @@ class Login extends Component {
       username: this.state.username,
       password: this.state.password
     }
+    console.log('this.props:', this.props)
+    this.props.setUser(payload.username)
 
     axios.post('/api/user/login', payload)
     .then((data) => {
@@ -43,7 +47,6 @@ class Login extends Component {
       })
   }
 
-
 // handleValidation() {
 //   // will mess with later. handles client side validation
 //   const pwlength = this.state.password.length
@@ -55,7 +58,7 @@ class Login extends Component {
 
 render() {
   return (
-    <div>
+    <div className="formContainer">
 
       <Form>
         <FormGroup
@@ -63,7 +66,7 @@ render() {
         // validationState={this.getValidationState()}
         >
           {/* <ControlLabel>Login:</ControlLabel> */}
-          <FormControl className=""
+          <FormControl className="form"
             type="text"
             id="username"
             value={this.state.username}
@@ -72,7 +75,7 @@ render() {
           />
 
           <FormControl
-            type="text"
+            type="password"
             id="password"
             value={this.state.password}
             placeholder="Enter Password"
@@ -101,4 +104,11 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps)(Login);
+const matchDispatchToProps = dispatch => {
+  return bindActionCreators({
+    setUser: setUser
+  },
+    dispatch);
+};
+
+export default connect(mapStateToProps, matchDispatchToProps)(Login);
