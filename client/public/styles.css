@@ -34,3 +34,8 @@ body {
 #ui {
   display: inline;
 }
+
+.formContainer {
+  display: inline-block;
+  width: 250px;
+}

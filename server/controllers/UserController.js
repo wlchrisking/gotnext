@@ -73,7 +73,7 @@ UserController = {
           });
         }
 
-        res.status(200).send({message:'you created a user!'})
+        res.status(200).send({success: true, message:'User created! Continue to Log In.'})
 
         // if the below code is uncommented out, then you will immediately be logged in after creating a user.
         // if you do this, please remove "res.status(200).send(...)"" on the line above.

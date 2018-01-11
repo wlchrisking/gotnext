@@ -11,7 +11,6 @@ var expressJoi = require('express-joi-validator');
 var Joi = require('joi');
 var valSchema = require('./validation/valSchema');
 
-
 // [[ U S E R ]]
 
 Router.route('/user/login')
@@ -23,7 +22,7 @@ Router.route('/user/logout')
 
 Router.route('/user/signup')
   .all(expressJoi(valSchema.Login))
-  .post(UserController.Signup);
+  .post(UserController.Signup); 
 
 //created a test route to check if authenticated when logged in/out
 Router.route('/test')
@@ -31,7 +30,7 @@ Router.route('/test')
     console.log('is authenticated', req.isAuthenticated());
     console.log('req.user is', req.user);
     if (req.session) {
-      console.log('req.session is', req.session);
+      console.log('req.session is', req.session); 
     }
     res.send();
   });
@@ -54,6 +53,8 @@ Router.route('/games/fetch/:zip')
 
 Router.route('/games/create')
   .all(expressJoi(valSchema.Game))
+  .all(expressJoi(valSchema.CreateGame))
+  .all(tokenExists)
   .post(GamesController.CreateGame);
 
 // user view
@@ -73,17 +74,10 @@ Router.route('/games/delete')
 //the below function is needed for error handling for express-joi-validator using joi in the ".all" statements above
 Router.use(function (err, req, res, next) {
   if (err.isBoom) {
-        return res.status(err.output.statusCode).json(err.output.payload);
+    return res.status(err.output.statusCode).json({errMsg:err.data[0].message});
   }
 });
 
-
-// below is middleware to check if token exists on client request. 
-// all routes below this function must have a token.
-Router.use(tokenExists);
-
-Router.route('/games/create')
-.post(GamesController.CreateGame);
 
 
 

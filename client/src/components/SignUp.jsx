@@ -1,160 +1,98 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux'; 
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Form, FormControl, Grid, Button, Jumbotron, Row, Col, FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap';
 import axios from 'axios'
 
-import {setUser} from '../actions/setUser.js'
-
-
 class SignUp extends Component {
-
-  onCreateUser1() {
-    let payload = {
-      username: 'John@gmail.com',
-      password: 'abc123'
+  constructor() {
+    super()
+    this.state = {
+      username: '',
+      password: '',
+      signedUp: false
     }
 
-    let mytoken = {
-      token: window.localStorage.token
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSignUpUser = this.handleSignUpUser.bind(this)
+  }
+
+
+
+  handleChange(event) {
+    this.setState({
+      [event.target.id]: event.target.value,
+      [event.target.id]: event.target.value
+    })
+  }
+
+  handleSignUpUser() {
+    let payload = {
+      username: this.state.username,
+      password: this.state.password
     }
 
     axios.post('/api/user/signup', payload)
-      .then((data)=>{
-        console.log('data:', data)
-        if (data.data.token) {
-          window.localStorage.setItem('token', data.data.token)
+      .then((data) => {
+        console.log('Sign up successful. Data received from server:', data)
+        if (data.data.success) {
+          this.setState({
+            signedUp: true
+          })
         }
       })
-      .catch((err)=>{
-        console.log('error', err)
+      .catch((err) => {
+        console.log('Error signing up user: ', err)
       })
   }
 
-  onCreateUser2() {
-    let payload = {
-      username: 'Bill@gmail.com',
-      password: 'abc123'
-    }
+  // handleValidation() {
+  //   // will mess with later. handles client side validation
+  //   const pwlength = this.state.password.length
+  //   const userlength = this.state.username.length
+  //   if (userlength < 3) return 'error'
+  //   if (pwlength < 3) return 'error'
 
-    let mytoken = {
-      token: window.localStorage.token
-    }
-
-    axios.post('/api/user/signup', payload)
-    .then((data)=>{
-      console.log('data:', data)
-      if (data.data.token) {
-        window.localStorage.setItem('token', data.data.token)
-      }
-    })
-    .catch((err)=>{
-      console.log('error', err)
-    })
-  }
-
-  onLoginUser1() {
-    let payload = {
-      username: 'John@gmail.com',
-      password: 'abc123'
-    }
-    this.props.setUser(payload.username);
-
-    let mytoken = {
-      token: window.localStorage.token
-    }
-
-    axios.post('/api/user/login', payload, mytoken)
-    .then((data)=>{
-      console.log('data:', data)
-      if (data.data.token) {
-        window.localStorage.setItem('token', data.data.token)
-      }
-    })
-      .catch((err)=>{
-        console.log('error', err)
-      })
-  }
-
-  onLoginUser2() {
-    let payload = {
-      username: 'Bill@gmail.com',
-      password: 'abc123'
-    }
-    this.props.setUser(payload.username);
-
-    let mytoken = {
-      token: window.localStorage.token
-    }
-
-    axios.post('/api/user/login', payload, mytoken)
-      .then((data)=>{
-        console.log('data:', data)
-        if (data.data.token) {
-          window.localStorage.setItem('token', data.data.token)
-        }
-      })
-      .catch((err)=>{
-        console.log('error', err)
-      })
-  }
-
-  onLogOut() {
-    axios.get('/api/user/logout')
-      .then((data)=>{
-        window.localStorage.removeItem('token') 
-        console.log(data)
-      })
-      .catch((err)=>{
-        console.log(err)
-      })
-  }
-
-  onCreateGameHandler () {
-    let payload = {
-      token: window.localStorage.token
-    }
-    axios.post('/api/games/create', payload)
-    .then((data)=>{
-      console.log(data)
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-}
-
+  // }
 
   render() {
-    return(
-      <div>
-        --- SignUp Component Here ---
-        <br/>
-        <br/>
-        John@gmail.com | abc123
-        <button onClick={this.onCreateUser1}>Create User: John</button>
-        <br/>
-        Bill@gmail.com | 123abc
-        <button onClick={this.onCreateUser2}>Create User: Bill</button>
-        <br/>
+    return (
+      <div className="formContainer">
 
+        <Form>
+          <FormGroup
+          // controlId="formBasicText"
+          // validationState={this.getValidationState()}
+          >
+            {/* <ControlLabel>Signup:</ControlLabel> */}
+            <FormControl
+              type="text"
+              id="username"
+              value={this.state.username}
+              placeholder="Enter Username"
+              onChange={this.handleChange}
+            />
 
-        <br/>
+            <FormControl
+              type="password"
+              id="password"
+              value={this.state.password}
+              placeholder="Enter Password"
+              onChange={this.handleChange}
+            />
 
-        John@gmail.com | abc123
-        <button onClick={this.onLoginUser1.bind(this)}>Login: John</button>
-        <br/>
-        Bill@gmail.com | 123abc
-        <button onClick={this.onLoginUser2.bind(this)}>Login: Bill</button>
-        <br/>
+            {/* <HelpBlock>Validation is based on string length.</HelpBlock> */}
+          </FormGroup>
+        </Form>
 
-        <br/>
-         You should only be able to create a game if logged in.
-        <button onClick={this.onCreateGameHandler}>Create a game</button>
-        <br/>
+        <Button
+          block={true}
+          type="button"
+          bsStyle="primary"
+          onClick={this.handleSignUpUser}
+        >Sign up</Button>
 
-        <br/>
-        <br/>
-        <br/>
-        <button onClick={this.onLogOut}>Logout</button>
+        {this.state.signedUp ? <div>Sign up successful! Continue to Login.</div> : null}
       </div>
     )
   }
@@ -162,15 +100,8 @@ class SignUp extends Component {
 
 const mapStateToProps = state => {
   return {
-    
+
   }
 };
 
-const matchDispatchToProps = dispatch => {
-  return bindActionCreators({
-    setUser:setUser
-    }, 
-    dispatch);
-};
-
-export default connect(mapStateToProps, matchDispatchToProps)(SignUp);
+export default connect(mapStateToProps)(SignUp);
