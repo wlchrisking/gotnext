@@ -4,15 +4,7 @@ import {bindActionCreators} from 'redux';
 
 import OptionSearch from './OptionSearch.jsx'
 
-class OptionSearchEntry extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  componentWillMount() {
-    console.log('PROPPPSSSSSSSSSSS', this.props)
-  }
-  
+class OptionSearchEntry extends Component { 
 
   render() {
     return (
@@ -20,7 +12,11 @@ class OptionSearchEntry extends Component {
         <div>
           <div>
             <h4>Username:
-              {
+              { 
+                !this.props.userList
+                ?
+                null
+                :
                 JSON.stringify(this.props.userList.find(user => { 
                   return user.id === this.props.game.UserId 
                 }).username)
@@ -38,9 +34,8 @@ class OptionSearchEntry extends Component {
 
 const mapStateToProps = state => {
   return {
-    // userList: state.userList
+    userList: state.userList
   }
 };
-
 
 export default connect(mapStateToProps)(OptionSearchEntry);

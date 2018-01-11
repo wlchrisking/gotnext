@@ -15,7 +15,10 @@ class App extends Component {
 
   // on load, axios request to render games on map
   componentDidMount() {
+    
     this.props.setEditState(false);
+    
+    // fetch list of all GAMES and put it in store as 'gameData
     axios.get('/api/map/fetch')
       .then(response => {
         console.log('fetching data on componentDidMount')
@@ -25,7 +28,15 @@ class App extends Component {
         console.log('error fetching data on componentDidMount', err)
       })
 
-    
+    // fetch list of all USERS and put it in store as 'userList'
+    axios.get('/api/games/fetch/users')
+      .then(response => {        
+        console.log('fetching user list on componentDidMount')
+        this.props.fetchUsers(response.data)
+      })
+      .catch(err => {
+        console.log('error fetching user list on componentDidMount', err)
+      })
   }
 
   render() {
