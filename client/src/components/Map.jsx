@@ -14,15 +14,14 @@ class Maps extends Component {
   renderMarkers() {
     
     return this.props.gameData.map(game => {
-      const loc = JSON.parse(game.coordinates)  
-      console.log('LOC', loc)
+      const loc = JSON.parse(game.coordinates)
       return (
         <Marker 
           title={'placeholder'}
           name={'placeholder'}
           key={game.id}
           // weird object being identified as a string error (fixed with curly bracket wrap)
-          position={{loc}}
+          position={loc}
         />
       )
     })
@@ -51,17 +50,22 @@ class Maps extends Component {
         }}
       >        
       {
-        // gets rid of the initial marker
-        !this.props.location ? 
+        // gets rid of the initial marker (bug)
+        !this.props.location 
+        ? 
         null
         :
+        // put a marker down on click
         <Marker 
           title={'first marker'}
           name={'first marker'}
           position={this.props.location}
         />
       }
-      {this.renderMarkers()}        
+      {
+        // render all game markers on map 
+        this.renderMarkers()
+      }        
       </Map>
     );
   }
