@@ -59,7 +59,8 @@ class OptionCreate extends Component {
         sport: document.getElementsByName('sport')[0].value,
         start: document.getElementsByName('start')[0].value,
         user: this.props.user,
-        token: window.localStorage.token
+        token: window.localStorage.token,
+        id: this.props.setting.id
       }
       this.props.setGameSetting(payload);
       console.log('PAYYYYYLOAAAADDDD!!!!', payload);
@@ -84,6 +85,7 @@ class OptionCreate extends Component {
           this.props.setLocation(null);
           console.log('this is location', this.props.location);
           this.props.setGameSetting(null);
+          this.props.setEditState(false);
         })
         .catch( (err) => {
           console.log('error creating game', err);
@@ -123,75 +125,8 @@ class OptionCreate extends Component {
           this.props.setGameSetting(null);
       } else {
         console.log('drop a pin!');
+        }
       }
-    }
-    // if (this.props.edit === undefined) {
-    //   if (this.props.location) {
-    //     const payload = this.form;
-    //     payload['coordinates'] = this.props.location;
-    //     payload['token'] = window.localStorage.token;
-    //     payload['user'] = this.props.user;
-    //     this.props.setGameSetting(payload);
-    //     axios.post('/api/games/create', payload)
-    //       .then( (response) => {
-    //         console.log('this is props.setting', this.props.setting)
-    //         console.log('successfully created game', response);
-    //       })
-    //       .catch( (err) => {
-    //         console.log('error creating game', err);
-    //       });
-    //       var frm = document.getElementsByName('address');
-    //       frm[0].value='';
-    //       var frm = document.getElementsByName('sport');
-    //       frm[0].value='';
-    //       var frm = document.getElementsByName('max');
-    //       frm[0].value='';
-    //       var frm = document.getElementsByName('start');
-    //       frm[0].value='';
-    //       var frm = document.getElementsByName('end');
-    //       frm[0].value='';
-    //       var frm = document.getElementsByName('competitive');
-    //       frm[0].value=false;
-    //       var frm = document.getElementsByName('notes');
-    //       frm[0].value='';
-    //       this.props.setLocation(null);
-    //       console.log('this is location', this.props.location);
-    //       this.props.setGameSetting(null);
-    //   } else {
-    //     console.log('drop a pin!');
-    //   }
-    // } else {
-    //   console.log('editting!!!!');
-    //   var ad = document.getElementsByName('address');
-    //   var sp = document.getElementsByName('sport');
-    //   var m = document.getElementsByName('max');
-    //   var st = document.getElementsByName('start');
-    //   var e = document.getElementsByName('end');
-    //   var co = document.getElementsByName('competitive');
-    //   var no = document.getElementsByName('notes');
-    //   const payload = {
-    //     address: ad[0].value,
-    //     competitive: co[0].value,
-    //     coordinates: this.props.location,
-    //     end: e[0].value,
-    //     max: m[0].value,
-    //     notes: no[0].value,
-    //     sport: sp[0].value,
-    //     start: st[0].value,
-    //     user: this.props.user,
-    //     token: window.localStorage.token
-    //   }
-    //   this.props.setGameSetting(payload);
-    //   console.log('payload!', payload);
-    //   axios.post('/api/games/update', {})
-    //     .then( (response) => {
-    //       console.log('this is updated props.setting', this.props.setting)
-    //       console.log('successfully editted game', response);
-    //     })
-    //     .catch( (err) => {
-    //       console.log('error creating game', err);
-    //     });
-    //   }
     }
 
   onChangeHandler(e) {

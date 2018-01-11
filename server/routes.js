@@ -64,7 +64,7 @@ Router.route('/games/fetch/options/:gameId')
   .get(GamesController.FetchOptions);
 
 Router.route('/games/update')
-  .all(expressJoi(valSchema.Game))
+  .all(expressJoi(valSchema.GameUpdate))
   .put(GamesController.UpdateGame);
 
 Router.route('/games/delete')
