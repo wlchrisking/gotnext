@@ -41,7 +41,17 @@ GamesController = {
       });
   },
 
-  FetchList: (req, res) => {
+  FetchUsers: (req, res) => {
+    User.findAll({
+      attributes: {exclude: ['password']}
+    }) 
+      .then(data => {
+        res.status(201).send(data)
+      })
+      .catch(err => {
+        console.log('error fetching userlist on componentDidMount')
+        res.status(500)
+      })
     
   },
 

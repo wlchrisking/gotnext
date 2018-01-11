@@ -8,6 +8,7 @@ import LocationSelector from './locationSelector';
 import UserGame from './userGame';
 import User from './user';
 import EditState from './editState';
+import UserList from './userList';
 
 /*
  * We combine all reducers into a single object before updated data is dispatched (sent) to store
@@ -23,7 +24,8 @@ const allReducers = combineReducers({
   location: LocationSelector,
   games: UserGame,
   user: User,
-  edit:EditState
+  edit:EditState,
+  userList: UserList
 });
 
 export default allReducers
