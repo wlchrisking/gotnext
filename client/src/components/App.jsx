@@ -24,17 +24,6 @@ class App extends Component {
         console.log('fetching data on componentDidMount')
         this.props.fetchGameData(response.data)
       })
-      .then(
-        axios.get('/api/games/fetch/users')
-          .then(response => {        
-            console.log('fetching user list on componentDidMount')
-            
-            this.props.fetchUsers(response.data)
-          })
-          .catch(err => {
-            console.log('error fetching user list on componentDidMount', err)
-          })
-      )
       .catch(err => {
         console.log('error fetching data on componentDidMount', err)
       })

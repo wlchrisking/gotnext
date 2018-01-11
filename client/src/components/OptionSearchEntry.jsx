@@ -2,10 +2,26 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
+import OptionSearch from './OptionSearch.jsx'
+
 class OptionSearchEntry extends Component {
   constructor(props) {
     super(props)
   }
+
+  componentWillMount() {
+    console.log('PROPPPSSSSSSSSSSS', this.props)
+  }
+  
+ componentDidMount() {
+   console.log('userlist', this.props.userList)
+   console.log('game userid', this.props.game.UserId)
+  const test = this.props.userList.find(user => { 
+    return user.id === this.props.game.UserId 
+  }).username
+  console.log('TEST',test)
+ }
+
   render() {
     return (
       <div>
@@ -15,7 +31,7 @@ class OptionSearchEntry extends Component {
             
             {
               JSON.stringify(this.props.userList.find(user => { 
-                user.id === this.props.game.userId 
+                return user.id === this.props.game.UserId 
               }).username)
             }
           </div>
@@ -36,7 +52,7 @@ class OptionSearchEntry extends Component {
 
 const mapStateToProps = state => {
   return {
-    userList: state.userList
+    // userList: state.userList
   }
 };
 
