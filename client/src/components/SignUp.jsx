@@ -57,14 +57,10 @@ class SignUp extends Component {
 
   render() {
     return (
-      <div className="formContainer">
+      <div>
 
         <Form>
-          <FormGroup
-          // controlId="formBasicText"
-          // validationState={this.getValidationState()}
-          >
-            {/* <ControlLabel>Signup:</ControlLabel> */}
+          <FormGroup>
             <FormControl
               type="text"
               id="username"
@@ -80,8 +76,6 @@ class SignUp extends Component {
               placeholder="Enter Password"
               onChange={this.handleChange}
             />
-
-            {/* <HelpBlock>Validation is based on string length.</HelpBlock> */}
           </FormGroup>
         </Form>
 

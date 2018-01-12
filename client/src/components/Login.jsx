@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Form, FormControl, Grid, Button, Jumbotron, Row, Col, FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap';
+import { Form, FormControl, Button, FormGroup } from 'react-bootstrap';
 import axios from 'axios'
 import {setUser} from '../actions/setUser.js'
 import {setLoginPage} from '../actions/setLoginPage'
@@ -66,15 +66,11 @@ class Login extends Component {
 
 render() {
   return (
-    <div className="formContainer">
+    <div>
 
       <Form>
-        <FormGroup
-        // controlId="formBasicText"
-        // validationState={this.getValidationState()}
-        >
-          {/* <ControlLabel>Login:</ControlLabel> */}
-          <FormControl className="form"
+        <FormGroup>
+          <FormControl
             type="text"
             id="username"
             value={this.state.username}
@@ -90,7 +86,6 @@ render() {
             onChange={this.handleChange}
           />
 
-          {/* <HelpBlock>Validation is based on string length.</HelpBlock> */}
         </FormGroup>
       </Form>
 

@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
+import axios from 'axios';
 
 import {setGameSetting} from '../actions/setGameSetting';
 import {setOption} from '../actions/setOption';
 import {setLoginPage} from '../actions/setLoginPage';
 import {setEditState} from '../actions/setEditState';
+import {setUserGames} from '../actions/setUserGames';
 
 class GameEntry extends Component {
   constructor(prop) {
@@ -26,7 +28,6 @@ class GameEntry extends Component {
   }
 
   onEditHandler() {
-    console.log('edited!');
     this.props.setEditState(true);
     this.props.setGameSetting(this.form);
     this.props.setOption('create');
@@ -34,19 +35,48 @@ class GameEntry extends Component {
   }
 
   onDeleteHandler() {
-    console.log('deleted!');
+    axios.delete(`api/games/delete/${this.form.id}`)
+    .then((response) => {
+      axios.get(`/api/games/fetch/user/${this.props.user}`)
+      .then((response) => {
+        this.props.setUserGames(response.data);
+      })
+      .catch((err) => {
+        console.log('Error fetching user games: ', err);
+      });
+    })
+    .catch((error) => {
+      console.log('Error deleting user game: ', error);
+    });
   }
 
   render() {
     return (
         <div>
           <div>
+            <br/>
             <div>
-              <h4>GameID:</h4>{JSON.stringify(this.form.id)}
+              GameID: {JSON.stringify(this.form.id)}
             </div>
             <div>
-              <h5>Coordinates:</h5>{JSON.stringify(this.form.coordinates)}
+              Sport: {this.form.sport}
             </div>
+            <div>
+              Start: {this.form.start} End: {this.form.end}
+            </div>
+            <div>
+              Address: {this.form.address}
+            </div>
+            <div>
+              Max Players: {this.form.max}
+            </div>
+            <div>
+              Casual/Nightmare: {JSON.stringify(this.form.competitive) === 'true' ? 'Nightmare mode homie' : 'Tek it ezzz foo'}
+            </div>
+            <div>
+              Coordinates: {(this.form.coordinates)}
+            </div>
+            <br/>
             <button onClick={this.onEditHandler.bind(this)}>Edit</button>
             <button onClick={this.onDeleteHandler.bind(this)}>Delete</button>
           </div>
@@ -69,6 +99,7 @@ const matchDispatchToProps = dispatch => {
     setEditState:setEditState,
     setGameSetting:setGameSetting,
     setOption:setOption,
+    setUserGames:setUserGames,
     setLoginPage:setLoginPage
     }, 
     dispatch);

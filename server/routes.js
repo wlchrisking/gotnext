@@ -71,7 +71,7 @@ Router.route('/games/update')
   .all(expressJoi(valSchema.GameUpdate))
   .put(GamesController.UpdateGame);
 
-Router.route('/games/delete')
+Router.route('/games/delete/:gameId')
   .delete(GamesController.DeleteGame);
 
 //the below function is needed for error handling for express-joi-validator using joi in the ".all" statements above

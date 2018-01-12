@@ -16,11 +16,11 @@ import UserList from './userList';
  * */
 
 const allReducers = combineReducers({
-  gameData: GameData,
+  gameData: GameData, //
   userGameData: UserGameData,
   option: OptionSelector,
   loginPage: LoginPageSelector,
-  setting: GameSetting,
+  setting: GameSetting, //this is most recently selected game - eg clicking edit on a game loads it into setting.
   location: LocationSelector,
   games: UserGame,
   user: User,

@@ -33,7 +33,7 @@ GamesController = {
           .catch( (err) => {
             console.log('Error creating game', err);
             res.sendStatus(500);
-          })
+          });
       })
       .catch( (err) => {
         console.log('error looking for user', err)
@@ -51,7 +51,7 @@ GamesController = {
       .catch(err => {
         console.log('error fetching userlist on componentDidMount')
         res.status(500)
-      })
+      });
     
   },
 
@@ -79,7 +79,7 @@ GamesController = {
       })
       .catch( (err) => {
         console.log('could not grab user', err);
-      })
+      });
   },
 
   FetchOptions: (req, res) => {
@@ -90,7 +90,7 @@ GamesController = {
     console.log('req.body', req.body);
     console.log('SHOW ME THE ID', req.body.id);
     Game.update(
-      { address: req.body.address, competitive: req.body.competitive, coordinates: JSON.stringify(req.body.coordinates), end: req.body.end, max: req.body.max, notes: req.body.notes, sport: req.body.sport, start: req.body.start },
+      { address: req.body.address, competitive: req.body.competitive, coordinates: JSON.stringify(JSON.parse(req.body.coordinates)), end: req.body.end, max: req.body.max, notes: req.body.notes, sport: req.body.sport, start: req.body.start },
       { where: { id: req.body.id } }
     )
       .then( (data) => {
@@ -100,13 +100,22 @@ GamesController = {
       .catch( (err) => {
         console.log('error updating game: ', err)
         res.status(500).send(err);
-      })
+      });
   },
 
   DeleteGame: (req, res) => {
-
+    Game.destroy(
+      { where: {id: req.params.gameId} }
+    )
+    .then((data) => {
+      console.log('deleted game: ', data);
+      res.status(202).send('Game successfully deleted');
+    })
+    .catch((err) => {
+      console.log('Error deleting game: ', err);
+      res.status(500).send(err);
+    });
   }
-  
-}
+};
 
 module.exports = GamesController;

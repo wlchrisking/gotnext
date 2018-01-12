@@ -6,7 +6,10 @@ import allReducers from './reducers';
 import App from './components/App.jsx';
 
 // store creation
+// const store = createStore(allReducers);
+//to be able to use redux devtools:
 const store = createStore(allReducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
 ReactDOM.render(
   <Provider store={store}>
       <App />
