@@ -26,6 +26,11 @@ class OptionCreate extends Component {
     }
   }
 
+  componentWillMount() {
+    if (this.props.setting) {
+      this.form['competitive'] = this.props.setting.competitive;
+    }
+  }
   componentDidMount() {
     if (this.props.setting) {
       var frm = document.getElementsByName('address');
@@ -40,7 +45,7 @@ class OptionCreate extends Component {
       var frm = document.getElementsByName('end');
       frm[0].value = this.props.setting.end;
       // var frm = document.getElementsByName('competitive');
-      frm[0]['competitive'] = this.props.setting.competitive;
+      // frm[0]['competitive'] = this.props.setting.competitive;
       var frm = document.getElementsByName('notes');
       frm[0].value = this.props.setting.notes;
     }
@@ -92,7 +97,7 @@ class OptionCreate extends Component {
               frm[0].value = '';
               this.props.setLocation(null);
               console.log('this is location', this.props.location);
-              this.props.setGameSetting(null);
+              // this.props.setGameSetting(null);
               this.props.setEditState(false);
             })
             .catch(() => {
@@ -159,6 +164,10 @@ class OptionCreate extends Component {
 
   onSelectHandler(e) {
     this.form['competitive'] = e
+    this.props.setting.competitive = this.form['competitive']
+    console.log('attempting to update setting', this.props.setting.competitive);
+    this.props.setGameSetting(this.props.setting);
+    // frm[0]['competitive'] = this.props.setting.competitive;
     console.log('e: ', e, 'thisformcompetitive', this.form['competitive']);
   }
 
@@ -201,9 +210,11 @@ class OptionCreate extends Component {
             />
 
             <DropdownButton
+              name="drop"
               componentClass={InputGroup.Button}
               id="input-dropdown-addon"
-              title="Casual or Competitive"
+              title={this.form['competitive'] === true ? 'Competitive' : 'Casual'}
+              
             >
               <MenuItem eventKey={false} onSelect={this.onSelectHandler.bind(this)}>Casual
             </MenuItem>
