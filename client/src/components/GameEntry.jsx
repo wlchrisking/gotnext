@@ -41,12 +41,29 @@ class GameEntry extends Component {
     return (
         <div>
           <div>
+            <br/>
             <div>
-              <h4>GameID:</h4>{JSON.stringify(this.form.id)}
+              GameID: {JSON.stringify(this.form.id)}
             </div>
             <div>
-              <h5>Coordinates:</h5>{JSON.stringify(this.form.coordinates)}
+              Sport: {this.form.sport}
             </div>
+            <div>
+              Start: {this.form.start} End: {this.form.end}
+            </div>
+            <div>
+              Address: {this.form.address}
+            </div>
+            <div>
+              Max Players: {this.form.max}
+            </div>
+            <div>
+              Casual/Nightmare: {JSON.stringify(this.form.competitive) === 'true' ? 'Nightmare mode homie' : 'Tek it ezzz foo'}
+            </div>
+            <div>
+              Coordinates: {(this.form.coordinates)}
+            </div>
+            <br/>
             <button onClick={this.onEditHandler.bind(this)}>Edit</button>
             <button onClick={this.onDeleteHandler.bind(this)}>Delete</button>
           </div>
