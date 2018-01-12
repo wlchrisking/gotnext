@@ -60,7 +60,7 @@ class Navi extends Component {
             }}
             className="navigation"
           >
-            View
+            View Your Games
         </a>
         </NavItem>
           {/* === SIGNUP BUTTON === */}
