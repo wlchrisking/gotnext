@@ -33,7 +33,7 @@ GamesController = {
           .catch( (err) => {
             console.log('Error creating game', err);
             res.sendStatus(500);
-          })
+          });
       })
       .catch( (err) => {
         console.log('error looking for user', err)
@@ -51,7 +51,7 @@ GamesController = {
       .catch(err => {
         console.log('error fetching userlist on componentDidMount')
         res.status(500)
-      })
+      });
     
   },
 
@@ -79,7 +79,7 @@ GamesController = {
       })
       .catch( (err) => {
         console.log('could not grab user', err);
-      })
+      });
   },
 
   FetchOptions: (req, res) => {
@@ -100,13 +100,22 @@ GamesController = {
       .catch( (err) => {
         console.log('error updating game: ', err)
         res.status(500).send(err);
-      })
+      });
   },
 
   DeleteGame: (req, res) => {
-
+    Game.destroy(
+      { where: {id: req.params.gameId} }
+    )
+    .then((data) => {
+      console.log('deleted game: ', data);
+      res.status(202).send('Game successfully deleted');
+    })
+    .catch((err) => {
+      console.log('Error deleting game: ', err);
+      res.status(500).send(err);
+    });
   }
-  
-}
+};
 
 module.exports = GamesController;
