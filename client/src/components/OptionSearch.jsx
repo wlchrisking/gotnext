@@ -10,7 +10,7 @@ class OptionSearch extends Component {
   render() {    
     return(
       <div>
-        <Table striped bordered condensed>
+        <Table striped bordered condensed style={{fontSize: '9px'}}>
         <thead>
         <tr><th>Creator</th><th>Sport</th><th>Start/End</th><th>Address</th><th>Max Players</th><th>Type</th></tr>
         </thead>

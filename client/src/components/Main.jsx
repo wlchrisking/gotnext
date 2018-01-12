@@ -12,36 +12,31 @@ class Main extends Component {
   render() {
     if (this.props.loginPage === 'login') {
       return (
-        <Login />
+        <Col xs={6} md={4} xsOffset={3} mdOffset={4} >
+          <Login />
+        </Col>
       )
     }
 
     if (this.props.loginPage === 'signup') {
       return (
-        <SignUp />
+        <Col xs={6} md={4} xsOffset={3} mdOffset={4} >
+          <SignUp />
+        </Col>
       )
     }
 
     if (this.props.loginPage === 'default' || this.props.loginPage === null) {
       return (
-        <div style={{border: '2px solid pink'}}>
-          <Col xs={6} md={6}>
-            All Games:
+        <div>
+          <Col md={6} style={{ border: '2px solid pink' }}>
             <Option />
           </Col>
-          <br /><br />
-          <br /><br />
 
-          <Col>
-            Map of Games:
-            <Maps />
+          <Col md={6} style={{ border: '2px solid pink' }}>
+            Map:
+          <Maps />
           </Col>
-
-          <br /><br />
-          <br /><br />
-          <div>
-            {JSON.stringify(this.props.location)}
-          </div>
         </div>
       )
     }

@@ -1,16 +1,19 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux'; 
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import OptionSearch from './OptionSearch.jsx'
 import OptionCreate from './OptionCreate.jsx'
 import OptionView from './OptionView.jsx'
 
 class Option extends Component {
-  render() {    
+  render() {
     if (this.props.option === 'search') {
       return (
         <div>
+          <div style={{ fontSize: '14px', fontWeight: 'bold' }}>All Available Games:
+        </div>
+          <br />
           <OptionSearch />
         </div>
       )
@@ -31,7 +34,7 @@ class Option extends Component {
         </div>
       )
     }
-              
+
   }
 }
 

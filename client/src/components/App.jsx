@@ -57,13 +57,18 @@ class App extends Component {
           </Col>
         </Row>
 
-        <Row>
+        <Row >
           <Col style={{ border: '2px solid red' }}>
             <Navi />
           </Col>
         </Row>
         <hr />
-        <Main />
+
+        <Row >
+          
+            <Main />
+        </Row>
+
       </Grid>
     )
   }
