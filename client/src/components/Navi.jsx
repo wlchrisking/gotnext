@@ -14,7 +14,6 @@ class Navi extends Component {
 
   render() {
     return (
-
       <Navbar>
         <Navbar.Header>
           <Navbar.Brand>
@@ -23,6 +22,7 @@ class Navi extends Component {
         </Navbar.Header>
 
         {/* === SEARCH BUTTON === */}
+
         <Nav>
           <NavItem>
             <a href=""
@@ -34,8 +34,9 @@ class Navi extends Component {
               className="navigation"
             >
               Search
-        </a>
+            </a>
           </NavItem>
+
           {/* === CREATE BUTTON === */}
 
           <NavItem>
@@ -48,73 +49,96 @@ class Navi extends Component {
               className="navigation"
             >
               Create
-        </a>
+            </a>
           </NavItem>
+
           {/* === VIEW BUTTON === */}
+
           <NavItem>
-          <a href=""
-            onClick={(e) => {
-              e.preventDefault()
-              this.props.setOption('view')
-              this.props.setLoginPage('default')
-            }}
-            className="navigation"
-          >
-            View Your Games
-        </a>
-        </NavItem>
+            <a href=""
+              onClick={(e) => {
+                e.preventDefault()
+                this.props.setOption('view')
+                this.props.setLoginPage('default')
+              }}
+              className="navigation"
+            >
+              View Your Games
+            </a>
+          </NavItem>
+
           {/* === SIGNUP BUTTON === */}
-          <NavItem>
-            <a href=""
-              onClick={(e) => {
-                e.preventDefault()
-                this.props.setLoginPage('signup')
-              }}
-              className="navigation"
-            >
-              Sign Up
-        </a>
-          </NavItem>
-          {/* === LOGIN BUTTON === */}
-          <NavItem>
-          <a href=""
-            onClick={
-              (e) => {
-                e.preventDefault()
-                this.props.setLoginPage('login')
-              }}
-            className="navigation"
-          >
-            Login
-        </a>
-          </NavItem>
-            {/* === LOG OUT BUTTON === */}
+          {
+            !this.props.user
+            ?
             <NavItem>
-            <a href=""
-              onClick={(e) => {
-                e.preventDefault()
+              <a href=""
+                onClick={(e) => {
+                  e.preventDefault()
+                  this.props.setLoginPage('signup')
+                }}
+                className="navigation"
+              >
+                Sign Up
+              </a>
+            </NavItem>
+            :
+            null
+          }
 
-                axios.get('/api/user/logout')
-                  .then((data) => {
-                    window.localStorage.removeItem('token')
-                    this.props.setUser(null)
-                    this.props.setUserGames(null)
-                    this.props.setLoginPage('default')
-                    this.props.setOption('search')
-                    console.log('Data:', data.data.message)
-                  })
-                  .catch((err) => {
-                    console.log('Error logging out', err)
-                  })
+          {/* === LOGIN/LOGOUT BUTTON === */}
 
+          {
+            !this.props.user
+           
+            ?
+            
+            <NavItem>
+              <a href=""
+                onClick={
+                  (e) => {
+                    e.preventDefault()
+                    this.props.setLoginPage('login')
+                  }}
+                className="navigation"
+              >
+                Login
+              </a>
+            </NavItem>
 
-              }
-              }
-              className="navigation"
-            >
-              Log Out
-        </a>
-          </NavItem>
+            :
+
+            <NavItem>
+              <a href=""
+                onClick={(e) => {
+                  e.preventDefault()
+
+                  axios.get('/api/user/logout')
+                    .then((data) => {
+                      window.localStorage.removeItem('token')
+                      window.localStorage.removeItem('username')
+                      this.props.setUser(null)
+                      this.props.setUserGames(null)
+                      this.props.setLoginPage('default')
+                      this.props.setOption('search')
+                      console.log('Data:', data.data.message)
+                    })
+                    .catch((err) => {
+                      console.log('Error logging out', err)
+                    })
+                  }
+                }
+                className="navigation"
+              >
+                Log Out
+              </a>
+            </NavItem>
+          }
+          
+          
+          
+          
+
         </Nav>
       </Navbar>
     )
@@ -123,7 +147,7 @@ class Navi extends Component {
 
 const mapStateToProps = state => {
   return {
-
+    user: state.user
   }
 };
 

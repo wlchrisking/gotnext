@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { fetchGameData } from '../actions/fetchGameData';
 import { setEditState } from '../actions/setEditState';
 import { fetchUsers } from '../actions/fetchUsers';
+import { setUser } from '../actions/setUser';
 
 import axios from 'axios';
 
@@ -19,6 +20,10 @@ class App extends Component {
   // on load, axios request to render games on map
   componentDidMount() {
 
+    (!this.props.user && window.localStorage.username)
+    ? this.props.setUser(window.localStorage.username)
+    : null
+    
     this.props.setEditState(false);
 
     // fetch list of all GAMES and put it in store as 'gameData
@@ -75,12 +80,14 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    gameData: state.gameData
+    gameData: state.gameData,
+    user: state.user
   }
 };
 
 const matchDispatchToProps = dispatch => {
   return bindActionCreators({
+    setUser: setUser,
     fetchGameData: fetchGameData,
     fetchUsers: fetchUsers,
     setEditState: setEditState
