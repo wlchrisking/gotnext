@@ -74,7 +74,7 @@ class GameEntry extends Component {
               Casual/Nightmare: {JSON.stringify(this.form.competitive) === 'true' ? 'Nightmare mode homie' : 'Tek it ezzz foo'}
             </div>
             <div>
-              Coordinates: {(this.form.coordinates)}
+              Coordinates: {(this.form.coordinates.replace(/"/, '').replace(/"/, '').replace(/"/, '').replace(/"/, ''))}
             </div>
             <br/>
             <button onClick={this.onEditHandler.bind(this)}>Edit</button>
