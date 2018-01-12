@@ -44,6 +44,7 @@ class Login extends Component {
         this.props.setUser(payload.username)
         console.log('Token received from server!\nThis Token will be stored on localStorage: ', data.data.token)
         window.localStorage.setItem('token', data.data.token)
+        window.localStorage.setItem('username', data.data.username)
         this.props.setOption('view')
         this.props.setLoginPage('default')
       } else {
