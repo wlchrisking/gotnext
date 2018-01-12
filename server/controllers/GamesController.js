@@ -90,7 +90,7 @@ GamesController = {
     console.log('req.body', req.body);
     console.log('SHOW ME THE ID', req.body.id);
     Game.update(
-      { address: req.body.address, competitive: req.body.competitive, coordinates: JSON.stringify(req.body.coordinates), end: req.body.end, max: req.body.max, notes: req.body.notes, sport: req.body.sport, start: req.body.start },
+      { address: req.body.address, competitive: req.body.competitive, coordinates: JSON.stringify(JSON.parse(req.body.coordinates)), end: req.body.end, max: req.body.max, notes: req.body.notes, sport: req.body.sport, start: req.body.start },
       { where: { id: req.body.id } }
     )
       .then( (data) => {
