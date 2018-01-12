@@ -1,23 +1,26 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
 
-import {fetchGameData} from '../actions/fetchGameData';
-import {setEditState} from '../actions/setEditState';
-import {fetchUsers} from '../actions/fetchUsers';
+import { fetchGameData } from '../actions/fetchGameData';
+import { setEditState } from '../actions/setEditState';
+import { fetchUsers } from '../actions/fetchUsers';
 
 import axios from 'axios';
 
-import Nav from './Nav.jsx';
+import Navi from './Navi.jsx';
 import Main from './Main.jsx';
+
+import { Form, FormControl, Grid, Button, Jumbotron, Row, Col, FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap';
+
 
 class App extends Component {
 
   // on load, axios request to render games on map
   componentDidMount() {
-    
+
     this.props.setEditState(false);
-    
+
     // fetch list of all GAMES and put it in store as 'gameData
     axios.get('/api/map/fetch')
       .then(response => {
@@ -30,7 +33,7 @@ class App extends Component {
 
     // fetch list of all USERS and put it in store as 'userList'
     axios.get('/api/games/fetch/users')
-      .then(response => {        
+      .then(response => {
         console.log('fetching user list on componentDidMount')
         this.props.fetchUsers(response.data)
       })
@@ -44,14 +47,24 @@ class App extends Component {
       return null
     }
 
-    return(
-      <div>
-        <h1>.got(Next)</h1>  
-        <hr/>
-        <Nav />
-        <hr/>
+    return (
+      <Grid style={{ border: '2px solid blue' }}>
+        <Row>
+          <Col>
+            <Jumbotron style={{ textAlign: 'center' }}>
+              <h1>.got(Next)</h1>
+            </Jumbotron>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col style={{ border: '2px solid red' }}>
+            <Navi />
+          </Col>
+        </Row>
+        <hr />
         <Main />
-      </div>
+      </Grid>
     )
   }
 };
@@ -64,9 +77,9 @@ const mapStateToProps = state => {
 
 const matchDispatchToProps = dispatch => {
   return bindActionCreators({
-    fetchGameData:fetchGameData,
-    fetchUsers:fetchUsers,
-    setEditState:setEditState
+    fetchGameData: fetchGameData,
+    fetchUsers: fetchUsers,
+    setEditState: setEditState
   }, dispatch);
 };
 
