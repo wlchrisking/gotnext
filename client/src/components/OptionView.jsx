@@ -28,7 +28,9 @@ class OptionView extends Component {
   render() {
     return(
       <div>
-        --- OptionView Component Here ---
+        <div>
+          <h4>{this.props.user}, here are your games!</h4>
+        </div>
         {
           this.props.games ?
             this.props.games.map( (game) => {
