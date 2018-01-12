@@ -85,10 +85,14 @@ class Navi extends Component {
             :
             null
           }
-          {/* === LOGIN BUTTON === */}
+
+          {/* === LOGIN/LOGOUT BUTTON === */}
+
           {
             !this.props.user
+           
             ?
+            
             <NavItem>
               <a href=""
                 onClick={
@@ -101,7 +105,9 @@ class Navi extends Component {
                 Login
               </a>
             </NavItem>
+
             :
+
             <NavItem>
               <a href=""
                 onClick={(e) => {
@@ -110,6 +116,7 @@ class Navi extends Component {
                   axios.get('/api/user/logout')
                     .then((data) => {
                       window.localStorage.removeItem('token')
+                      window.localStorage.removeItem('username')
                       this.props.setUser(null)
                       this.props.setUserGames(null)
                       this.props.setLoginPage('default')
@@ -129,7 +136,6 @@ class Navi extends Component {
           }
           
           
-          {/* === LOG OUT BUTTON === */}
           
           
 

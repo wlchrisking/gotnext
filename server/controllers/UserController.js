@@ -22,7 +22,6 @@ UserController = {
           });
         }
         req.login(user, function (err) {
-
           let payload = {
             id: user.id
           }
@@ -42,7 +41,8 @@ UserController = {
           return res.json({
             sucesss: true,
             message: 'log-in successful! Established a session with token',
-            token: token
+            token: token,
+            username: user.dataValues.username
           });
         });
       })(req, res, next);
