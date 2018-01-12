@@ -11,11 +11,7 @@ import axios from 'axios';
 import Navi from './Navi.jsx';
 import Main from './Main.jsx';
 
-<<<<<<< HEAD
-import { Form, FormControl, Grid, Button, Jumbotron, Row, Col, FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap';
-=======
 import {Grid, Row, Col, Jumbotron} from 'react-bootstrap';
->>>>>>> testmerging
 
 
 class App extends Component {
