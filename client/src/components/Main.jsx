@@ -33,7 +33,7 @@ class Main extends Component {
             <Option />
           </Col>
 
-          <Col md={6} style={{ border: '2px solid pink' }}>
+          <Col md={6} style={{ border: '2px solid green', paddingTop: '6cm'}}>
             Map:
           <Maps />
           </Col>
