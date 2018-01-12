@@ -6,6 +6,7 @@ import axios from 'axios';
 import {setGameSetting} from '../actions/setGameSetting';
 import {setLocation} from '../actions/setLocation';
 import {setEditState} from '../actions/setEditState';
+import {setUserGames} from '../actions/setUserGames';
 
 class OptionCreate extends Component {
   constructor() {
@@ -48,10 +49,10 @@ class OptionCreate extends Component {
     console.log('props', this.props.setting);
     if (this.props.edit === true) {
       console.log('true edit');
-      console.log('editting!!!!');
+      console.log('editting!!!!', document.getElementsByName('competitive')[0].value);
       const payload = {
         address: document.getElementsByName('address')[0].value,
-        competitive: document.getElementsByName('competitive')[0].value === 'true' ? true : false,
+        competitive: document.getElementsByName('competitive')[0].value,
         coordinates: this.props.location ? this.props.location : this.props.setting.coordinates,
         end: document.getElementsByName('end')[0].value,
         max: parseInt(document.getElementsByName('max')[0].value),
@@ -68,24 +69,33 @@ class OptionCreate extends Component {
         .then( (response) => {
           console.log('this is updated props.setting', this.props.setting)
           console.log('successfully editted game', response);
-          var frm = document.getElementsByName('address');
-          frm[0].value='';
-          var frm = document.getElementsByName('sport');
-          frm[0].value='';
-          var frm = document.getElementsByName('max');
-          frm[0].value='';
-          var frm = document.getElementsByName('start');
-          frm[0].value='';
-          var frm = document.getElementsByName('end');
-          frm[0].value='';
-          var frm = document.getElementsByName('competitive');
-          frm[0].value=false;
-          var frm = document.getElementsByName('notes');
-          frm[0].value='';
-          this.props.setLocation(null);
-          console.log('this is location', this.props.location);
-          this.props.setGameSetting(null);
-          this.props.setEditState(false);
+          axios.get(`/api/games/fetch/user/${this.props.user}`)
+          .then( (response) => {
+            console.log('hello world', response);
+            this.props.setUserGames(response.data);
+            console.log('this is props.games', this.props.games);
+            var frm = document.getElementsByName('address');
+            frm[0].value='';
+            var frm = document.getElementsByName('sport');
+            frm[0].value='';
+            var frm = document.getElementsByName('max');
+            frm[0].value='';
+            var frm = document.getElementsByName('start');
+            frm[0].value='';
+            var frm = document.getElementsByName('end');
+            frm[0].value='';
+            var frm = document.getElementsByName('competitive');
+            frm[0].value=false;
+            var frm = document.getElementsByName('notes');
+            frm[0].value='';
+            this.props.setLocation(null);
+            console.log('this is location', this.props.location);
+            this.props.setGameSetting(null);
+            this.props.setEditState(false);
+          })
+          .catch( () => {
+            console.log('errrrror');
+          })
         })
         .catch( (err) => {
           console.log('error creating game', err);
@@ -97,11 +107,22 @@ class OptionCreate extends Component {
         payload['coordinates'] = this.props.location;
         payload['token'] = window.localStorage.token;
         payload['user'] = this.props.user;
+        payload['competitive'] = document.getElementsByName('competitive')[0].value,
+        console.log('here is payload false edit', payload);
         this.props.setGameSetting(payload);
         axios.post('/api/games/create', payload)
           .then( (response) => {
             console.log('this is props.setting', this.props.setting)
             console.log('successfully created game', response);
+            axios.get(`/api/games/fetch/user/${this.props.user}`)
+            .then( (response) => {
+              console.log('hello world', response);
+              this.props.setUserGames(response.data);
+              console.log('this is props.games', this.props.games);
+            })
+            .catch( () => {
+              console.log('errrrror');
+            })
           })
           .catch( (err) => {
             console.log('error creating game', err);
@@ -149,8 +170,8 @@ class OptionCreate extends Component {
         End Time:<input name="end" onChange={this.onChangeHandler.bind(this)}></input>
         <br/>
         Casual/Nightmare Mode:<select name="competitive" onChange={this.onChangeHandler.bind(this)}>
-          <option value="false">Casual</option>
-          <option value="true">NIGHTMAREMODE</option>
+          <option value={false}>Casual</option>
+          <option value={true}>NIGHTMAREMODE</option>
         </select>
         <br/>
         Notes:<textarea name="notes" rows="5" cols="35" onChange={this.onChangeHandler.bind(this)}></textarea>
@@ -166,6 +187,7 @@ const mapStateToProps = state => {
     location: state.location,
     setting: state.setting,
     user: state.user,
+    games: state.games,
     edit: state.edit
   }
 };
@@ -174,6 +196,7 @@ const matchDispatchToProps = dispatch => {
   return bindActionCreators({
     setEditState:setEditState,
     setGameSetting:setGameSetting,
+    setUserGames:setUserGames,
     setLocation:setLocation
     }, 
     dispatch);
