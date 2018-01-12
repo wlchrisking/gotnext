@@ -7,7 +7,7 @@ import { setGameSetting } from '../actions/setGameSetting';
 import { setLocation } from '../actions/setLocation';
 import { setEditState } from '../actions/setEditState';
 import { setUserGames } from '../actions/setUserGames';
-import { Form, InputGroup, MenuItem, FormControl, Grid, Button, Jumbotron, Row, Col, FormGroup, ControlLabel, HelpBlock, DropdownButton } from 'react-bootstrap';
+import { Form, MenuItem, FormControl, Button, FormGroup, DropdownButton, InputGroup } from 'react-bootstrap';
 
 
 class OptionCreate extends Component {
@@ -165,6 +165,7 @@ class OptionCreate extends Component {
   render() {
     return (
       <div>
+        
         <Form>
           <FormGroup>
             <FormControl

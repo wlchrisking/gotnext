@@ -11,7 +11,7 @@ import axios from 'axios';
 import Navi from './Navi.jsx';
 import Main from './Main.jsx';
 
-import { Form, FormControl, Grid, Button, Jumbotron, Row, Col, FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap';
+import {Grid, Row, Col, Jumbotron} from 'react-bootstrap';
 
 
 class App extends Component {
@@ -48,7 +48,8 @@ class App extends Component {
     }
 
     return (
-      <Grid style={{ border: '2px solid blue' }}>
+      <Grid>
+
         <Row>
           <Col>
             <Jumbotron style={{ textAlign: 'center' }}>
@@ -58,15 +59,13 @@ class App extends Component {
         </Row>
 
         <Row >
-          <Col style={{ border: '2px solid red' }}>
+          <Col>
             <Navi />
           </Col>
         </Row>
-        <hr />
 
         <Row >
-          
-            <Main />
+          <Main />
         </Row>
 
       </Grid>

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Media, orm, FormControl, Grid, Button, Jumbotron, Row, Col, FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap';
 import Maps from './Map.jsx';
 import Option from './Option.jsx';
 import Login from './Login.jsx';
 import SignUp from './SignUp.jsx';
+import { Col } from 'react-bootstrap';
 
 class Main extends Component {
 
