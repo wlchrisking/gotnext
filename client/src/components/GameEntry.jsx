@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'; 
+import axios from 'axios';
 
 import {setGameSetting} from '../actions/setGameSetting';
 import {setOption} from '../actions/setOption';
 import {setLoginPage} from '../actions/setLoginPage';
 import {setEditState} from '../actions/setEditState';
+import {setUserGames} from '../actions/setUserGames';
 
 class GameEntry extends Component {
   constructor(prop) {
@@ -26,7 +28,6 @@ class GameEntry extends Component {
   }
 
   onEditHandler() {
-    console.log('edited!');
     this.props.setEditState(true);
     this.props.setGameSetting(this.form);
     this.props.setOption('create');
@@ -34,20 +35,18 @@ class GameEntry extends Component {
   }
 
   onDeleteHandler() {
-    console.log('deleted!');
-    //send this.form.id to server to delete the game from the db. then need to rerender the relevant
-    //components - by doing the axios request for the users games i guess? basically just need to kill this component. or
-    //rerender component above it. figure out how to do it.
-
-    //looks like will have to be a params thing - so may need to change route in server too
-    //compare the then and catch here to other axios request to see what they did.
     axios.delete(`api/games/delete/${this.form.id}`)
-    .then(function (response) {
-      console.log(response);
-      //do a new request for the users games list now? hrm? userid will still be here, or get from elsewhere? shud still be here i think.
+    .then((response) => {
+      axios.get(`/api/games/fetch/user/${this.props.user}`)
+      .then((response) => {
+        this.props.setUserGames(response.data);
+      })
+      .catch((err) => {
+        console.log('Error fetching user games: ', err);
+      });
     })
-    .catch(function (error) {
-      console.log(error);
+    .catch((error) => {
+      console.log('Error deleting user game: ', error);
     });
   }
 
@@ -100,6 +99,7 @@ const matchDispatchToProps = dispatch => {
     setEditState:setEditState,
     setGameSetting:setGameSetting,
     setOption:setOption,
+    setUserGames:setUserGames,
     setLoginPage:setLoginPage
     }, 
     dispatch);
