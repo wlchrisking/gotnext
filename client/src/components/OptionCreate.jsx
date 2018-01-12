@@ -39,8 +39,8 @@ class OptionCreate extends Component {
       frm[0].value = this.props.setting.start;
       var frm = document.getElementsByName('end');
       frm[0].value = this.props.setting.end;
-      var frm = document.getElementsByName('competitive');
-      frm[0].value = this.props.setting.competitive;
+      // var frm = document.getElementsByName('competitive');
+      frm[0]['competitive'] = this.props.setting.competitive;
       var frm = document.getElementsByName('notes');
       frm[0].value = this.props.setting.notes;
     }
@@ -54,7 +54,7 @@ class OptionCreate extends Component {
       console.log('editting!!!!', document.getElementsByName('address')[0].value);
       const payload = {
         address: document.getElementsByName('address')[0].value,
-        competitive: document.getElementsByName('competitive')[0].value,
+        competitive: this.form.competitive,
         coordinates: this.props.location ? this.props.location : this.props.setting.coordinates,
         end: document.getElementsByName('end')[0].value,
         max: parseInt(document.getElementsByName('max')[0].value),
@@ -86,8 +86,8 @@ class OptionCreate extends Component {
               frm[0].value = '';
               var frm = document.getElementsByName('end');
               frm[0].value = '';
-              var frm = document.getElementsByName('competitive');
-              frm[0].value = false;
+              // var frm = document.getElementsByName('competitive');
+              // frm[0].value = false;
               var frm = document.getElementsByName('notes');
               frm[0].value = '';
               this.props.setLocation(null);
@@ -225,12 +225,20 @@ class OptionCreate extends Component {
           </FormGroup>
         </Form>
 
-        <Button
+        {!this.props.edit ?         <Button
           block={true}
           type="button"
           bsStyle="primary"
           onClick={this.onSubmitHandler.bind(this)}
-        >Create!</Button>
+        >Create!
+        </Button> :         <Button
+          block={true}
+          type="button"
+          bsStyle="primary"
+          onClick={this.onSubmitHandler.bind(this)}
+        >Edit
+        </Button>}
+        
 
       </div>
 
