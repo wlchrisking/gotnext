@@ -53,7 +53,7 @@ class OptionCreate extends Component {
       const payload = {
         address: document.getElementsByName('address')[0].value,
         competitive: document.getElementsByName('competitive')[0].value,
-        coordinates: this.props.location ? this.props.location : this.props.setting.coordinates,
+        coordinates: this.props.location ? JSON.stringify(this.props.location) : this.props.setting.coordinates,
         end: document.getElementsByName('end')[0].value,
         max: parseInt(document.getElementsByName('max')[0].value),
         notes: document.getElementsByName('notes')[0].value,
