@@ -52,12 +52,8 @@ class App extends Component {
     }
 
     return (
-<<<<<<< HEAD
-      <Grid style={{ border: '2px solid blue' }}>
-=======
       <Grid>
 
->>>>>>> testmerging
         <Row>
           <Col>
             <Jumbotron style={{ textAlign: 'center' }}>
@@ -66,15 +62,6 @@ class App extends Component {
           </Col>
         </Row>
 
-<<<<<<< HEAD
-        <Row>
-          <Col style={{ border: '2px solid red' }}>
-            <Navi />
-          </Col>
-        </Row>
-        <hr />
-        <Main />
-=======
         <Row >
           <Col>
             <Navi />
@@ -85,7 +72,6 @@ class App extends Component {
           <Main />
         </Row>
 
->>>>>>> testmerging
       </Grid>
     )
   }
