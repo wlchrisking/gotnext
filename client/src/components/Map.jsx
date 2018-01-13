@@ -11,7 +11,7 @@ const googleApiKey = process.env.GOOGLEAPIKEY;
 
 class Maps extends Component {
   
-    componentWillMount() {
+    componentDidMount() {
       console.log('apikey', googleApiKey);
     }
 
