@@ -54,7 +54,7 @@ class OptionCreate extends Component {
       console.log('editting!!!!', document.getElementsByName('address')[0].value);
       const payload = {
         address: document.getElementsByName('address')[0].value,
-        competitive: this.form['competitive'];
+        competitive: this.form['competitive'],
         coordinates: this.props.location ? JSON.stringify(this.props.location) : this.props.setting.coordinates,
         end: document.getElementsByName('end')[0].value,
         max: parseInt(document.getElementsByName('max')[0].value),
