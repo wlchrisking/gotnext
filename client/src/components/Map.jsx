@@ -92,7 +92,7 @@ const matchDispatchToProps = dispatch => {
 
 const WrappedContainer = GoogleApiWrapper({
   // apiKey: (googleApi.key)
-  apiKey: googleApi
+  apiKey: 'AIzaSyCunMfNeXagtSF-HZu7LT9iIyUg0Ad6ZOU'
 })(Maps);
 
 export default connect(mapStateToProps, matchDispatchToProps)(WrappedContainer)
