@@ -8,6 +8,13 @@ import OptionView from './OptionView.jsx'
 
 class Option extends Component {
   render() {
+    if (this.props.option === '') {
+      return (
+        <div>
+        </div>
+      )
+    }
+
     if (this.props.option === 'search') {
       return (
         <div>

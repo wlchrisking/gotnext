@@ -26,23 +26,66 @@ class OptionCreate extends Component {
     }
   }
 
+  componentWillMount() {
+    console.log('here is props edit', this.props.edit);
+    if (this.props.edit === true) {
+      this.props.setGameSetting({
+        address: '',
+        competitive: '',
+        coordinates: '',
+        end: '',
+        max: '',
+        notes: '',
+        sport: '',
+        start: '',
+        user: this.props.user,
+        token: window.localStorage.token,
+        id: ''
+      })
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.edit === false) {
+      if (this.props.setting) {
+        var frm = document.getElementsByName('address');
+        frm[0].value = this.props.setting.address;
+        console.log('this is setting', this.props.setting);
+        var frm = document.getElementsByName('sport');
+        frm[0].value = this.props.setting.sport;
+        var frm = document.getElementsByName('max');
+        frm[0].value = this.props.setting.max;
+        var frm = document.getElementsByName('start');
+        frm[0].value = this.props.setting.start;
+        var frm = document.getElementsByName('end');
+        frm[0].value = this.props.setting.end;
+        // var frm = document.getElementsByName('competitive');
+        frm[0]['competitive'] = this.props.setting.competitive;
+        var frm = document.getElementsByName('notes');
+        frm[0].value = this.props.setting.notes;
+      }
+    }
+  }
+
   componentDidMount() {
-    if (this.props.setting) {
-      var frm = document.getElementsByName('address');
-      frm[0].value = this.props.setting.address;
-      console.log('this is setting', this.props.setting);
-      var frm = document.getElementsByName('sport');
-      frm[0].value = this.props.setting.sport;
-      var frm = document.getElementsByName('max');
-      frm[0].value = this.props.setting.max;
-      var frm = document.getElementsByName('start');
-      frm[0].value = this.props.setting.start;
-      var frm = document.getElementsByName('end');
-      frm[0].value = this.props.setting.end;
-      // var frm = document.getElementsByName('competitive');
-      frm[0]['competitive'] = this.props.setting.competitive;
-      var frm = document.getElementsByName('notes');
-      frm[0].value = this.props.setting.notes;
+    if (this.props.edit === true) {
+      if (this.props.setting) {
+        var frm = document.getElementsByName('address');
+        frm[0].value = this.props.setting.address;
+        console.log('this is setting', this.props.setting);
+        var frm = document.getElementsByName('sport');
+        frm[0].value = this.props.setting.sport;
+        var frm = document.getElementsByName('max');
+        frm[0].value = this.props.setting.max;
+        var frm = document.getElementsByName('start');
+        frm[0].value = this.props.setting.start;
+        var frm = document.getElementsByName('end');
+        frm[0].value = this.props.setting.end;
+        // var frm = document.getElementsByName('competitive');
+        frm[0]['competitive'] = this.props.setting.competitive;
+        var frm = document.getElementsByName('notes');
+        frm[0].value = this.props.setting.notes;
+      }
     }
   }
 
@@ -54,8 +97,8 @@ class OptionCreate extends Component {
       console.log('editting!!!!', document.getElementsByName('address')[0].value);
       const payload = {
         address: document.getElementsByName('address')[0].value,
-        competitive: this.form.competitive,
-        coordinates: this.props.location ? this.props.location : this.props.setting.coordinates,
+        competitive: this.form['competitive'],
+        coordinates: this.props.location ? JSON.stringify(this.props.location) : this.props.setting.coordinates,
         end: document.getElementsByName('end')[0].value,
         max: parseInt(document.getElementsByName('max')[0].value),
         notes: document.getElementsByName('notes')[0].value,
@@ -92,7 +135,7 @@ class OptionCreate extends Component {
               frm[0].value = '';
               this.props.setLocation(null);
               console.log('this is location', this.props.location);
-              this.props.setGameSetting(null);
+              // this.props.setGameSetting(null);
               this.props.setEditState(false);
             })
             .catch(() => {
@@ -104,6 +147,20 @@ class OptionCreate extends Component {
         });
     } else {
       console.log('false edit');
+      var frm = document.getElementsByName('address');
+      frm[0].value = '';
+      var frm = document.getElementsByName('sport');
+      frm[0].value = '';
+      var frm = document.getElementsByName('max');
+      frm[0].value = '';
+      var frm = document.getElementsByName('start');
+      frm[0].value = '';
+      var frm = document.getElementsByName('end');
+      frm[0].value = '';
+      // var frm = document.getElementsByName('competitive');
+      // frm[0].value = false;
+      var frm = document.getElementsByName('notes');
+      frm[0].value = '';
       if (this.props.location) {
         const payload = this.form;
         payload['coordinates'] = this.props.location;
@@ -159,6 +216,10 @@ class OptionCreate extends Component {
 
   onSelectHandler(e) {
     this.form['competitive'] = e
+    this.props.setting.competitive = this.form['competitive']
+    console.log('attempting to update setting', this.props.setting.competitive);
+    this.props.setGameSetting(this.props.setting);
+    // frm[0]['competitive'] = this.props.setting.competitive;
     console.log('e: ', e, 'thisformcompetitive', this.form['competitive']);
   }
 
@@ -209,9 +270,11 @@ class OptionCreate extends Component {
             />
 
             <DropdownButton
+              name="drop"
               componentClass={InputGroup.Button}
               id="input-dropdown-addon"
-              title="Casual or Competitive"
+              title={this.form['competitive'] === true ? 'Competitive' : 'Casual'}
+              
             >
               <MenuItem eventKey={false} onSelect={this.onSelectHandler.bind(this)}>Casual
             </MenuItem>

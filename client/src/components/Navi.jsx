@@ -6,6 +6,8 @@ import { setOption } from '../actions/setOption'
 import { setLoginPage } from '../actions/setLoginPage'
 import { setUser } from '../actions/setUser.js'
 import { setUserGames } from '../actions/setUserGames'
+import { setEditState } from '../actions/setEditState';
+import { setGameSetting } from '../actions/setGameSetting';
 import axios from 'axios'
 import { Nav, Navbar, NavDropdown, NavItem } from 'react-bootstrap';
 
@@ -40,21 +42,36 @@ class Navi extends Component {
           {/* === CREATE BUTTON === */}
 
           <NavItem>
-            <a href=""
-              onClick={(e) => {
-                e.preventDefault()
-                if (this.props.user) {
-                  this.props.setOption('create')
-                  this.props.setLoginPage('default')
-                } else {
-                  this.props.setLoginPage('login')
-                }
-              }}
-              className="navigation"
-            >
-              Create
-            </a>
-          </NavItem>
+          <a href=""
+            onClick={(e) => {
+              e.preventDefault()
+              if (this.props.user) {
+                this.props.setGameSetting({
+                  id: '',
+                  sport: '',
+                  max: '',
+                  start: '',
+                  end: '',
+                  competitive: false,
+                  notes: '',
+                  address: '',
+                  coordinates: '',
+                  UserId: ''
+                });
+                this.props.setEditState(false);
+                this.props.setOption('');
+                console.log('hello world');
+                this.props.setOption('create');
+                this.props.setLoginPage('default')
+              } else {
+                this.props.setLoginPage('login')
+              }
+            }}
+            className="navigation"
+          >
+            Create
+          </a>
+        </NavItem>
 
           {/* === VIEW BUTTON === */}
 
@@ -162,6 +179,8 @@ const mapStateToProps = state => {
 
 const matchDispatchToProps = dispatch => {
   return bindActionCreators({
+    setEditState: setEditState,
+    setGameSetting: setGameSetting,
     setOption: setOption,
     setLoginPage: setLoginPage,
     setUser: setUser,

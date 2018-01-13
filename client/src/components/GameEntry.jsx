@@ -63,7 +63,7 @@ class GameEntry extends Component {
           <ListGroupItem className="created-entry">Address: {this.form.address}</ListGroupItem>
           <ListGroupItem className="created-entry">Max Players: {this.form.max}</ListGroupItem>
           <ListGroupItem className="created-entry">Type: {this.form.competitive ? <span>Competitive</span> : <span>Casual</span>}</ListGroupItem>
-          <ListGroupItem className="created-entry" >Notes: {this.form.notes}</ListGroupItem>
+          <ListGroupItem className="created-entry">Notes: {this.form.notes}</ListGroupItem>
 
           <br />
 
