@@ -11,10 +11,6 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 class Maps extends Component {
   
-    componentDidMount() {
-      console.log('apikey', googleApiKey);
-    }
-
   renderMarkers() {
     
     return this.props.gameData.map(game => {
@@ -96,7 +92,7 @@ const matchDispatchToProps = dispatch => {
 
 const WrappedContainer = GoogleApiWrapper({
   // apiKey: (googleApi.key)
-  apiKey: 'AIzaSyCunMfNeXagtSF-HZu7LT9iIyUg0Ad6ZOU'
+  apiKey: process.env.GOOGLEMAPAPI
 })(Maps);
 
 export default connect(mapStateToProps, matchDispatchToProps)(WrappedContainer)
