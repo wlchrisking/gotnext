@@ -20,7 +20,6 @@ class Maps extends Component {
           title={'placeholder'}
           name={'placeholder'}
           key={game.id}
-          // weird object being identified as a string error (fixed with curly bracket wrap)
           position={loc}
         />
       )
@@ -29,7 +28,6 @@ class Maps extends Component {
 
   render() {
     return (
-      <div style={{border: '2px red solid'}}>
       <Map         
         // upon clicking the map, store the lat/lng coordinates as 'location'
         onClick={(mapProps, map, clickEvent) => {
@@ -40,11 +38,10 @@ class Maps extends Component {
         }}
         google={this.props.google} 
         zoom={14}
-
-        // style={{
-        //   width: '40%',
-        //   height: '40%',
-        // }} 
+        style={{
+          width: '100%',
+          height: '100%',
+        }} 
 
         // hack reactor as initial location
         initialCenter={{
@@ -70,7 +67,6 @@ class Maps extends Component {
         this.renderMarkers()
       }        
       </Map>
-      </div>
     );
   }
 }
