@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const passport = require('../../config/passport/passport.js');
 const LocalStrategy = require('passport-local').Strategy;
 const jwt = require('jsonwebtoken')
-const JWT_SECRET = process.env.JWT_SECRET;
+// const JWT_SECRET = process.env.JWT_SECRET;
 
 //The routes here for login, logout, and signup are working properly now.
 UserController = {
