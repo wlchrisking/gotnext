@@ -8,9 +8,12 @@ import {setLocation} from '../actions/setLocation';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 // import googleApi from '../config/config.js'
 const googleApiKey = process.env.GOOGLEAPIKEY;
-console.log('apikey', googleApiKey);
 
 class Maps extends Component {
+  
+    componentWillMount() {
+      console.log('apikey', googleApiKey);
+    }
 
   renderMarkers() {
     
