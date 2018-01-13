@@ -8,6 +8,7 @@ import {setLocation} from '../actions/setLocation';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 // import googleApi from '../config/config.js'
 const googleApiKey = process.env.GOOGLEAPIKEY;
+console.log('apikey', googleApiKey);
 
 class Maps extends Component {
 
@@ -92,7 +93,7 @@ const matchDispatchToProps = dispatch => {
 
 const WrappedContainer = GoogleApiWrapper({
   // apiKey: (googleApi.key)
-  apiKey: googleApiKey
+  apiKey: (googleApiKey)
 })(Maps);
 
 export default connect(mapStateToProps, matchDispatchToProps)(WrappedContainer)
