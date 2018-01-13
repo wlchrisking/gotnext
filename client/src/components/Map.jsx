@@ -27,6 +27,7 @@ class Maps extends Component {
   }
 
   render() {
+
     return (
       <div className="map-container">
       <Map         
@@ -70,6 +71,8 @@ class Maps extends Component {
       </Map>
       </div>
     );
+
+
   }
 }
 
