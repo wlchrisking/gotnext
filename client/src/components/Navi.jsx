@@ -43,8 +43,12 @@ class Navi extends Component {
             <a href=""
               onClick={(e) => {
                 e.preventDefault()
-                this.props.setOption('create')
-                this.props.setLoginPage('default')
+                if (this.props.user) {
+                  this.props.setOption('create')
+                  this.props.setLoginPage('default')
+                } else {
+                  this.props.setLoginPage('login')
+                }
               }}
               className="navigation"
             >
@@ -58,8 +62,13 @@ class Navi extends Component {
             <a href=""
               onClick={(e) => {
                 e.preventDefault()
-                this.props.setOption('view')
-                this.props.setLoginPage('default')
+                if (this.props.user) {
+                  this.props.setOption('view')
+                  this.props.setLoginPage('default')
+                } else {
+                  this.props.setLoginPage('login')
+                }
+                
               }}
               className="navigation"
             >
