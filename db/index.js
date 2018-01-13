@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
-// const db = new Sequelize(process.env.PG);
-const db = new Sequelize(PG);
+const db = new Sequelize(process.env.PG);
+// const db = new Sequelize(PG);
 
 db.authenticate()
   .then( () => {
