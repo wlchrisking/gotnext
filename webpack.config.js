@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   entry: path.resolve('./client/src/index.js'),
@@ -20,12 +21,12 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx']
-  }
-  // plugins: [
-  //   new webpack.DefinePlugin({
-  //       'process.env': {
-  //           'GOOGLEMAPAPI': JSON.stringify(process.env.GOOGLEMAPAPI)
-  //       }
-  //   }),
-  // ]
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+        'process.env': {
+            'GOOGLEMAPAPI': JSON.stringify(process.env.GOOGLEMAPAPI)
+        }
+    }),
+  ]
 }
