@@ -26,7 +26,6 @@ class OptionCreate extends Component {
     }
   }
 
-  
   componentWillMount() {
     console.log('here is props edit', this.props.edit);
     if (this.props.edit === true) {
@@ -136,7 +135,7 @@ class OptionCreate extends Component {
               frm[0].value = '';
               this.props.setLocation(null);
               console.log('this is location', this.props.location);
-              this.props.setGameSetting(null);
+              // this.props.setGameSetting(null);
               this.props.setEditState(false);
             })
             .catch(() => {
@@ -148,6 +147,20 @@ class OptionCreate extends Component {
         });
     } else {
       console.log('false edit');
+      var frm = document.getElementsByName('address');
+      frm[0].value = '';
+      var frm = document.getElementsByName('sport');
+      frm[0].value = '';
+      var frm = document.getElementsByName('max');
+      frm[0].value = '';
+      var frm = document.getElementsByName('start');
+      frm[0].value = '';
+      var frm = document.getElementsByName('end');
+      frm[0].value = '';
+      // var frm = document.getElementsByName('competitive');
+      // frm[0].value = false;
+      var frm = document.getElementsByName('notes');
+      frm[0].value = '';
       if (this.props.location) {
         const payload = this.form;
         payload['coordinates'] = this.props.location;
@@ -203,6 +216,10 @@ class OptionCreate extends Component {
 
   onSelectHandler(e) {
     this.form['competitive'] = e
+    this.props.setting.competitive = this.form['competitive']
+    console.log('attempting to update setting', this.props.setting.competitive);
+    this.props.setGameSetting(this.props.setting);
+    // frm[0]['competitive'] = this.props.setting.competitive;
     console.log('e: ', e, 'thisformcompetitive', this.form['competitive']);
   }
 
@@ -253,9 +270,11 @@ class OptionCreate extends Component {
             />
 
             <DropdownButton
+              name="drop"
               componentClass={InputGroup.Button}
               id="input-dropdown-addon"
-              title="Casual or Competitive"
+              title={this.form['competitive'] === true ? 'Competitive' : 'Casual'}
+              
             >
               <MenuItem eventKey={false} onSelect={this.onSelectHandler.bind(this)}>Casual
             </MenuItem>
