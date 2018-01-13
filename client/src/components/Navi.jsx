@@ -179,6 +179,8 @@ const mapStateToProps = state => {
 
 const matchDispatchToProps = dispatch => {
   return bindActionCreators({
+    setEditState: setEditState,
+    setGameSetting: setGameSetting,
     setOption: setOption,
     setLoginPage: setLoginPage,
     setUser: setUser,
