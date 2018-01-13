@@ -27,7 +27,9 @@ class Maps extends Component {
   }
 
   render() {
+
     return (
+      <div className="map-container">
       <Map         
         // upon clicking the map, store the lat/lng coordinates as 'location'
         onClick={(mapProps, map, clickEvent) => {
@@ -67,7 +69,10 @@ class Maps extends Component {
         this.renderMarkers()
       }        
       </Map>
+      </div>
     );
+
+
   }
 }
 
