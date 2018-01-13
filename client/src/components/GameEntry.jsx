@@ -71,7 +71,7 @@ class GameEntry extends Component {
               Max Players: {this.form.max}
             </div>
             <div>
-              Casual/Nightmare: {JSON.stringify(this.form.competitive) === 'true' ? 'Nightmare mode homie' : 'Tek it ezzz foo'}
+              Casual/Nightmare: {JSON.stringify(this.form.competitive) === 'true' ? 'Nightmare mode' : 'Casual'}
             </div>
             <div>
               Coordinates: {(this.form.coordinates.replace(/"/, '').replace(/"/, '').replace(/"/, '').replace(/"/, ''))}
