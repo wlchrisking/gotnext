@@ -6,6 +6,7 @@ import axios from 'axios';
 import {setUserGames} from '../actions/setUserGames';
 import GameEntry from './GameEntry';
 
+
 class OptionView extends Component {
 
   // oncomponentdidmount
@@ -28,14 +29,17 @@ class OptionView extends Component {
   render() {
     return(
       <div>
-        <div>
-          <h4>{this.props.user}, here are your games!</h4>
+        
+        <div style={{ fontSize: '14px', fontWeight: 'bold' }}>Games Created By {this.props.user}:
         </div>
+        <br/>
+        
         {
           this.props.games ?
             this.props.games.map( (game) => {
               // console.log('this is mini ms', ms);
               return <GameEntry game={game}/>;
+              
             })
             :
             null

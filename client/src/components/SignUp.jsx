@@ -82,7 +82,7 @@ class SignUp extends Component {
         <Button
           block={true}
           type="button"
-          bsStyle="primary"
+          bsStyle="success"
           onClick={this.handleSignUpUser}
         >Sign up</Button>
 
