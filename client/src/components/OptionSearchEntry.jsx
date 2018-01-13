@@ -13,7 +13,17 @@ class OptionSearchEntry extends Component {
       <div style={{fontSize: '12px'}}>
       <ListGroup>
       <div>
-      <ListGroupItem header="Creator: " active><div>User</div></ListGroupItem>
+      <ListGroupItem header="Creator: " active>
+        <div>
+          {
+            !this.props.userList 
+            ? null 
+            : <div>{this.props.userList.find(user => {
+                return user.id === this.props.game.UserId}).username}
+              </div>
+          }
+        </div>
+      </ListGroupItem>
       </div>
       <ListGroupItem className="created-entry">Sport: {this.props.game.sport}</ListGroupItem>
       <ListGroupItem className="created-entry">Start/End: {this.props.game.start}-{this.props.game.end}</ListGroupItem>
@@ -24,8 +34,7 @@ class OptionSearchEntry extends Component {
       </ListGroup>
 
 
-      {/* Need to render user name}
-      {/* {this.props.userList ? null : <div>{this.props.userList.find(user => {return user.id === this.props.game.UserId}).username}</div>} */}
+      
 
         </div>
     )

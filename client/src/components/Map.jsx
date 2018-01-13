@@ -29,7 +29,7 @@ class Maps extends Component {
   render() {
 
     return (
-      <div className="map-container">
+      <div className="map-container" >
       <Map         
         // upon clicking the map, store the lat/lng coordinates as 'location'
         onClick={(mapProps, map, clickEvent) => {
@@ -41,8 +41,9 @@ class Maps extends Component {
         google={this.props.google} 
         zoom={14}
         style={{
+          marginTop: '40px',
           width: '100%',
-          height: '100%',
+          height: '430px',
         }} 
 
         // hack reactor as initial location
