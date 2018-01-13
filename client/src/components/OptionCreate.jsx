@@ -97,7 +97,7 @@ class OptionCreate extends Component {
       console.log('editting!!!!', document.getElementsByName('address')[0].value);
       const payload = {
         address: document.getElementsByName('address')[0].value,
-        competitive: document.getElementsByName('competitive')[0].value,
+        competitive: this.form['competitive'],
         coordinates: this.props.location ? JSON.stringify(this.props.location) : this.props.setting.coordinates,
         end: document.getElementsByName('end')[0].value,
         max: parseInt(document.getElementsByName('max')[0].value),
@@ -135,7 +135,7 @@ class OptionCreate extends Component {
               frm[0].value = '';
               this.props.setLocation(null);
               console.log('this is location', this.props.location);
-              this.props.setGameSetting(null);
+              // this.props.setGameSetting(null);
               this.props.setEditState(false);
             })
             .catch(() => {
@@ -216,6 +216,10 @@ class OptionCreate extends Component {
 
   onSelectHandler(e) {
     this.form['competitive'] = e
+    this.props.setting.competitive = this.form['competitive']
+    console.log('attempting to update setting', this.props.setting.competitive);
+    this.props.setGameSetting(this.props.setting);
+    // frm[0]['competitive'] = this.props.setting.competitive;
     console.log('e: ', e, 'thisformcompetitive', this.form['competitive']);
   }
 
@@ -266,9 +270,11 @@ class OptionCreate extends Component {
             />
 
             <DropdownButton
+              name="drop"
               componentClass={InputGroup.Button}
               id="input-dropdown-addon"
-              title="Casual or Competitive"
+              title={this.form['competitive'] === true ? 'Competitive' : 'Casual'}
+              
             >
               <MenuItem eventKey={false} onSelect={this.onSelectHandler.bind(this)}>Casual
             </MenuItem>
