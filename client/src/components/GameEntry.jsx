@@ -1,18 +1,21 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux'; 
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import axios from 'axios';
 
-import {setGameSetting} from '../actions/setGameSetting';
-import {setOption} from '../actions/setOption';
-import {setLoginPage} from '../actions/setLoginPage';
-import {setEditState} from '../actions/setEditState';
-import {setUserGames} from '../actions/setUserGames';
+import { setGameSetting } from '../actions/setGameSetting';
+import { setOption } from '../actions/setOption';
+import { setLoginPage } from '../actions/setLoginPage';
+import { setEditState } from '../actions/setEditState';
+import { setUserGames } from '../actions/setUserGames';
+import { Alert, Popover, Col, Row, Button, Table, ListGroup, ListGroupItem, OverlayTrigger, ButtonToolbar } from 'react-bootstrap';
+
 
 class GameEntry extends Component {
   constructor(prop) {
     super(prop);
     console.log('this is this.game', prop.game);
+    
     this.form = {
       id: prop.game.id,
       sport: prop.game.sport,
@@ -36,53 +39,56 @@ class GameEntry extends Component {
 
   onDeleteHandler() {
     axios.delete(`api/games/delete/${this.form.id}`)
-    .then((response) => {
-      axios.get(`/api/games/fetch/user/${this.props.user}`)
       .then((response) => {
-        this.props.setUserGames(response.data);
+        axios.get(`/api/games/fetch/user/${this.props.user}`)
+          .then((response) => {
+            this.props.setUserGames(response.data);
+          })
+          .catch((err) => {
+            console.log('Error fetching user games: ', err);
+          });
       })
-      .catch((err) => {
-        console.log('Error fetching user games: ', err);
+      .catch((error) => {
+        console.log('Error deleting user game: ', error);
       });
-    })
-    .catch((error) => {
-      console.log('Error deleting user game: ', error);
-    });
   }
 
   render() {
     return (
-        <div>
-          <div>
-            <br/>
-            <div>
-              GameID: {JSON.stringify(this.form.id)}
-            </div>
-            <div>
-              Sport: {this.form.sport}
-            </div>
-            <div>
-              Start: {this.form.start} End: {this.form.end}
-            </div>
-            <div>
-              Address: {this.form.address}
-            </div>
-            <div>
-              Max Players: {this.form.max}
-            </div>
-            <div>
-              Casual/Nightmare: {JSON.stringify(this.form.competitive) === 'true' ? 'Nightmare mode homie' : 'Tek it ezzz foo'}
-            </div>
-            <div>
-              Coordinates: {(this.form.coordinates)}
-            </div>
-            <br/>
-            <button onClick={this.onEditHandler.bind(this)}>Edit</button>
-            <button onClick={this.onDeleteHandler.bind(this)}>Delete</button>
-          </div>
-        </div>
-      )
-    }
+      <div style={{ fontSize: '12px' }}>
+        <ListGroup>
+          <ListGroupItem header="Game # " active>{this.form.id}</ListGroupItem>
+          <ListGroupItem className="created-entry">Sport: {this.form.sport}</ListGroupItem>
+          <ListGroupItem className="created-entry">Start/End: {this.form.start}-{this.form.end}</ListGroupItem>
+          <ListGroupItem className="created-entry">Address: {this.form.address}</ListGroupItem>
+          <ListGroupItem className="created-entry">Max Players: {this.form.max}</ListGroupItem>
+          <ListGroupItem className="created-entry">Type: {this.form.competitive ? <span>Competitive</span> : <span>Casual</span>}</ListGroupItem>
+          <ListGroupItem className="created-entry" >Notes: {this.form.notes}</ListGroupItem>
+
+          <br />
+
+          <ButtonToolbar>
+            <Button
+              style={{ width: "100px"}}
+              type="button"
+              bsStyle="primary"
+              onClick={this.onEditHandler.bind(this)}
+            >Edit</Button>
+
+            <Button
+              style={{ width: "100px"}}
+              type="button"
+              bsStyle="danger"
+              onClick={this.onDeleteHandler.bind(this)}
+            >Delete</Button>
+          </ButtonToolbar>
+
+        </ListGroup>
+        <br />
+        <br />
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = state => {
@@ -90,18 +96,18 @@ const mapStateToProps = state => {
     edit: state.edit,
     location: state.location,
     setting: state.setting,
-    user: state.user    
+    user: state.user
   }
 };
 
 const matchDispatchToProps = dispatch => {
   return bindActionCreators({
-    setEditState:setEditState,
-    setGameSetting:setGameSetting,
-    setOption:setOption,
-    setUserGames:setUserGames,
-    setLoginPage:setLoginPage
-    }, 
+    setEditState: setEditState,
+    setGameSetting: setGameSetting,
+    setOption: setOption,
+    setUserGames: setUserGames,
+    setLoginPage: setLoginPage
+  },
     dispatch);
 };
 

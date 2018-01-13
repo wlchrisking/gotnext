@@ -89,11 +89,11 @@ render() {
 
         </FormGroup>
       </Form>
-
+    
       <Button
         block={true}
         type="button"
-        bsStyle="primary"
+        bsStyle="success"
         onClick={this.handleLoginUser}
       >Login</Button>
 

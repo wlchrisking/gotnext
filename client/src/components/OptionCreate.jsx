@@ -165,9 +165,17 @@ class OptionCreate extends Component {
   render() {
     return (
       <div>
-        
-        <Form>
-          <FormGroup>
+        {!this.props.edit ?
+        <div style={{ fontSize: '14px', fontWeight: 'bold' }}>Create a Game:
+        </div>
+        :
+        <div style={{ fontSize: '14px', fontWeight: 'bold' }}>Edit your game:
+        </div>
+        }
+        <br />
+
+        <Form >
+          <FormGroup >
             <FormControl
               type="text"
               name="sport"
@@ -225,20 +233,20 @@ class OptionCreate extends Component {
           </FormGroup>
         </Form>
 
-        {!this.props.edit ?         <Button
+        {!this.props.edit ? <Button
           block={true}
           type="button"
           bsStyle="primary"
           onClick={this.onSubmitHandler.bind(this)}
         >Create!
-        </Button> :         <Button
-          block={true}
-          type="button"
-          bsStyle="primary"
-          onClick={this.onSubmitHandler.bind(this)}
-        >Edit
+        </Button> : <Button
+            block={true}
+            type="button"
+            bsStyle="primary"
+            onClick={this.onSubmitHandler.bind(this)}
+          >Edit
         </Button>}
-        
+
 
       </div>
 

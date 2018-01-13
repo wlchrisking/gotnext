@@ -29,11 +29,11 @@ class Main extends Component {
     if (this.props.loginPage === 'default' || this.props.loginPage === null) {
       return (
         <div>
-          <Col md={6} style={{ border: '2px solid pink' }}>
+          <Col md={6}>
             <Option />
           </Col>
 
-          <Col md={6} style={{ border: '2px solid green', paddingTop: '6cm'}}>
+          <Col md={6} style={{paddingTop: '12cm'}}>
             Map:
           <Maps />
           </Col>

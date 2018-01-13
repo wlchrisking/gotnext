@@ -22,10 +22,6 @@ class Option extends Component {
     if (this.props.option === 'create') {
       return (
         <div>
-          <div style={{ fontSize: '14px', fontWeight: 'bold' }}>Create a Game:
-
-        </div>
-          <br />
           <OptionCreate />
         </div>
       )
