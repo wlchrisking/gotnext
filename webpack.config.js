@@ -25,7 +25,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
         'process.env': {
-            'GOOGLEMAPAPI': JSON.stringify(process.env.GOOGLEMAPAPI)
+            'GOOGLEMAPAPI': process.env.GOOGLEMAPAPI
         }
     }),
   ]

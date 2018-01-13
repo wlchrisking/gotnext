@@ -26,23 +26,44 @@ class OptionCreate extends Component {
     }
   }
 
-  componentDidMount() {
-    if (this.props.setting) {
-      var frm = document.getElementsByName('address');
-      frm[0].value = this.props.setting.address;
-      console.log('this is setting', this.props.setting);
-      var frm = document.getElementsByName('sport');
-      frm[0].value = this.props.setting.sport;
-      var frm = document.getElementsByName('max');
-      frm[0].value = this.props.setting.max;
-      var frm = document.getElementsByName('start');
-      frm[0].value = this.props.setting.start;
-      var frm = document.getElementsByName('end');
-      frm[0].value = this.props.setting.end;
-      // var frm = document.getElementsByName('competitive');
-      frm[0]['competitive'] = this.props.setting.competitive;
-      var frm = document.getElementsByName('notes');
-      frm[0].value = this.props.setting.notes;
+  componentWillMount() {
+    console.log('here is props edit', this.props.edit);
+    if (this.props.edit === true) {
+      this.props.setGameSetting({
+        address: '',
+        competitive: '',
+        coordinates: '',
+        end: '',
+        max: '',
+        notes: '',
+        sport: '',
+        start: '',
+        user: this.props.user,
+        token: window.localStorage.token,
+        id: ''
+      })
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.edit === false) {
+      if (this.props.setting) {
+        var frm = document.getElementsByName('address');
+        frm[0].value = this.props.setting.address;
+        console.log('this is setting', this.props.setting);
+        var frm = document.getElementsByName('sport');
+        frm[0].value = this.props.setting.sport;
+        var frm = document.getElementsByName('max');
+        frm[0].value = this.props.setting.max;
+        var frm = document.getElementsByName('start');
+        frm[0].value = this.props.setting.start;
+        var frm = document.getElementsByName('end');
+        frm[0].value = this.props.setting.end;
+        // var frm = document.getElementsByName('competitive');
+        frm[0]['competitive'] = this.props.setting.competitive;
+        var frm = document.getElementsByName('notes');
+        frm[0].value = this.props.setting.notes;
+      }
     }
   }
 
