@@ -33,17 +33,18 @@ class OptionView extends Component {
         <div style={{ fontSize: '14px', fontWeight: 'bold' }}>All games from user:  {this.props.user}:
         </div>
         <br/>
-        
-        {
-          this.props.games ?
-            this.props.games.map( (game) => {
-              // console.log('this is mini ms', ms);
-              return <GameEntry game={game}/>;
-              
-            })
-            :
-            null
-        }
+        <div style={{ height: '430px', overflow:'scroll'}}>
+          {
+            this.props.games ?
+              this.props.games.map( (game) => {
+                // console.log('this is mini ms', ms);
+                return <GameEntry game={game}/>;
+                
+              })
+              :
+              null
+          }
+        </div>
       </div>
     )
   }

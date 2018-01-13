@@ -9,7 +9,7 @@ class OptionSearch extends Component {
 
   render() {    
     return(
-      <div>
+      <div style={{ height: '430px', overflow:'scroll'}}>
         {
           this.props.gameData.map( game => {
             return <OptionSearchEntry 

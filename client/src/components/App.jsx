@@ -57,8 +57,8 @@ class App extends Component {
 
         <Row>
           <Col>
-            <Jumbotron style={{ textAlign: 'center' }}>
-              <h1>.got(Next)</h1>
+            <Jumbotron style={{ margin: '1px', height: '120px', padding: '20px', textAlign: 'center' }}>
+              <h1 style={{ margin: 'auto auto'}}>.got(Next)</h1>
             </Jumbotron>
           </Col>
         </Row>
