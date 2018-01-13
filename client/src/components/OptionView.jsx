@@ -30,7 +30,7 @@ class OptionView extends Component {
     return(
       <div>
         
-        <div style={{ fontSize: '14px', fontWeight: 'bold' }}>Games Created By {this.props.user}:
+        <div style={{ fontSize: '14px', fontWeight: 'bold' }}>All games from user:  {this.props.user}:
         </div>
         <br/>
         

@@ -8,13 +8,14 @@ import { setOption } from '../actions/setOption';
 import { setLoginPage } from '../actions/setLoginPage';
 import { setEditState } from '../actions/setEditState';
 import { setUserGames } from '../actions/setUserGames';
-import { Col, Row, Button, Table, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Alert, Popover, Col, Row, Button, Table, ListGroup, ListGroupItem, OverlayTrigger, ButtonToolbar } from 'react-bootstrap';
 
 
 class GameEntry extends Component {
   constructor(prop) {
     super(prop);
     console.log('this is this.game', prop.game);
+    
     this.form = {
       id: prop.game.id,
       sport: prop.game.sport,
@@ -62,38 +63,29 @@ class GameEntry extends Component {
           <ListGroupItem className="created-entry">Address: {this.form.address}</ListGroupItem>
           <ListGroupItem className="created-entry">Max Players: {this.form.max}</ListGroupItem>
           <ListGroupItem className="created-entry">Type: {this.form.competitive ? <span>Competitive</span> : <span>Casual</span>}</ListGroupItem>
+          <ListGroupItem className="created-entry" >Notes: {this.form.notes}</ListGroupItem>
 
-        <br/>
-          <Row>
-            <Col md={3}>
-          <Button
-            style={{width: "100px"}}
-            type="button"
-            bsStyle="primary"
-            onClick={this.onEditHandler.bind(this)}
-          >Edit</Button>
+          <br />
 
-          
-          </Col>
+          <ButtonToolbar>
+            <Button
+              style={{ width: "100px"}}
+              type="button"
+              bsStyle="primary"
+              onClick={this.onEditHandler.bind(this)}
+            >Edit</Button>
 
+            <Button
+              style={{ width: "100px"}}
+              type="button"
+              bsStyle="danger"
+              onClick={this.onDeleteHandler.bind(this)}
+            >Delete</Button>
+          </ButtonToolbar>
 
-          <Col md={3}>
-          <Button
-        
-        style={{width: "100px"}}
-            type="button"
-            bsStyle="danger"
-            onClick={this.onDeleteHandler.bind(this)}
-          >Delete</Button>
-
-          </Col>
-          </Row>
         </ListGroup>
-
-
         <br />
         <br />
-
       </div>
     )
   }
