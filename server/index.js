@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken');
 const validator = require('express-validator')
 
 const app = express();
-// const PORT = process.env.PORT;
+const PORT = process.env.PORT;
 
 app.use(validator());
 app.use(parser.json());
