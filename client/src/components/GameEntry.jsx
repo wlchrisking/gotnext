@@ -8,14 +8,16 @@ import { setOption } from '../actions/setOption';
 import { setLoginPage } from '../actions/setLoginPage';
 import { setEditState } from '../actions/setEditState';
 import { setUserGames } from '../actions/setUserGames';
-import { Alert, Popover, Col, Row, Button, Table, ListGroup, ListGroupItem, OverlayTrigger, ButtonToolbar } from 'react-bootstrap';
+import { setDeleteState } from '../actions/setDeleteState';
+
+import { Modal, Alert, Popover, Col, Row, Button, Table, ListGroup, ListGroupItem, OverlayTrigger, ButtonToolbar } from 'react-bootstrap';
 
 
 class GameEntry extends Component {
   constructor(prop) {
     super(prop);
     console.log('this is this.game', prop.game);
-    
+
     this.form = {
       id: prop.game.id,
       sport: prop.game.sport,
@@ -69,18 +71,52 @@ class GameEntry extends Component {
 
           <ButtonToolbar>
             <Button
-              style={{ width: "100px"}}
+              style={{ width: "100px" }}
               type="button"
               bsStyle="primary"
               onClick={this.onEditHandler.bind(this)}
             >Edit</Button>
 
             <Button
-              style={{ width: "100px"}}
+              style={{ width: "100px" }}
               type="button"
               bsStyle="danger"
-              onClick={this.onDeleteHandler.bind(this)}
-            >Delete</Button>
+              onClick={() => { this.props.setDeleteState(true) }}
+            >
+              Delete </Button>
+
+            {this.props.deleteState ?
+              <div className="modal-container" style={{ height: 200, position: 'absolute' }}>
+              <Modal
+                show={this.props.deleteState}
+                onHide={() => { !this.props.deleteState }}
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>
+                    Warning!
+              </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  Are you sure you want to delete Game: {this.form.id} from User: {this.props.user}
+            </Modal.Body>
+                <Modal.Footer>
+                  <ButtonToolbar>
+                  <Button bsStyle="danger" onClick={() => { this.props.setDeleteState(false); this.onDeleteHandler() }}>Delete</Button>
+                  <Button onClick={() => { this.props.setDeleteState(false) }}>Close</Button>
+                  </ButtonToolbar>
+                </Modal.Footer>
+              </Modal>
+              </div>
+
+
+
+
+
+
+
+
+              : null}
+
           </ButtonToolbar>
 
         </ListGroup>
@@ -96,7 +132,8 @@ const mapStateToProps = state => {
     edit: state.edit,
     location: state.location,
     setting: state.setting,
-    user: state.user
+    user: state.user,
+    deleteState: state.deleteState
   }
 };
 
@@ -106,7 +143,8 @@ const matchDispatchToProps = dispatch => {
     setGameSetting: setGameSetting,
     setOption: setOption,
     setUserGames: setUserGames,
-    setLoginPage: setLoginPage
+    setLoginPage: setLoginPage,
+    setDeleteState: setDeleteState
   },
     dispatch);
 };
