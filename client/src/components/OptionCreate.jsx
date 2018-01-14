@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import axios from 'axios';
 
 import { setGameSetting } from '../actions/setGameSetting';
+import { setOption } from '../actions/setOption';
 import { setLocation } from '../actions/setLocation';
 import { setEditState } from '../actions/setEditState';
 import { setUserGames } from '../actions/setUserGames';
@@ -28,7 +29,7 @@ class OptionCreate extends Component {
 
   componentWillMount() {
     console.log('here is props edit', this.props.edit);
-    if (this.props.edit === true) {
+    if (this.props.edit === false) {
       this.props.setGameSetting({
         address: '',
         competitive: '',
@@ -47,6 +48,7 @@ class OptionCreate extends Component {
 
   componentDidUpdate() {
     if (this.props.edit === false) {
+      console.log('hello world');
       if (this.props.setting) {
         var frm = document.getElementsByName('address');
         frm[0].value = this.props.setting.address;
@@ -97,7 +99,7 @@ class OptionCreate extends Component {
       console.log('editting!!!!', document.getElementsByName('address')[0].value);
       const payload = {
         address: document.getElementsByName('address')[0].value,
-        competitive: this.form['competitive'],
+        competitive: this.props.setting.competitive,
         coordinates: this.props.location ? JSON.stringify(this.props.location) : this.props.setting.coordinates,
         end: document.getElementsByName('end')[0].value,
         max: parseInt(document.getElementsByName('max')[0].value),
@@ -137,6 +139,8 @@ class OptionCreate extends Component {
               console.log('this is location', this.props.location);
               // this.props.setGameSetting(null);
               this.props.setEditState(false);
+              console.log('hello world');
+              this.props.setOption('view');
             })
             .catch(() => {
               console.log('errrrror');
@@ -178,6 +182,24 @@ class OptionCreate extends Component {
                 console.log('hello world', response);
                 this.props.setUserGames(response.data);
                 console.log('this is props.games', this.props.games);
+                this.props.setOption('view');
+                // var frm = document.getElementsByName('address');
+                // frm[0].value = '';
+                // var frm = document.getElementsByName('sport');
+                // frm[0].value = '';
+                // var frm = document.getElementsByName('max');
+                // frm[0].value = '';
+                // var frm = document.getElementsByName('start');
+                // frm[0].value = '';
+                // var frm = document.getElementsByName('end');
+                // frm[0].value = '';
+                // var frm = document.getElementsByName('competitive');
+                // frm[0].value = false;
+                // var frm = document.getElementsByName('notes');
+                // frm[0].value = '';
+                this.props.setLocation(null);
+                console.log('this is location', this.props.location);
+                this.props.setGameSetting({});
               })
               .catch(() => {
                 console.log('errrrror');
@@ -186,23 +208,6 @@ class OptionCreate extends Component {
           .catch((err) => {
             console.log('error creating game', err);
           });
-        var frm = document.getElementsByName('address');
-        frm[0].value = '';
-        var frm = document.getElementsByName('sport');
-        frm[0].value = '';
-        var frm = document.getElementsByName('max');
-        frm[0].value = '';
-        var frm = document.getElementsByName('start');
-        frm[0].value = '';
-        var frm = document.getElementsByName('end');
-        frm[0].value = '';
-        // var frm = document.getElementsByName('competitive');
-        // frm[0].value = false;
-        var frm = document.getElementsByName('notes');
-        frm[0].value = '';
-        this.props.setLocation(null);
-        console.log('this is location', this.props.location);
-        this.props.setGameSetting(null);
       } else {
         console.log('drop a pin!');
       }
@@ -211,13 +216,16 @@ class OptionCreate extends Component {
 
   onChangeHandler(e) {
     this.form[e.target.name] = e.target.value;
+    this.props.setting[e.target.name] = e.target.value;
     console.log(e.target.name, ', ', e.target.value, ' ... ', this.form[e.target.name]);
   }
 
   onSelectHandler(e) {
-    this.form['competitive'] = e
-    this.props.setting.competitive = this.form['competitive']
-    console.log('attempting to update setting', this.props.setting.competitive);
+    this.form['competitive'] = e;
+    this.props.setting.competitive = e;
+    console.log('here is the address', this.form['address']);
+    console.log('attempting to update setting', this.form['competitive']);
+    console.log('this is the entire setting', this.props.setting);
     this.props.setGameSetting(this.props.setting);
     // frm[0]['competitive'] = this.props.setting.competitive;
     console.log('e: ', e, 'thisformcompetitive', this.form['competitive']);
@@ -273,7 +281,7 @@ class OptionCreate extends Component {
               name="drop"
               componentClass={InputGroup.Button}
               id="input-dropdown-addon"
-              title={this.form['competitive'] === true ? 'Competitive' : 'Casual'}
+              title='Casual/Competitive'
               
             >
               <MenuItem eventKey={false} onSelect={this.onSelectHandler.bind(this)}>Casual
@@ -336,7 +344,8 @@ const matchDispatchToProps = dispatch => {
     setEditState: setEditState,
     setGameSetting: setGameSetting,
     setUserGames: setUserGames,
-    setLocation: setLocation
+    setLocation: setLocation,
+    setOption: setOption
   },
     dispatch);
 };

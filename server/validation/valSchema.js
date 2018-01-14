@@ -23,7 +23,7 @@ module.exports = {
       start: Joi.string().length(6).required(), //format for start time is eg "0704PM"
       end: Joi.string().length(6).required(),
       competitive: Joi.boolean().required(),
-      notes: Joi.string().max(500).required(),
+      notes: Joi.string().max(500),
       coordinates: Joi, //not explicitly requiring it because this is already being required by the client.
       user: Joi,
       token: Joi
@@ -38,7 +38,7 @@ module.exports = {
       start: Joi.string().length(6).required(), //format for start time is eg "0704PM"
       end: Joi.string().length(6).required(),
       competitive: Joi.boolean().required(),
-      notes: Joi.string().max(500).required(),
+      notes: Joi.string().max(500),
       coordinates: Joi, //not explicitly requiring it because this is already being required by the client.
       user: Joi,
       token: Joi,
