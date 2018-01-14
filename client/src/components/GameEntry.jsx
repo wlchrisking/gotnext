@@ -9,6 +9,7 @@ import { setLoginPage } from '../actions/setLoginPage';
 import { setEditState } from '../actions/setEditState';
 import { setUserGames } from '../actions/setUserGames';
 import { setDeleteState } from '../actions/setDeleteState';
+import { setDeleteUserState } from '../actions/setDeleteUserState';
 
 import { Modal, Alert, Popover, Col, Row, Button, Table, ListGroup, ListGroupItem, OverlayTrigger, ButtonToolbar } from 'react-bootstrap';
 
@@ -39,8 +40,9 @@ class GameEntry extends Component {
     this.props.setLoginPage('default');
   }
 
-  onDeleteHandler() {
-    axios.delete(`api/games/delete/${this.form.id}`)
+  onDeleteHandler(deletedUser) {
+    console.log('this guy is getting deleted.. inside of onDeleteHandler: ', deletedUser)
+    axios.delete(`api/games/delete/${deletedUser}`)
       .then((response) => {
         axios.get(`/api/games/fetch/user/${this.props.user}`)
           .then((response) => {
@@ -81,14 +83,14 @@ class GameEntry extends Component {
               style={{ width: "100px" }}
               type="button"
               bsStyle="danger"
-              onClick={() => { this.props.setDeleteState(true) }}
+              onClick={() => { console.log('this.props inside first delete button:',this.props); this.props.setDeleteState(true); this.props.setDeleteUserState(this.form.id)}}
             >
               Delete </Button>
 
             {this.props.deleteState ?
               <Modal
                 show={this.props.deleteState}
-                onHide={() => { !this.props.setDeleteState(false) }}
+                onHide={() => { this.props.setDeleteState(false); this.props.setDeleteUserState(null)}}
                
               >
                 <Modal.Header closeButton>
@@ -101,8 +103,8 @@ class GameEntry extends Component {
             </Modal.Body>
                 <Modal.Footer>
                   <ButtonToolbar>
-                  <Button style={{ width: "100px" }} bsStyle="danger" onClick={() => { this.props.setDeleteState(false); this.onDeleteHandler() }}>Delete</Button>
-                  <Button style={{ width: "100px" }} onClick={() => { this.props.setDeleteState(false) }}>Close</Button>
+                  <Button style={{ width: "100px" }} bsStyle="danger" onClick={() => { console.log('this.props inside second delete button: ',this.props); this.props.setDeleteState(false); this.onDeleteHandler.bind(this)(this.props.deleteUserState) }}>Delete</Button>
+                  <Button style={{ width: "100px" }} onClick={() => { this.props.setDeleteState(false); this.props.setDeleteUserState(null) }}>Close</Button>
                   </ButtonToolbar>
                 </Modal.Footer>
               </Modal>
@@ -124,7 +126,9 @@ const mapStateToProps = state => {
     location: state.location,
     setting: state.setting,
     user: state.user,
-    deleteState: state.deleteState
+    deleteState: state.deleteState,
+    deleteUserState: state.deleteUserState
+    
   }
 };
 
@@ -135,7 +139,8 @@ const matchDispatchToProps = dispatch => {
     setOption: setOption,
     setUserGames: setUserGames,
     setLoginPage: setLoginPage,
-    setDeleteState: setDeleteState
+    setDeleteState: setDeleteState,
+    setDeleteUserState: setDeleteUserState
   },
     dispatch);
 };
