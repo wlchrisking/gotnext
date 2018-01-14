@@ -42,36 +42,36 @@ class Navi extends Component {
           {/* === CREATE BUTTON === */}
 
           <NavItem>
-          <a href=""
-            onClick={(e) => {
-              e.preventDefault()
-              if (this.props.user) {
-                this.props.setGameSetting({
-                  id: '',
-                  sport: '',
-                  max: '',
-                  start: '',
-                  end: '',
-                  competitive: false,
-                  notes: '',
-                  address: '',
-                  coordinates: '',
-                  UserId: ''
-                });
-                this.props.setEditState(false);
-                this.props.setOption('');
-                console.log('hello world');
-                this.props.setOption('create');
-                this.props.setLoginPage('default')
-              } else {
-                this.props.setLoginPage('login')
-              }
-            }}
-            className="navigation"
-          >
-            Create
+            <a href=""
+              onClick={(e) => {
+                e.preventDefault()
+                if (this.props.user) {
+                  this.props.setGameSetting({
+                    id: '',
+                    sport: '',
+                    max: '',
+                    start: '',
+                    end: '',
+                    competitive: false,
+                    notes: '',
+                    address: '',
+                    coordinates: '',
+                    UserId: ''
+                  });
+                  this.props.setEditState(false);
+                  this.props.setOption('');
+                  console.log('hello world');
+                  this.props.setOption('create');
+                  this.props.setLoginPage('default')
+                } else {
+                  this.props.setLoginPage('login')
+                }
+              }}
+              className="navigation"
+            >
+              Create
           </a>
-        </NavItem>
+          </NavItem>
 
           {/* === VIEW BUTTON === */}
 
@@ -85,7 +85,7 @@ class Navi extends Component {
                 } else {
                   this.props.setLoginPage('login')
                 }
-                
+
               }}
               className="navigation"
             >
@@ -96,76 +96,80 @@ class Navi extends Component {
           {/* === SIGNUP BUTTON === */}
           {
             !this.props.user
-            ?
-            <NavItem>
-              <a href=""
-                onClick={(e) => {
-                  e.preventDefault()
-                  this.props.setLoginPage('signup')
-                }}
-                className="navigation"
-              >
-                Sign Up
+              ?
+              <NavItem>
+                <a href=""
+                  onClick={(e) => {
+                    e.preventDefault()
+                    this.props.setLoginPage('signup')
+                  }}
+                  className="navigation"
+                >
+                  Sign Up
               </a>
-            </NavItem>
-            :
-            null
+              </NavItem>
+              :
+              null
           }
 
           {/* === LOGIN/LOGOUT BUTTON === */}
 
           {
             !this.props.user
-           
-            ?
-            
-            <NavItem>
-              <a href=""
-                onClick={
-                  (e) => {
+
+              ?
+
+              <NavItem>
+                <a href=""
+                  onClick={
+                    (e) => {
+                      e.preventDefault()
+                      this.props.setLoginPage('login')
+                    }}
+                  className="navigation"
+                >
+                  Login
+              </a>
+              </NavItem>
+
+              :
+
+              <NavItem>
+                <a href=""
+                  onClick={(e) => {
                     e.preventDefault()
-                    this.props.setLoginPage('login')
-                  }}
-                className="navigation"
-              >
-                Login
-              </a>
-            </NavItem>
 
-            :
-
-            <NavItem>
-              <a href=""
-                onClick={(e) => {
-                  e.preventDefault()
-
-                  axios.get('/api/user/logout')
-                    .then((data) => {
-                      window.localStorage.removeItem('token')
-                      window.localStorage.removeItem('username')
-                      this.props.setUser(null)
-                      this.props.setUserGames(null)
-                      this.props.setLoginPage('default')
-                      this.props.setOption('search')
-                      console.log('Data:', data.data.message)
-                    })
-                    .catch((err) => {
-                      console.log('Error logging out', err)
-                    })
+                    axios.get('/api/user/logout')
+                      .then((data) => {
+                        window.localStorage.removeItem('token')
+                        window.localStorage.removeItem('username')
+                        this.props.setUser(null)
+                        this.props.setUserGames(null)
+                        this.props.setLoginPage('default')
+                        this.props.setOption('search')
+                        console.log('Data:', data.data.message)
+                      })
+                      .catch((err) => {
+                        console.log('Error logging out', err)
+                      })
                   }
-                }
-                className="navigation"
-              >
-                Log Out
+                  }
+                  className="navigation"
+                >
+                  Log Out
               </a>
-            </NavItem>
+              </NavItem>
           }
-          
-          
-          
-          
 
         </Nav>
+        {!this.props.user ? null :
+          <Nav pullRight>
+            <NavItem>
+              {this.props.user}
+            </NavItem>
+          </Nav>
+        }
+
       </Navbar>
     )
   }
