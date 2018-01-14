@@ -24,13 +24,27 @@ class Maps extends Component {
       const loc = JSON.parse(game.coordinates);
       return (
         <Marker 
-          title={game.address + '\n' + game.sport}
-          name={game.address}
-          key={game.id}
-          position={loc}
-        />
-      )
-    })
+        title={game.address + '\n' + game.sport}
+        name={game.address}
+        key={game.id}
+        position={loc}
+          icon={game.UserId === this.findUserId() ?
+            'http://maps.google.com/mapfiles/ms/icons/green-dot.png' : 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'}
+            />
+          )
+        })
+  }
+  
+  findUserId() {
+    var userId;
+    if (this.props.userList) {
+      for (var i = 0; i< this.props.userList.length; i++) {
+        if (this.props.userList[i].username === this.props.user) {
+          userId = this.props.userList[i].id;
+          return userId;
+        }
+      }
+    }
   }
 
   render() {
@@ -90,7 +104,8 @@ const mapStateToProps = state => {
     gameData: state.gameData,
     games: state.games,
     user: state.user,
-    option: state.option
+    option: state.option,
+    userList: state.userList
   }
 };
 
