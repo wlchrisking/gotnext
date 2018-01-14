@@ -86,10 +86,10 @@ class GameEntry extends Component {
               Delete </Button>
 
             {this.props.deleteState ?
-              <div className="modal-container" style={{ height: 200, position: 'absolute' }}>
               <Modal
                 show={this.props.deleteState}
-                onHide={() => { !this.props.deleteState }}
+                onHide={() => { !this.props.setDeleteState(false) }}
+               
               >
                 <Modal.Header closeButton>
                   <Modal.Title>
@@ -97,24 +97,15 @@ class GameEntry extends Component {
               </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  Are you sure you want to delete Game: {this.form.id} from User: {this.props.user}
+                  Are you sure you want to delete Game # {this.form.id}?
             </Modal.Body>
                 <Modal.Footer>
                   <ButtonToolbar>
-                  <Button bsStyle="danger" onClick={() => { this.props.setDeleteState(false); this.onDeleteHandler() }}>Delete</Button>
-                  <Button onClick={() => { this.props.setDeleteState(false) }}>Close</Button>
+                  <Button style={{ width: "100px" }} bsStyle="danger" onClick={() => { this.props.setDeleteState(false); this.onDeleteHandler() }}>Delete</Button>
+                  <Button style={{ width: "100px" }} onClick={() => { this.props.setDeleteState(false) }}>Close</Button>
                   </ButtonToolbar>
                 </Modal.Footer>
               </Modal>
-              </div>
-
-
-
-
-
-
-
-
               : null}
 
           </ButtonToolbar>
