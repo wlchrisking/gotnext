@@ -10,15 +10,22 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 // const googleApiKey = process.env.GOOGLEAPIKEY;
 
 class Maps extends Component {
-  
+
   renderMarkers() {
-    
-    return this.props.gameData.map(game => {
-      const loc = JSON.parse(game.coordinates)
+    if (this.props.option !== 'search' && this.props.games) {
+      return this.renderMarkersHelper(this.props.games);
+    } else {
+      return this.renderMarkersHelper(this.props.gameData);
+    }
+  }
+  
+  renderMarkersHelper(allOrJustUserGames){
+    return allOrJustUserGames.map(game => {
+      const loc = JSON.parse(game.coordinates);
       return (
         <Marker 
-          title={'placeholder'}
-          name={'placeholder'}
+          title={game.address + '\n' + game.sport}
+          name={game.address}
           key={game.id}
           position={loc}
         />
@@ -80,7 +87,10 @@ class Maps extends Component {
 const mapStateToProps = state => {
   return {
     location: state.location,
-    gameData: state.gameData
+    gameData: state.gameData,
+    games: state.games,
+    user: state.user,
+    option: state.option
   }
 };
 
