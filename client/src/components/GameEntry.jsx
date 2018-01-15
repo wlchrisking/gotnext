@@ -41,11 +41,13 @@ class GameEntry extends Component {
   }
 
   onDeleteHandler(deletedUser) {
-    console.log('this guy is getting deleted.. inside of onDeleteHandler: ', deletedUser)
+    console.log('This person is definitely getting deleted from db: ', deletedUser)
     axios.delete(`api/games/delete/${deletedUser}`)
       .then((response) => {
         axios.get(`/api/games/fetch/user/${this.props.user}`)
           .then((response) => {
+            console.log('response.data from /api/games/fetch/user/${this.props.user}:', response.data)
+            //
             this.props.setUserGames(response.data);
           })
           .catch((err) => {
@@ -83,7 +85,7 @@ class GameEntry extends Component {
               style={{ width: "100px" }}
               type="button"
               bsStyle="danger"
-              onClick={() => { console.log('this.props inside first delete button:',this.props); this.props.setDeleteState(true); this.props.setDeleteUserState(this.form.id)}}
+              onClick={() => {this.props.setDeleteState(true); this.props.setDeleteUserState(this.form.id)}}
             >
               Delete </Button>
 
@@ -99,11 +101,11 @@ class GameEntry extends Component {
               </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  Are you sure you want to delete Game # {this.form.id}?
+                  Are you sure you want to delete Game # {this.props.deleteUserState}?
             </Modal.Body>
                 <Modal.Footer>
                   <ButtonToolbar>
-                  <Button style={{ width: "100px" }} bsStyle="danger" onClick={() => { console.log('this.props inside second delete button: ',this.props); this.props.setDeleteState(false); this.onDeleteHandler.bind(this)(this.props.deleteUserState) }}>Delete</Button>
+                  <Button style={{ width: "100px" }} bsStyle="danger" onClick={() => {this.props.setDeleteState(false); this.onDeleteHandler.bind(this)(this.props.deleteUserState) }}>Delete</Button>
                   <Button style={{ width: "100px" }} onClick={() => { this.props.setDeleteState(false); this.props.setDeleteUserState(null) }}>Close</Button>
                   </ButtonToolbar>
                 </Modal.Footer>
