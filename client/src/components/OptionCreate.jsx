@@ -142,7 +142,6 @@ class OptionCreate extends Component {
   }
 
   render() {
-    console.log('meeeow', this.props.setting);
     return (
       <div>
         {!this.props.edit ?
@@ -165,14 +164,14 @@ class OptionCreate extends Component {
             <FormControl
               type="text"
               name="start"
-              placeholder="Start time"
+              placeholder={`Start time (e.g. \"0930AM\")`}
               onChange={this.onChangeHandler.bind(this)}
             />
 
             <FormControl
               type="text"
               name="end"
-              placeholder="End time"
+              placeholder={`End time (e.g. \"1159PM\")`}
               onChange={this.onChangeHandler.bind(this)}
             />
             <FormControl
@@ -184,7 +183,7 @@ class OptionCreate extends Component {
             <FormControl
               type="text"
               name="max"
-              placeholder="Max players"
+              placeholder="Max players (#)"
               onChange={this.onChangeHandler.bind(this)}
             />
 
@@ -215,7 +214,7 @@ class OptionCreate extends Component {
           </FormGroup>
         </Form>
 
-        <div>{!this.props.location && this.props.option === 'create' ? <div class='warn'>Please drop a pin to mark the location of the game.<br></br><br></br></div> : <div><br></br><br></br></div>}</div>
+        <div>{!this.props.edit && !this.props.location ? <div className='warn'>Please drop a pin to mark the location of the game.<br></br><br></br></div> : <div><br></br><br></br></div>}</div>
 
         {!this.props.edit ? <Button
           className="btns"
@@ -233,14 +232,8 @@ class OptionCreate extends Component {
           >Edit
         </Button>}
 
-
       </div>
-
-
-
     )
-
-
   }
 }
 
@@ -250,8 +243,7 @@ const mapStateToProps = state => {
     setting: state.setting,
     user: state.user,
     games: state.games,
-    edit: state.edit,
-    option: state.option
+    edit: state.edit
   }
 };
 
