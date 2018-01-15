@@ -8,14 +8,17 @@ import { setOption } from '../actions/setOption';
 import { setLoginPage } from '../actions/setLoginPage';
 import { setEditState } from '../actions/setEditState';
 import { setUserGames } from '../actions/setUserGames';
-import { Alert, Popover, Col, Row, Button, Table, ListGroup, ListGroupItem, OverlayTrigger, ButtonToolbar } from 'react-bootstrap';
+import { setDeleteState } from '../actions/setDeleteState';
+import { setDeleteUserState } from '../actions/setDeleteUserState';
+
+import { Modal, Alert, Popover, Col, Row, Button, Table, ListGroup, ListGroupItem, OverlayTrigger, ButtonToolbar } from 'react-bootstrap';
 
 
 class GameEntry extends Component {
   constructor(prop) {
     super(prop);
     console.log('this is this.game', prop.game);
-    
+
     this.form = {
       id: prop.game.id,
       sport: prop.game.sport,
@@ -37,11 +40,14 @@ class GameEntry extends Component {
     this.props.setLoginPage('default');
   }
 
-  onDeleteHandler() {
-    axios.delete(`api/games/delete/${this.form.id}`)
+  onDeleteHandler(deletedUser) {
+    console.log('This person is definitely getting deleted from db: ', deletedUser)
+    axios.delete(`api/games/delete/${deletedUser}`)
       .then((response) => {
         axios.get(`/api/games/fetch/user/${this.props.user}`)
           .then((response) => {
+            console.log('response.data from /api/games/fetch/user/${this.props.user}:', response.data)
+            //
             this.props.setUserGames(response.data);
           })
           .catch((err) => {
@@ -69,18 +75,43 @@ class GameEntry extends Component {
 
           <ButtonToolbar>
             <Button
-              style={{ width: "100px"}}
+              style={{ width: "100px" }}
               type="button"
               bsStyle="primary"
               onClick={this.onEditHandler.bind(this)}
             >Edit</Button>
 
             <Button
-              style={{ width: "100px"}}
+              style={{ width: "100px" }}
               type="button"
               bsStyle="danger"
-              onClick={this.onDeleteHandler.bind(this)}
-            >Delete</Button>
+              onClick={() => {this.props.setDeleteState(true); this.props.setDeleteUserState(this.form.id)}}
+            >
+              Delete </Button>
+
+            {this.props.deleteState ?
+              <Modal
+                show={this.props.deleteState}
+                onHide={() => { this.props.setDeleteState(false); this.props.setDeleteUserState(null)}}
+               
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>
+                    Warning!
+              </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  Are you sure you want to delete Game # {this.props.deleteUserState}?
+            </Modal.Body>
+                <Modal.Footer>
+                  <ButtonToolbar>
+                  <Button style={{ width: "100px" }} bsStyle="danger" onClick={() => {this.props.setDeleteState(false); this.onDeleteHandler.bind(this)(this.props.deleteUserState) }}>Delete</Button>
+                  <Button style={{ width: "100px" }} onClick={() => { this.props.setDeleteState(false); this.props.setDeleteUserState(null) }}>Close</Button>
+                  </ButtonToolbar>
+                </Modal.Footer>
+              </Modal>
+              : null}
+
           </ButtonToolbar>
 
         </ListGroup>
@@ -96,7 +127,10 @@ const mapStateToProps = state => {
     edit: state.edit,
     location: state.location,
     setting: state.setting,
-    user: state.user
+    user: state.user,
+    deleteState: state.deleteState,
+    deleteUserState: state.deleteUserState
+    
   }
 };
 
@@ -106,7 +140,9 @@ const matchDispatchToProps = dispatch => {
     setGameSetting: setGameSetting,
     setOption: setOption,
     setUserGames: setUserGames,
-    setLoginPage: setLoginPage
+    setLoginPage: setLoginPage,
+    setDeleteState: setDeleteState,
+    setDeleteUserState: setDeleteUserState
   },
     dispatch);
 };
