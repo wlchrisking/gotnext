@@ -151,20 +151,20 @@ class OptionCreate extends Component {
         });
     } else {
       console.log('false edit');
-      var frm = document.getElementsByName('address');
-      frm[0].value = '';
-      var frm = document.getElementsByName('sport');
-      frm[0].value = '';
-      var frm = document.getElementsByName('max');
-      frm[0].value = '';
-      var frm = document.getElementsByName('start');
-      frm[0].value = '';
-      var frm = document.getElementsByName('end');
-      frm[0].value = '';
-      // var frm = document.getElementsByName('competitive');
-      // frm[0].value = false;
-      var frm = document.getElementsByName('notes');
-      frm[0].value = '';
+      // var frm = document.getElementsByName('address');
+      // frm[0].value = '';
+      // var frm = document.getElementsByName('sport');
+      // frm[0].value = '';
+      // var frm = document.getElementsByName('max');
+      // frm[0].value = '';
+      // var frm = document.getElementsByName('start');
+      // frm[0].value = '';
+      // var frm = document.getElementsByName('end');
+      // frm[0].value = '';
+      // // var frm = document.getElementsByName('competitive');
+      // // frm[0].value = false;
+      // var frm = document.getElementsByName('notes');
+      // frm[0].value = '';
       if (this.props.location) {
         const payload = this.form;
         payload['coordinates'] = this.props.location;
@@ -179,6 +179,20 @@ class OptionCreate extends Component {
             console.log('successfully created game', response);
             axios.get(`/api/games/fetch/user/${this.props.user}`)
               .then((response) => {
+                var frm = document.getElementsByName('address');
+                frm[0].value = '';
+                var frm = document.getElementsByName('sport');
+                frm[0].value = '';
+                var frm = document.getElementsByName('max');
+                frm[0].value = '';
+                var frm = document.getElementsByName('start');
+                frm[0].value = '';
+                var frm = document.getElementsByName('end');
+                frm[0].value = '';
+                // var frm = document.getElementsByName('competitive');
+                // frm[0].value = false;
+                var frm = document.getElementsByName('notes');
+                frm[0].value = '';
                 console.log('hello world', response);
                 this.props.setUserGames(response.data);
                 console.log('this is props.games', this.props.games);
