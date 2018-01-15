@@ -13,12 +13,12 @@ class OptionSearchEntry extends Component {
       <div style={{fontSize: '12px'}}>
       <ListGroup>
       <div>
-      <ListGroupItem header="Creator: " active>
+      <ListGroupItem className="creat" header="Creator: " active>
         <div>
           {
             !this.props.userList 
             ? null 
-            : <div>{this.props.userList.find(user => {
+            : <div className="creat-text">{this.props.userList.find(user => {
                 return user.id === this.props.game.UserId}).username}
               </div>
           }

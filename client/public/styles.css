@@ -12,3 +12,20 @@
 .modal-container .modal, .modal-container .modal-backdrop {
   position: absolute;
 }
+
+.warn {
+  color: red;
+}
+
+.navigation {
+  color: orange;
+}
+
+.creat, .game-entry, .btns {
+  background-color: orange !important;
+  color: #3F250B !important;
+}
+
+.creat-text, .game-inner {
+  color: black !important;
+}
