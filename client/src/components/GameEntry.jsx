@@ -14,43 +14,22 @@ import { setDeleteUserState } from '../actions/setDeleteUserState';
 import { Modal, Alert, Popover, Col, Row, Button, Table, ListGroup, ListGroupItem, OverlayTrigger, ButtonToolbar } from 'react-bootstrap';
 
 class GameEntry extends Component {
-  constructor(prop) {
-    super(prop);
-    console.log('this is this.game', prop.game);
-
-    this.form = {
-      id: prop.game.id,
-      sport: prop.game.sport,
-      max: prop.game.max,
-      start: prop.game.start,
-      end: prop.game.end,
-      competitive: prop.game.competitive,
-      notes: prop.game.notes,
-      address: prop.game.address,
-      coordinates: prop.game.coordinates,
-      UserId: prop.game.UserId
-    }
-  }
-
-  componentDidMount(){
-    console.log('da game id', this.form.id);
+  constructor(props) {
+    super(props);
   }
 
   onEditHandler() {
     this.props.setEditState(true);
-    this.props.setGameSetting(this.form);
+    this.props.setGameSetting({ id: this.props.game.id, sport: this.props.game.sport, max: this.props.game.max, start: this.props.game.start, end: this.props.game.end, competitive: this.props.game.competitive, notes: this.props.game.notes, address: this.props.game.address, coordinates: this.props.game.coordinates, UserId: this.props.game.UserId });
     this.props.setOption('create');
     this.props.setLoginPage('default');
   }
 
   onDeleteHandler(deletedUser) {
-    console.log('This person is definitely getting deleted from db: ', deletedUser)
     axios.delete(`api/games/delete/${deletedUser}`)
       .then((response) => {
         axios.get(`/api/games/fetch/user/${this.props.user}`)
           .then((response) => {
-            console.log('response.data from /api/games/fetch/user/${this.props.user}:', response.data)
-            //
             this.props.setUserGames(response.data);
           })
           .catch((err) => {
@@ -66,14 +45,13 @@ class GameEntry extends Component {
     return (
       <div style={{ fontSize: '12px' }}>
         <ListGroup>
-          <ListGroupItem className="game-entry" header="Game # " active><div className="game-inner">{this.form.id}</div></ListGroupItem>
-          <ListGroupItem className="created-entry">Sport: {this.form.sport}</ListGroupItem>
-          <ListGroupItem className="created-entry">Start/End: {this.form.start}-{this.form.end}</ListGroupItem>
-          <ListGroupItem className="created-entry">Address: {this.form.address}</ListGroupItem>
-          <ListGroupItem className="created-entry">Max Players: {this.form.max}</ListGroupItem>
-          <ListGroupItem className="created-entry">Type: {this.form.competitive ? <span>Competitive</span> : <span>Casual</span>}</ListGroupItem>
-          <ListGroupItem className="created-entry">Notes: {this.form.notes}</ListGroupItem>
-
+          <ListGroupItem className="game-entry" header="Game # " active><div className="game-inner">{this.props.game.id}</div></ListGroupItem>
+          <ListGroupItem className="created-entry">Sport: {this.props.game.sport}</ListGroupItem>
+          <ListGroupItem className="created-entry">Start/End: {this.props.game.start}-{this.props.game.end}</ListGroupItem>
+          <ListGroupItem className="created-entry">Address: {this.props.game.address}</ListGroupItem>
+          <ListGroupItem className="created-entry">Max Players: {this.props.game.max}</ListGroupItem>
+          <ListGroupItem className="created-entry">Type: {this.props.game.competitive ? <span>Competitive</span> : <span>Casual</span>}</ListGroupItem>
+          <ListGroupItem className="created-entry">Notes: {this.props.game.notes}</ListGroupItem>
           <br />
 
           <ButtonToolbar>
@@ -89,7 +67,7 @@ class GameEntry extends Component {
               style={{ width: "100px" }}
               type="button"
               bsStyle="danger"
-              onClick={() => {this.props.setDeleteState(true); this.props.setDeleteUserState(this.form.id)}}
+              onClick={() => {this.props.setDeleteState(true); this.props.setDeleteUserState(this.props.game.id)}}
             >
               Delete </Button>
 

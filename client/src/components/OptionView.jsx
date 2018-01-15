@@ -9,10 +9,6 @@ import GameEntry from './GameEntry';
 
 class OptionView extends Component {
 
-  // oncomponentdidmount
-  // // query for user created games
-  // // // dynamically render games into optionviewentry component
-  // // // // 
   componentWillMount() {
     axios.get(`/api/games/fetch/user/${this.props.user}`)
       .then( (response) => {

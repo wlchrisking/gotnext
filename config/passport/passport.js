@@ -50,11 +50,9 @@ passport.use('local-signup', new LocalStrategy({
                 return done(null, false, {
                   errMsg: 'email already exists'
                 });
-                // res.status(200).send(created);
               } else {
                 console.log('Login successful!', result.dataValues);
                 return done(null, result.dataValues);
-                // res.status(200).send(result);
               }
             });
         }
@@ -82,30 +80,18 @@ passport.use('local-login', new LocalStrategy({
             bcrypt.compare(req.body.password, userdata.dataValues.password, function (err, result) {
               if (err) {
                 console.log('error signing up', err);
-                // res.status(500).send({message: 'error signing up'});
               } else if (!!result) {
-                console.log('successful sign in');
                 return done(null, userdata);
-                // res.status(201).send({message: 'successful sign in'});
               } else {
-                console.log('invalid password');
                 return done(null, false, {errMsg: 'invalid password'});
-                // res.status(500).send({message: 'unsuccessful sign in'});
               }
             });
           }
         })
         .catch((err) => {
-          console.log('error finding user for login', err);
           done(null, false, {errMsg: 'user not found'});
         });
     });
   }));
-
-
-// console.log('before passport use');
-// passport.use('local', new LocalStrategy(localOptions, async (username, password, done) => {
-//     console.log('please work');
-// }));
 
 module.exports = passport;
