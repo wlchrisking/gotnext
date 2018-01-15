@@ -30,7 +30,7 @@ class Maps extends Component {
         key={game.id}
         position={loc}
           icon={game.UserId === userId ?
-            'http://maps.google.com/mapfiles/ms/icons/green-dot.png' : 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'}
+            'http://maps.google.com/mapfiles/ms/icons/green-dot.png' : 'http://maps.google.com/mapfiles/ms/icons/orange-dot.png'}
             />
           )
         })

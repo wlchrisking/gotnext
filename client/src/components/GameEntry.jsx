@@ -66,7 +66,7 @@ class GameEntry extends Component {
     return (
       <div style={{ fontSize: '12px' }}>
         <ListGroup>
-          <ListGroupItem header="Game # " active>{this.form.id}</ListGroupItem>
+          <ListGroupItem className="game-entry" header="Game # " active><div className="game-inner">{this.form.id}</div></ListGroupItem>
           <ListGroupItem className="created-entry">Sport: {this.form.sport}</ListGroupItem>
           <ListGroupItem className="created-entry">Start/End: {this.form.start}-{this.form.end}</ListGroupItem>
           <ListGroupItem className="created-entry">Address: {this.form.address}</ListGroupItem>
@@ -78,6 +78,7 @@ class GameEntry extends Component {
 
           <ButtonToolbar>
             <Button
+              className="btns"
               style={{ width: "100px" }}
               type="button"
               bsStyle="primary"

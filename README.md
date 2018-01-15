@@ -1,5 +1,13 @@
 "# App" 
 
+
+<---Documentation/How to Run the App--->
+- Access the gotnext folder in the terminal
+- run "npm install" in the terminal
+- run "npm run dev" in the terminal
+- open a browser and navigate to "localhost:3000" to access the app
+
+
 <---Git Work FLOW--->
 ***If you don't already have a feature branch...***
 - Ensure that you are in your master branch (git checkout master) (not the no branch)

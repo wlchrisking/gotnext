@@ -246,6 +246,7 @@ class OptionCreate extends Component {
   }
 
   render() {
+    console.log('meeeow', this.props.setting);
     return (
       <div>
         {!this.props.edit ?
@@ -318,13 +319,17 @@ class OptionCreate extends Component {
           </FormGroup>
         </Form>
 
+        <div>{!this.props.location && this.props.option === 'create' ? <div class='warn'>Please drop a pin to mark the location of the game.<br></br><br></br></div> : <div><br></br><br></br></div>}</div>
+
         {!this.props.edit ? <Button
+          className="btns"
           block={true}
           type="button"
           bsStyle="primary"
           onClick={this.onSubmitHandler.bind(this)}
         >Create!
         </Button> : <Button
+            className="btns"
             block={true}
             type="button"
             bsStyle="primary"
@@ -349,7 +354,8 @@ const mapStateToProps = state => {
     setting: state.setting,
     user: state.user,
     games: state.games,
-    edit: state.edit
+    edit: state.edit,
+    option: state.option
   }
 };
 
