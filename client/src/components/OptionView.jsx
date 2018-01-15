@@ -27,6 +27,15 @@ class OptionView extends Component {
       })
   }
   render() {
+    console.log('this is games', this.props);
+    const games = [];
+    if (this.props.games) {
+      for (let i =0; i<this.props.games.length; i++) {
+      console.log('gameeee', this.props.games[i])
+       games.push(<GameEntry game={this.props.games[i]}/>);
+        
+      }
+    }
     return(
       <div>
         
@@ -34,16 +43,9 @@ class OptionView extends Component {
         </div>
         <br/>
         <div style={{ height: '430px', overflow:'scroll'}}>
-          {
-            this.props.games ?
-              this.props.games.map( (game) => {
-                // console.log('this is mini ms', ms);
-                return <GameEntry game={game}/>;
-                
-              })
-              :
-              null
-          }
+          
+         {games}
+          
         </div>
       </div>
     )
@@ -62,9 +64,18 @@ const mapStateToProps = state => {
 const matchDispatchToProps = dispatch => {
   return bindActionCreators({
     setUserGames:setUserGames,
-    }, 
-    dispatch);
+  }, 
+  dispatch);
 };
 
 
 export default connect(mapStateToProps, matchDispatchToProps)(OptionView);
+// this.props.games ?
+  // this.props.games.map( (game) => {
+  //   console.log('meowgame!', game);
+  //   // console.log('this is mini ms', ms);
+  //   return <GameEntry game={game}/>;
+    
+  // })
+  // :
+  // null

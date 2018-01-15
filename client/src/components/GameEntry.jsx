@@ -33,6 +33,10 @@ class GameEntry extends Component {
     }
   }
 
+  componentDidMount(){
+    console.log('da game id', this.form.id);
+  }
+
   onEditHandler() {
     this.props.setEditState(true);
     this.props.setGameSetting(this.form);
