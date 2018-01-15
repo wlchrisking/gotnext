@@ -20,6 +20,7 @@ class Maps extends Component {
   }
   
   renderMarkersHelper(allOrJustUserGames){
+    var userId = this.findUserId();
     return allOrJustUserGames.map(game => {
       const loc = JSON.parse(game.coordinates);
       return (
@@ -28,7 +29,7 @@ class Maps extends Component {
         name={game.address}
         key={game.id}
         position={loc}
-          icon={game.UserId === this.findUserId() ?
+          icon={game.UserId === userId ?
             'http://maps.google.com/mapfiles/ms/icons/green-dot.png' : 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'}
             />
           )

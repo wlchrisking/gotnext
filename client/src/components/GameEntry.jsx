@@ -13,7 +13,6 @@ import { setDeleteUserState } from '../actions/setDeleteUserState';
 
 import { Modal, Alert, Popover, Col, Row, Button, Table, ListGroup, ListGroupItem, OverlayTrigger, ButtonToolbar } from 'react-bootstrap';
 
-
 class GameEntry extends Component {
   constructor(prop) {
     super(prop);
