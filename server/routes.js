@@ -77,7 +77,7 @@ Router.route('/games/delete/:gameId')
 //the below function is needed for error handling for express-joi-validator using joi in the ".all" statements above
 Router.use(function (err, req, res, next) {
   if (err.isBoom) {
-    return res.status(err.output.statusCode).json({errMsg:err.data[0].message});
+    return res.status(200).json({errMsg:err.data[0].message});
         // return res.status(err.output.statusCode).json(err.output.payload);
         // return res.status(200).json(err.output.payload);
         // return res.status(err.output.statusCode).json(err.output.payload);

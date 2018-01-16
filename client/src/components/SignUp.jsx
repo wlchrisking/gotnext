@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Form, FormControl, Grid, Button, Jumbotron, Row, Col, FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap';
+import { Alert, Form, FormControl, Grid, Button, Jumbotron, Row, Col, FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap';
 import axios from 'axios'
 
 class SignUp extends Component {
@@ -10,7 +10,9 @@ class SignUp extends Component {
     this.state = {
       username: '',
       password: '',
-      signedUp: false
+      usernameValidationState: null,
+      passwordValidationState: null,
+      errMsg: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -22,6 +24,7 @@ class SignUp extends Component {
       [event.target.id]: event.target.value,
       [event.target.id]: event.target.value
     })
+    
   }
 
   handleSignUpUser() {
@@ -32,55 +35,84 @@ class SignUp extends Component {
 
     axios.post('/api/user/signup', payload)
       .then((data) => {
-        console.log('Sign up successful. Data received from server:', data)
         if (data.data.success) {
           this.setState({
-            signedUp: true
+            signedUp: true,
+            
           })
+        } else {
+          if (data.data.errMsg && data.data.errMsg.includes('username')) {
+            this.setState({
+              errMsg: data.data.errMsg,
+              passwordValidationState: null,
+              usernameValidationState: 'error'
+            })
+          } else {
+            this.setState({
+              errMsg: data.data.errMsg,
+              usernameValidationState: null,
+              passwordValidationState: 'error'
+            })
+          }
         }
       })
       .catch((err) => {
-        console.log('Error signing up user: ', err)
       })
   }
-
-  // handleValidation() {
-  //   // will mess with later. handles client side validation
-  //   const pwlength = this.state.password.length
-  //   const userlength = this.state.username.length
-  //   if (userlength < 3) return 'error'
-  //   if (pwlength < 3) return 'error'
-
-  // }
 
   render() {
     return (
       <div>
 
         <Form>
-          <FormGroup>
+          <FormGroup
+            validationState = {this.state.usernameValidationState}
+            >
+            Username:
             <FormControl
               type="text"
               id="username"
               value={this.state.username}
-              placeholder="Enter Username"
+              placeholder="somebody@hackreactor.com"
               onChange={this.handleChange}
+              required
+              autoFocus
             />
+            
 
+            </FormGroup>
+
+            <FormGroup
+            validationState={this.state.passwordValidationState}>
+            Password:
             <FormControl
               type="password"
               id="password"
               value={this.state.password}
               placeholder="Enter Password"
               onChange={this.handleChange}
+              required
             />
+           
           </FormGroup>
         </Form>
+
+        
+
+        {!this.state.errMsg ? null : 
+        
+        
+        <Alert bsStyle="danger">
+        <strong>Error:</strong> {this.state.errMsg}
+      </Alert>
+        
+        }
+
 
         <Button
           block={true}
           type="button"
-          bsStyle="success"
+          bsStyle="primary"
           onClick={this.handleSignUpUser}
         >Sign up</Button>
 
