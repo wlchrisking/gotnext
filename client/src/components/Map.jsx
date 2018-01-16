@@ -6,8 +6,6 @@ import {setLocation} from '../actions/setLocation';
 
 // google-maps-react library stuff
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-// import googleApi from '../config/config.js'
-// const googleApiKey = process.env.GOOGLEAPIKEY;
 
 class Maps extends Component {
 
@@ -117,7 +115,6 @@ const matchDispatchToProps = dispatch => {
 };
 
 const WrappedContainer = GoogleApiWrapper({
-  // apiKey: (googleApi.key)
   apiKey: process.env.GOOGLEMAPAPI
 })(Maps);
 

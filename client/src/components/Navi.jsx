@@ -46,21 +46,9 @@ class Navi extends Component {
               onClick={(e) => {
                 e.preventDefault()
                 if (this.props.user) {
-                  this.props.setGameSetting({
-                    id: '',
-                    sport: '',
-                    max: '',
-                    start: '',
-                    end: '',
-                    competitive: false,
-                    notes: '',
-                    address: '',
-                    coordinates: '',
-                    UserId: ''
-                  });
+                  this.props.setGameSetting({ id: '', sport: '', max: '', start: '', end: '', competitive: false, notes: '', address: '', coordinates: '', UserId: '' });
                   this.props.setEditState(false);
                   this.props.setOption('');
-                  console.log('hello world');
                   this.props.setOption('create');
                   this.props.setLoginPage('default')
                 } else {

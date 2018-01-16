@@ -29,3 +29,7 @@
 .creat-text, .game-inner {
   color: black !important;
 }
+
+.navbar-brand{
+  color: #3f250b !important;
+}
