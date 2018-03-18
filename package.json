@@ -4,7 +4,7 @@
   "description": "\"# App\"",
   "main": "webpack.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jshint testing.js",
     "dev": "webpack -w & nodemon server",
     "start": "webpack -w & node server",
     "dev1": "webpack -w",
@@ -37,6 +37,7 @@
     "express-validator": "^4.3.0",
     "google-maps-react": "^1.1.2",
     "joi": "^13.1.0",
+    "jshint": "^2.9.5",
     "jsonwebtoken": "^8.1.0",
     "nodemon": "^1.14.7",
     "passport": "^0.4.0",
